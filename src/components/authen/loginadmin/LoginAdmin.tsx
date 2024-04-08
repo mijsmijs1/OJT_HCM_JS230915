@@ -15,7 +15,7 @@ export default function LoginAdmin() {
                     <div className='box-content-left'>
                         <form action="">
                             <div className='title-rikkei'>
-                                <h3>Cùng Rikkei Education xây dựng hồ sơ nổi bật và nhận được các cơ hội sự nghiệp lý tưởng</h3>
+                                <h3>Admin CV Management</h3>
                             </div>
                             <div className='box-item-content'>
                                 <label htmlFor="email">Email</label><br />
@@ -45,7 +45,7 @@ export default function LoginAdmin() {
                     </div>
                     <div className='box-content-right'>
                         <div className='box-img-content'>
-                            <img className='Rikkei_logo' src={pictures.img_content} alt='img_content'></img>
+                            <img className='Rikkei_logo' src={pictures.img_admin_content} alt='img_content'></img>
                         </div>
                     </div>
 

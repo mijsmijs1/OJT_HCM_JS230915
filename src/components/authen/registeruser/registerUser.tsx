@@ -26,9 +26,9 @@ export default function registerUser() {
                                 />
                             </div>
                             <div className='box-item-content'>
-                                <label htmlFor="email">Email</label><br />
+                                <label htmlFor="emails">Email</label><br />
                                 <Input
-                                    className='input-email'
+                                    className='input-emails'
                                     placeholder="abc@gmail.com"
                                 />
                             </div>
