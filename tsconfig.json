@@ -36,9 +36,6 @@
       "@utils/*": [
         "src/utils/*"
       ],
-      "@images/*": [
-        "public/images/*"
-      ]
     },
     /* Linting */
     "strict": true,

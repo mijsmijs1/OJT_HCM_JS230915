@@ -14,7 +14,6 @@ export default defineConfig({
       "@pages": `${path.resolve(__dirname, "./src/pages/")}`,
       "@routes": `${path.resolve(__dirname, "./src/routes/")}`,
       "@ultils": `${path.resolve(__dirname, "./src/ultils/")}`,
-      "@images": `${path.resolve(__dirname, "./public/images/")}`,
     },
   },
 
