@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from '@pages/home'
-import Login from "@components/authen/loginuser/LoginUser"
-import Register from "@components/authen/registeruser/registerUser"
-import LoginAdmin from "@components/authen/loginadmin/LoginAdmin"
+import Login from "@/components/authen/loginUser/LoginUser"
+import Register from "@/components/authen/registerUser/registerUser"
+import LoginAdmin from "@/components/authen/loginAdmin/LoginAdmin"
 
 export default function RouteSetup() {
   return (
