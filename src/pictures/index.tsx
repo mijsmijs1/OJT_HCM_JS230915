@@ -3,8 +3,12 @@ export default {
     logo_RikkeiEdu: './images/logo/logo_RikkeiEdu.png',
     logo_facebook: './images/logo/logo_facebook.png',
     logo_youtube: './images/logo/logo_youtube.png',
+<<<<<<< HEAD
     logo_RikkeiEduV2: './images/logo/logo_RikkeiEdu_Color.png',
     img_content: './images/logo/img_content.png',
     img_admin_content: './images/logo/img_admin_content.png',
     img_company_content: './images/logo/img_company_content.png'
+=======
+    logo_FPT: './images/logo/logo_FPT.png'
+>>>>>>> 8243428 (feature/layout)
 }
