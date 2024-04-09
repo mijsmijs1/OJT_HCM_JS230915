@@ -2,5 +2,6 @@
 export default {
     logo_RikkeiEdu: './images/logo/logo_RikkeiEdu.png',
     logo_facebook: './images/logo/logo_facebook.png',
-    logo_youtube: './images/logo/logo_youtube.png'
+    logo_youtube: './images/logo/logo_youtube.png',
+    logo_FPT: './images/logo/logo_FPT.png'
 }
