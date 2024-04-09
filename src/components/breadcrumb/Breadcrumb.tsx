@@ -7,7 +7,7 @@ export default function Breadcrumb() {
                 <span>Trang chủ</span><span>/</span>
                 <span>Việc làm</span><span>/</span>
                 <span>Graphics & Design</span><span>/</span>
-                <span style={{color:"#18191C"}}>Job A Details</span>
+                <span style={{color:"$fontColor"}}>Job A Details</span>
             </div>
 
         </div>
