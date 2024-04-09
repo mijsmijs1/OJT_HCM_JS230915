@@ -4,6 +4,7 @@ import Login from "@/components/authen/loginUser/LoginUser"
 import Register from "@/components/authen/registerUser/RegisterUser"
 import LoginAdmin from "@/components/authen/loginAdmin/LoginAdmin"
 import LoginCompany from "@/components/authen/loginCompany/LoginCompany"
+import RegisterCompany from "@components/authen/registerCompany/RegisterCompany"
 
 export default function RouteSetup() {
   return (
@@ -18,6 +19,8 @@ export default function RouteSetup() {
         <Route path='/admin' element={<LoginAdmin />} >
         </Route>
         <Route path='/login-company' element={<LoginCompany />} >
+        </Route>
+        <Route path='/register-company' element={<RegisterCompany />} >
         </Route>
       </Routes>
     </BrowserRouter>
