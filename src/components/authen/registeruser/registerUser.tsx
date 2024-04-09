@@ -4,7 +4,7 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Button, Input, Space } from 'antd';
 import pictures from '@/pictures'
 
-export default function registerUser() {
+export default function RegisterUser() {
     const [passwordVisible, setPasswordVisible] = useState(false);
     return (
         <div>
