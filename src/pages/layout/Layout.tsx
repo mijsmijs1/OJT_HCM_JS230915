@@ -22,7 +22,10 @@ export default function Layout() {
                     <Outlet />
                 </div>
             </div>
-            <Footer handleBackToTop={handleBackToTop} />
+            <div className="footer_container">
+                <Footer handleBackToTop={handleBackToTop} />
+            </div>
+
         </div>
     )
 }
