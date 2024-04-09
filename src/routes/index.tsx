@@ -3,9 +3,10 @@ import Home from '@pages/home/Home'
 import LoginCompany from "@/components/authen/loginCompany/LoginCompany"
 import CompanyInfo from '@/pages/companyInfo/CompanyInfo'
 import Layout from '@/pages/layout/Layout'
-import LoginUser from '@/components/authen/loginuser/LoginUser'
-import RegisterUser from '@/components/authen/registeruser/registerUser'
-import LoginAdmin from '@/components/authen/loginadmin/LoginAdmin'
+import LoginUser from '@/components/authen/loginUser/LoginUser'
+import RegisterUser from '@/components/authen/registerUser/RegisterUser'
+import LoginAdmin from '@/components/authen/loginAdmin/LoginAdmin'
+import RegisterCompany from "@components/authen/registerCompany/RegisterCompany"
 export default function RouteSetup() {
   return (
     <BrowserRouter>
@@ -21,6 +22,8 @@ export default function RouteSetup() {
         <Route path='/admin' element={<LoginAdmin />} >
         </Route>
         <Route path='/login-company' element={<LoginCompany />} >
+        </Route>
+        <Route path='/register-company' element={<RegisterCompany />} >
         </Route>
       </Routes>
     </BrowserRouter>
