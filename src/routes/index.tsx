@@ -3,11 +3,11 @@ import Home from '@pages/home/Home'
 import LoginCompany from "@/components/authen/loginCompany/LoginCompany"
 import CompanyInfo from '@/pages/companyInfo/CompanyInfo'
 import Layout from '@/pages/layout/Layout'
-import LoginUser from '@/components/authen/loginuser/LoginUser'
-import RegisterUser from '@/components/authen/registeruser/registerUser'
-import LoginAdmin from '@/components/authen/loginadmin/LoginAdmin'
+import LoginUser from '@/components/authen/loginUser/LoginUser'
+import RegisterUser from '@/components/authen/registerUser/RegisterUser'
+import LoginAdmin from '@/components/authen/loginAdmin/LoginAdmin'
 import RegisterCompany from "@components/authen/registerCompany/RegisterCompany"
-import Search from '@/pages/search/Search'
+import RegisterAdmin from "@components/authen/registerAdmin/RegisterAdmin"
 export default function RouteSetup() {
   return (
     <BrowserRouter>
@@ -15,7 +15,6 @@ export default function RouteSetup() {
         <Route path='/' element={<Layout />} >
           <Route index element={<Home />}></Route>
           <Route path='companyInfo' element={<CompanyInfo />}></Route>
-          <Route path='search' element={<Search />}></Route>
         </Route>
         <Route path='/login' element={<LoginUser />} >
         </Route>
@@ -26,6 +25,8 @@ export default function RouteSetup() {
         <Route path='/login-company' element={<LoginCompany />} >
         </Route>
         <Route path='/register-company' element={<RegisterCompany />} >
+        </Route>
+        <Route path='/register-admin' element={<RegisterAdmin />} >
         </Route>
       </Routes>
     </BrowserRouter>
