@@ -1,0 +1,91 @@
+.footer_container {
+    width: 100%;
+    max-width: 1440px;
+    height: 346px;
+    display: flex;
+    flex-direction: column;
+    
+    align-items: center;
+    background-color: $redColor;
+    font-family: $fontCapin;
+
+    .footer_content {
+        display: flex;
+        width: 80%;
+        height: 232px;
+        margin-top: 40px;
+        .left {
+            display: flex;
+            flex-direction: column;
+            max-width: 50%;
+            width: 50%;
+            color: $whiteColor;
+
+            .Rikkei_logo {
+                width: 100px;
+                height: 56px;
+                margin-bottom: 40px;
+            }
+
+            .left_content {
+                width: 50%;
+                height: 136px;
+
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 21px;
+
+                img {
+                    width: 24px;
+                    height: 24px;
+                    margin-right: 16px;
+                    margin-top: 16px;
+                }
+
+                p {
+                    margin-bottom: 4px;
+                }
+            }
+
+        }
+
+        .right {
+            max-width: 50%;
+            width: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+
+            .right_content {
+                height: 185px;
+                display: flex;
+                gap: 56px;
+
+                .content {
+                    p {
+                        margin-bottom: 24px;
+                        color: $whiteColor;
+                    }
+
+                    ul {
+                        list-style: none;
+
+                        li {
+                            margin-bottom: 8px;
+                            color: #EBB0B2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .copyright{
+        margin-top: 40px;
+        p{
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 18px;
+            color: $whiteColor;
+        }
+    }
+}

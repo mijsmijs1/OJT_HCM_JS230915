@@ -1,0 +1,169 @@
+.information {
+    height: 794px;
+    background-color: rgba(241, 242, 244, 0.6);
+    font-family: $mainFont;
+    .info-main-content {
+        display: flex;
+        justify-content: space-between;
+        .info-left {
+            margin-top: 48.32px;
+            margin-left: 89.5px;
+            .info-title {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                h2 {
+                    width: 652px;
+                    height: 192px;
+                    font-size: 56px;
+                    line-height: 64px;
+                    font-weight: 500;
+                    margin: 0;
+                }
+                p {
+                    width: 536px;
+                    height: 56px;
+                    margin: 0;
+                    font-size: 18px;
+                    line-height: 28px;
+                    color: rgba(94, 102, 112, 1);
+                }
+            }
+            .info-search {
+                width: 679px;
+                height: 124px;
+                margin-top: 32px;
+                .search-box {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border: 1px solid rgba(0, 44, 109, 0.04);
+                    border-radius: 8px;
+                    background-color: #fff;
+                    padding: 12px;
+                    .search-title,
+                    .search-location {
+                        display: flex;
+                        align-items: center;
+                        svg {
+                            width: 24px;
+                            height: 24px;
+                        }
+                        input {
+                            margin-left: 12px;
+                            outline: none;
+                            border: none;
+                            background: unset;
+                        }
+                    }
+                    .line {
+                        width: 32px;
+                        border: 1px solid rgba(228, 229, 232, 1);
+                        transform: rotate(-90deg);
+                    }
+                    button {
+                        width: 131px;
+                        height: 56px;
+                        border: none;
+                        border-radius: 4px;
+                        padding: 16px 32px 16px 32px;
+                        font-weight: 600;
+                        gap: 12px;
+                        background-color: rgba(188, 34, 40, 1);
+                        color: #fff;
+                    }
+                }
+                .sugestion-box {
+                    margin-top: 24px;
+                    small {
+                        color: rgba(145, 153, 163, 1);
+                        font-size: $m;
+                    }
+                    span {
+                        font-size: $m;
+                        color: rgba(71, 76, 84, 1);
+                        line-height: 20px;
+                        font-weight: 400;
+                        &.program {
+                            color: rgba(188, 34, 40, 1);
+                        }
+                        &.digistal {
+                            font-weight: 500;
+                        }
+                    }
+                }
+            }
+        }
+        .info-right {
+            margin-top: 88.32px;
+        }
+    }
+
+    .info-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 60px;
+        margin-top: 105.68px;
+        gap: 10px;
+        .info-item-box {
+            width: 312px;
+            height: 112px;
+            display: flex;
+            background-color: #fff;
+            gap: 20px;
+            border-radius: 8px;
+            .info-box-left {
+                img {
+                    width: 72px;
+                    height: 72px;
+                    border-radius: 4px;
+                    padding: 16px;
+                    gap: 10px;
+                }
+            }
+            .info-box-right {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                justify-content: center;
+                h2 {
+                    font-size: 24px;
+                    line-height: 32px;
+                    margin: 0;
+                    color: rgba(24, 25, 28, 1);
+                }
+                p {
+                    font-size: 16px;
+                    line-height: 24px;
+                    margin: 0;
+                    color: rgba(118, 127, 140, 1);
+                }
+            }
+        }
+    }
+}
+
+.outstanding_work {
+    font-family: $mainFont;
+    .outstanding-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 100px 60px;
+        h2 {
+            font-weight: 500;
+            font-size: 40px;
+        }
+        .view-more {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            span {
+                font-size: 16px;
+                font-weight: 600;
+                color: rgba(188, 34, 40, 1);
+            }
+        }
+    }
+}
