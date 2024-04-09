@@ -7,6 +7,7 @@ import logo_RikkeiEduV2 from './images/logo/logo_RikkeiEdu_Color.png';
 import img_content from './images/logo/img_content.png';
 import img_admin_content from './images/logo/img_admin_content.png';
 import img_company_content from './images/logo/img_company_content.png';
+import search_avatar from './images/logo/search_avatar.png';
 export default {
     logo_RikkeiEdu,
     logo_facebook,
@@ -16,5 +17,6 @@ export default {
     logo_RikkeiEduV2,
     img_content,
     img_admin_content,
-    img_company_content
+    img_company_content,
+    search_avatar
 }
