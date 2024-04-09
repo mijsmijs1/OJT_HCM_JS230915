@@ -3,6 +3,7 @@ import Home from '@pages/home'
 import Login from "@/components/authen/loginUser/LoginUser"
 import Register from "@/components/authen/registerUser/RegisterUser"
 import LoginAdmin from "@/components/authen/loginAdmin/LoginAdmin"
+import LoginCompany from "@/components/authen/loginCompany/LoginCompany"
 
 export default function RouteSetup() {
   return (
@@ -15,6 +16,8 @@ export default function RouteSetup() {
         <Route path='/register' element={<Register />} >
         </Route>
         <Route path='/admin' element={<LoginAdmin />} >
+        </Route>
+        <Route path='/login-company' element={<LoginCompany />} >
         </Route>
       </Routes>
     </BrowserRouter>
