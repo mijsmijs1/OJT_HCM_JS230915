@@ -7,7 +7,9 @@ import LoginUser from '@/components/authen/loginUser/LoginUser'
 import RegisterUser from '@/components/authen/registerUser/RegisterUser'
 import LoginAdmin from '@/components/authen/loginAdmin/LoginAdmin'
 import RegisterCompany from "@components/authen/registerCompany/RegisterCompany"
-import RegisterAdmin from "@components/authen/registerAdmin/RegisterAdmin"
+import RegisterAdmin from '@/components/authen/registerAdmin/RegisterAdmin'
+import Search from '@/pages/search/Search'
+import SearchCandidate from '@/pages/searchCandidate/SearchCandidate'
 export default function RouteSetup() {
   return (
     <BrowserRouter>
@@ -15,6 +17,8 @@ export default function RouteSetup() {
         <Route path='/' element={<Layout />} >
           <Route index element={<Home />}></Route>
           <Route path='companyInfo' element={<CompanyInfo />}></Route>
+          <Route path='search' element={<Search />}></Route>
+          <Route path='search-candidate' element={<SearchCandidate />}></Route>
         </Route>
         <Route path='/login' element={<LoginUser />} >
         </Route>
