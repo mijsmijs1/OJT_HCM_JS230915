@@ -9,6 +9,7 @@ import img_admin_content from './images/logo/img_admin_content.png';
 import img_company_content from './images/logo/img_company_content.png';
 import search_avatar from './images/logo/search_avatar.png';
 import avatar_candidate from './images/logo/avatar_candidate.png';
+import img_CV from './images/logo/img_CV.png';
 export default {
     logo_RikkeiEdu,
     logo_facebook,
@@ -20,5 +21,6 @@ export default {
     img_admin_content,
     img_company_content,
     search_avatar,
-    avatar_candidate
+    avatar_candidate,
+    img_CV
 }
