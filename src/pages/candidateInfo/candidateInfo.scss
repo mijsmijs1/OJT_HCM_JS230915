@@ -1,9 +1,10 @@
-.companyInfo_container {
+.candidateInfo_container {
     max-width: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
-
+    margin-top: 35px;
+    margin-bottom: 250px;
     .content {
         max-width: 1320px;
         width: 100%;
@@ -15,6 +16,7 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
+            align-items: center;
 
             .header_left {
                 display: flex;
@@ -27,6 +29,7 @@
                 .company_info {
                     display: flex;
                     flex-direction: column;
+                    justify-content: center;
 
                     p {
                         font-weight: 500;
@@ -52,7 +55,8 @@
                             width: 98px;
                             height: 28px;
                             margin-right: 8px;
-   
+                            display: flex !important;
+                            justify-content: center !important;
 
                             span {
                                 margin: 0;
@@ -68,17 +72,17 @@
                             border-radius: 52px;
                             width: 83px;
                             height: 28px;
-                            background-color: #FFEDED;
+                            background-color: #E7F0FA;
                             margin-right: 8px;
-                            display: flex;
-                            justify-content: center;
+                            display: flex !important;
+                            justify-content: center !important;
 
                             span {
                                 margin: 0;
                                 font-size: 14px;
                                 font-weight: 400;
                                 line-height: 20px;
-                                color: #E05151;
+                                color: #0A65CC;
                             }
                         }
                     }
@@ -167,6 +171,8 @@
                     }
 
                     ul {
+                        margin-left: 25px;
+
                         li {
                             font-weight: 400;
                             font-size: 16px;
@@ -190,69 +196,183 @@
                 .info_right_top {
                     width: 100%;
                     display: flex;
-                    align-items: center;
-                    justify-content: center;
+                    flex-direction: column;
                     border-radius: 8px;
                     border: 2px solid #E7F0FA;
                     padding: 32px;
 
-                    .salary {
-                        width: 50%;
+                    .label {
                         display: flex;
-                        flex-direction: column;
-                        justify-content: center;
-                        align-items: center;
-                        border-right: 2px solid #E7F0FA;
-
-                        .title {
-                            font-weight: 500;
-                            font-size: 16px;
-                            line-height: 24px;
-                            margin-bottom: 12px;
-                            color: $fontColor;
-                        }
-
-                        .value {
-                            font-weight: 500;
-                            font-size: 20px;
-                            line-height: 24px;
-                            margin-bottom: 4px;
-                            color: #0BA02C;
-                        }
-
-                        .for {
-                            font-weight: 400;
-                            font-size: 14px;
-                            line-height: 24px;
-                            color: #767F8C;
-                        }
-                    }
-
-                    .location {
-                        width: 50%;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: center;
                         align-items: center;
 
                         svg {
-                            margin-bottom: 8px;
+                            margin-right: 8px;
                         }
 
-                        .title {
+                        img {
+                            width: 50px;
+                            height: 50px;
+                            margin-right: 8px;
+                        }
+                    }
+
+                    p {
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 24px;
+                        color: #767F8C;
+                    }
+
+                    .candidate_contact {
+                        p {
                             font-weight: 500;
+                            font-size: 18px;
+                            line-height: 28px;
+                            color: $fontColor;
+                            margin-bottom: 8px;
+
+                        }
+
+                        .contact {
+                            display: flex;
+
+                            .link {
+                                background-color: rgba($color: #BC2228, $alpha: 0.2);
+                                padding: 8px 16px;
+                                border-radius: 4px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin-right: 8px;
+                                cursor: pointer;
+
+                                svg {
+                                    margin-right: 6px;
+
+                                }
+
+                                span {
+                                    font-weight: 500;
+                                    font-size: 16px;
+                                    line-height: 24px;
+                                    color: #BC2228;
+
+
+                                }
+                            }
+
+                            .social_media {
+                                background-color: rgba($color: #BC2228, $alpha: 0.2);
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 40px;
+                                height: 40px;
+                                margin-right: 8px;
+                                border-radius: 4px;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+
+                .candidate_skill {
+                    margin-top: 40px;
+                    margin-bottom: 12px;
+
+                    .skill {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        margin-top: 24px;
+
+                        .tech {
+                            display: flex;
+                            margin-bottom: 20px;
+
+                            p {
+                                font-weight: 400;
+                                font-size: 14px;
+                                line-height: 20px;
+                                color: #767F8C;
+                                margin-right: 8px;
+                            }
+
+                            .each {
+
+                                height: 20px;
+                                padding: 4px 8px;
+                                background-color: #E7F6EA;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 3px;
+                                margin-right: 8px;
+
+                                span {
+                                    font-weight: 600;
+                                    font-size: 12px;
+                                    line-height: 12px;
+                                    color: #0BA02C;
+                                }
+                            }
+                        }
+
+                        .languages {
+                            display: flex;
+                            margin-bottom: 20px;
+
+                            p {
+                                font-weight: 400;
+                                font-size: 14px;
+                                line-height: 20px;
+                                color: #767F8C;
+                                margin-right: 8px;
+                            }
+
+                            .each {
+
+                                height: 20px;
+                                padding: 4px 8px;
+                                background-color: #FCE1D1;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 3px;
+                                margin-right: 8px;
+
+                                span {
+                                    font-weight: 600;
+                                    font-size: 12px;
+                                    line-height: 12px;
+                                    color: #F16A1B;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .CV {
+                    margin-top: 68px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    .apply {
+                        width: 248px;
+                        height: 56px;
+                        background-color: rgba($color: #BC2228, $alpha: 1);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: $whiteColor;
+                        cursor: pointer;
+                        border-radius: 4px;
+                        margin-top: 24px;
+                        span {
+                            font-weight: 600;
                             font-size: 16px;
                             line-height: 24px;
-                            margin-bottom: 2px;
-                            color: $fontColor;
-                        }
-
-                        .content {
-                            font-weight: 400;
-                            font-size: 14px;
-                            line-height: 24px;
-                            color: #767F8C;
-                            text-align: center;
+                            margin-right: 12px;
                         }
                     }
                 }

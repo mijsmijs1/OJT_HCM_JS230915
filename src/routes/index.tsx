@@ -3,13 +3,14 @@ import Home from '@pages/home/Home'
 import LoginCompany from "@/components/authen/loginCompany/LoginCompany"
 import CompanyInfo from '@/pages/companyInfo/CompanyInfo'
 import Layout from '@/pages/layout/Layout'
-import LoginUser from '@/components/authen/loginUser/LoginUser'
-import RegisterUser from '@/components/authen/registerUser/RegisterUser'
-import LoginAdmin from '@/components/authen/loginAdmin/LoginAdmin'
+import LoginUser from '@/components/authen/loginuser/LoginUser'
+import RegisterUser from '@/components/authen/registeruser/registerUser'
+import LoginAdmin from '@/components/authen/loginadmin/LoginAdmin'
 import RegisterCompany from "@components/authen/registerCompany/RegisterCompany"
 import RegisterAdmin from '@/components/authen/registerAdmin/RegisterAdmin'
 import Search from '@/pages/search/Search'
 import SearchCandidate from '@/pages/searchCandidate/SearchCandidate'
+import CandidateInfo from '@/pages/candidateInfo/CandidateInfo'
 export default function RouteSetup() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ export default function RouteSetup() {
           <Route path='companyInfo' element={<CompanyInfo />}></Route>
           <Route path='search' element={<Search />}></Route>
           <Route path='search-candidate' element={<SearchCandidate />}></Route>
+          <Route path='candidateInfo' element={<CandidateInfo />}></Route>
         </Route>
         <Route path='/login' element={<LoginUser />} >
         </Route>
