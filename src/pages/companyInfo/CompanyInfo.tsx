@@ -1,6 +1,5 @@
 import pictures from '@/pictures'
 import './companyInfo.scss'
-import RelativeJobs from './components/relativeJobs/RelativeJobs'
 import SearchJob from './components/search_job/SearchJob'
 import RelativeCompanys from './components/relativeCompanys/RelativeCompanys'
 
