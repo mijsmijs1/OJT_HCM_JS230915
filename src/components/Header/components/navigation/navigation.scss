@@ -1,86 +1,95 @@
-.nav-container{
-    height: 139px;
-    padding: 0px 20px 0px 20px;
+.nav-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0px 4px 12px 0px #23165114;
-    font-family: $mainFont;
-    font-size: $m;
-    gap: 30px;
-    .logo{
-        img{
-            width: 98.69px;
-            height: 34.87px;
-        }
-    }
-    .search-box{
+    flex-direction: column;
+    .nav-box {
+        height: 139px;
+        padding: 0px 20px 0px 20px;
         display: flex;
+        justify-content: center;
         align-items: center;
-        width: 668px;
-        height: 50px;
-        border: 1px solid #E4E5E8;
-        border-radius: 5px;
-        gap: 20px;
-        select{
-            font-size: $m;
-            margin-left: 24px;
-            border: none;
-            outline: none;
-            color: #18191C;
-            font-weight: 600;
-            cursor: pointer;
-            option{
-
+        box-shadow: 0px 4px 12px 0px #23165114;
+        font-family: $mainFont;
+        font-size: $m;
+        gap: 30px;
+        .logo {
+            img {
+                width: 98.69px;
+                height: 34.87px;
             }
         }
-        .line{
-            width: 32px;
-            border: 1px solid #E4E5E8;
-            transform: rotate(-90deg);
+        .search-box {
+            display: flex;
+            align-items: center;
+            width: 668px;
+            height: 50px;
+            border: 1px solid #e4e5e8;
+            border-radius: 5px;
+            gap: 20px;
+            select {
+                font-size: $m;
+                margin-left: 24px;
+                border: none;
+                outline: none;
+                color: #18191c;
+                font-weight: 600;
+                cursor: pointer;
+                option {
+                }
+            }
+            .line {
+                width: 32px;
+                border: 1px solid #e4e5e8;
+                transform: rotate(-90deg);
+            }
+            .search-content {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                cursor: pointer;
+                svg {
+                    width: 24px;
+                    height: 24px;
+                }
+                input {
+                    width: 100%;
+                    line-height: 24px;
+                    border: none;
+                    color: #9199a3;
+                }
+            }
         }
-        .search-content{
+        .user_name {
+            color: rgba(188, 34, 40, 1);
+            font-size: 14px;
+            font-family: Cabin;
+            font-weight: 500;
+        }
+        .button-group {
             display: flex;
             align-items: center;
             gap: 12px;
-            cursor: pointer;
-            svg{
-                width: 24px;
-                height: 24px;
-            }
-            input{
-                width: 100%;
+            .layout {
+                padding: 12px 24px 12px 24px;
+                border-radius: 3px;
+                font-weight: 600;
                 line-height: 24px;
                 border: none;
-                color:#9199A3;
+                cursor: pointer;
+                font-size: 16px;
             }
-        }
-    }
-    .button-group{
-        display: flex;
-        align-items: center;
-        gap:12px;
-        .layout{
-            padding: 12px 24px 12px 24px;
-            border-radius: 3px;
-            font-weight: 600;
-            line-height: 24px;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .login-button{
-            color: #fff;
-            background-color: #BC2228;
-        }
-        .register-button{
-            border: 1px solid #BC2228;
-            color:#BC2228;
-            background-color: #fff;
-        }
-        .recruit-button{
-            color: #fff;
-            background-color: #231651;
+            .login-button {
+                color: #fff;
+                background-color: #bc2228;
+            }
+            .register-button {
+                border: 1px solid #bc2228;
+                color: #bc2228;
+                background-color: #fff;
+            }
+            .recruit-button {
+                color: #fff;
+                background-color: #231651;
+            }
         }
     }
 }

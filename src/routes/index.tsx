@@ -11,6 +11,8 @@ import RegisterAdmin from '@/components/authen/registerAdmin/RegisterAdmin'
 import Search from '@/pages/search/Search'
 import SearchCandidate from '@/pages/searchCandidate/SearchCandidate'
 import CandidateInfo from '@/pages/candidateInfo/CandidateInfo'
+import CvManagement from '@/pages/cvManagement'
+
 export default function RouteSetup() {
   return (
     <BrowserRouter>
@@ -21,6 +23,7 @@ export default function RouteSetup() {
           <Route path='search' element={<Search />}></Route>
           <Route path='search-candidate' element={<SearchCandidate />}></Route>
           <Route path='candidateInfo' element={<CandidateInfo />}></Route>
+          <Route path='cv-management' element={<CvManagement />}></Route>
         </Route>
         <Route path='/login' element={<LoginUser />} >
         </Route>

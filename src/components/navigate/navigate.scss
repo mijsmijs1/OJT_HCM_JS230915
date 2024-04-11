@@ -1,0 +1,20 @@
+.nav_box{
+    display: flex;
+    padding: 0 30px;
+    gap:24px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.25);
+
+    .nav_item{
+        padding: 14px 0;
+        font-size: 14px;
+        font-weight: 400;
+        color: rgba(94, 102, 112, 1);
+        cursor: pointer;
+        &.active{
+            color: rgba(188, 34, 40, 1);
+            font-weight: 500;
+            border-bottom: 2px solid rgba(188, 34, 40, 1);            
+        }
+    }
+}

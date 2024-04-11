@@ -21,6 +21,7 @@ import job from './images/homepage/job.png'
 import company from './images/homepage/company.png'
 import candidate from './images/homepage/candidate.png'
 import new_job from './images/homepage/new_job.png'
+import cv from './images/cv.png'
 
 export default {
     logo_RikkeiEdu,
@@ -46,4 +47,5 @@ export default {
     company,
     candidate,
     new_job,
+    cv
 }
