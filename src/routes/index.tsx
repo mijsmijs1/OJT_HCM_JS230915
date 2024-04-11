@@ -8,6 +8,7 @@ import RegisterUser from '@/components/authen/registerUser/RegisterUser'
 import LoginAdmin from '@/components/authen/loginAdmin/LoginAdmin'
 import RegisterCompany from "@components/authen/registerCompany/RegisterCompany"
 import RegisterAdmin from "@components/authen/registerAdmin/RegisterAdmin"
+import Profile from "@pages/profile/Profile"
 export default function RouteSetup() {
   return (
     <BrowserRouter>
@@ -15,6 +16,8 @@ export default function RouteSetup() {
         <Route path='/' element={<Layout />} >
           <Route index element={<Home />}></Route>
           <Route path='companyInfo' element={<CompanyInfo />}></Route>
+          <Route path='/profile' element={<Profile />} >
+          </Route>
         </Route>
         <Route path='/login' element={<LoginUser />} >
         </Route>
@@ -28,6 +31,7 @@ export default function RouteSetup() {
         </Route>
         <Route path='/register-admin' element={<RegisterAdmin />} >
         </Route>
+
       </Routes>
     </BrowserRouter>
   )
