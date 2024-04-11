@@ -1,44 +1,37 @@
 import pictures from '@/pictures'
-import './companyInfo.scss'
+import './jobInfo.scss'
 import RelativeJobs from './components/relativeJobs/RelativeJobs'
-import SearchJob from './components/search_job/SearchJob'
-import RelativeCompanys from './components/relativeCompanys/RelativeCompanys'
 
-export default function CompanyInfo() {
-
+export default function JobInfo() {
   return (
-    <div className='company_info_container'>
+    <div className='job_info_container'>
       <div className='content'>
         <div className='header'>
           <div className='header_left'>
             <img src={pictures.logo_FPT} alt='logo' />
             <div className='company_info'>
-              <p>FPT Software</p>
+              <p>Senior UX Designer</p>
               <div>
+                <span>at FPT Software</span>
                 <div className='full_time'>
-                  <span>Outsource</span>
+                  <span>FULL-TIME</span>
                 </div>
                 <div className='featured'>
-                  <span>verified</span>
-                </div>
-                <div className='link'>
-                  <svg width="29" height="19" viewBox="0 0 29 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M5.73044 13.2924H6.52145C6.49541 12.9961 6.47425 12.6903 6.45798 12.375C6.4417 12.0597 6.44984 11.7538 6.48239 11.4575H5.83786C5.03708 11.4575 4.32744 11.2543 3.70895 10.8478C3.09046 10.4413 2.60544 9.87719 2.25388 9.1554C1.90231 8.43362 1.72653 7.60167 1.72653 6.65954C1.72653 5.72502 1.90231 4.89686 2.25388 4.17507C2.60544 3.45328 3.09046 2.88915 3.70895 2.48267C4.32744 2.07619 5.03708 1.87295 5.83786 1.87295H14.5C15.2943 1.87295 16.0006 2.07619 16.6191 2.48267C17.2376 2.88915 17.7242 3.45328 18.0791 4.17507C18.4339 4.89686 18.6113 5.72502 18.6113 6.65954C18.6113 7.60167 18.4355 8.43362 18.0839 9.1554C17.7324 9.87719 17.2457 10.4413 16.624 10.8478C16.0023 11.2543 15.2943 11.4575 14.5 11.4575H11.0722C11.0331 11.5715 11.0087 11.7063 10.999 11.8621C10.9892 12.0178 10.9941 12.1812 11.0136 12.3521C11.0331 12.5231 11.0657 12.6903 11.1113 12.8536C11.1568 13.017 11.2154 13.1632 11.2871 13.2924H14.6074C15.7141 13.2924 16.6939 13.0113 17.5468 12.4491C18.3997 11.8868 19.0686 11.108 19.5537 10.1127C20.0387 9.11742 20.2812 7.96636 20.2812 6.65954C20.2812 5.36032 20.0387 4.21116 19.5537 3.21206C19.0686 2.21295 18.3997 1.43418 17.5468 0.87574C16.6939 0.317304 15.7141 0.0380859 14.6074 0.0380859H5.73044C4.62367 0.0380859 3.64385 0.317304 2.79099 0.87574C1.93812 1.43418 1.26918 2.21295 0.784149 3.21206C0.299123 4.21116 0.0566101 5.36032 0.0566101 6.65954C0.0566101 7.96636 0.299123 9.11742 0.784149 10.1127C1.26918 11.108 1.93812 11.8868 2.79099 12.4491C3.64385 13.0113 4.62367 13.2924 5.73044 13.2924ZM13.5625 18.5918H22.4394C23.5462 18.5918 24.526 18.3107 25.3789 17.7485C26.2318 17.1862 26.9007 16.4075 27.3857 15.4121C27.8707 14.4168 28.1132 13.2658 28.1132 11.9589C28.1132 10.6597 27.8707 9.5106 27.3857 8.51149C26.9007 7.51238 26.2318 6.73361 25.3789 6.17518C24.526 5.61675 23.5462 5.33753 22.4394 5.33753H21.6386C21.6712 5.62624 21.6956 5.93015 21.7119 6.24926C21.7282 6.56836 21.72 6.87607 21.6875 7.17239H22.3222C23.123 7.17239 23.8326 7.37563 24.4511 7.7821C25.0696 8.18858 25.5563 8.75272 25.9111 9.47451C26.2659 10.1963 26.4433 11.0244 26.4433 11.9589C26.4433 12.9011 26.2659 13.7331 25.9111 14.4548C25.5563 15.1766 25.0696 15.7407 24.4511 16.1472C23.8326 16.5538 23.123 16.757 22.3222 16.757H13.6699C12.8691 16.757 12.1595 16.5538 11.541 16.1472C10.9225 15.7407 10.4374 15.1766 10.0859 14.4548C9.73434 13.7331 9.55856 12.9011 9.55856 11.9589C9.55856 11.0244 9.73434 10.1963 10.0859 9.47451C10.4374 8.75272 10.9225 8.18858 11.541 7.7821C12.1595 7.37563 12.8691 7.17239 13.6699 7.17239H17.0976C17.1432 7.02043 17.1676 6.83429 17.1709 6.61396C17.1741 6.39362 17.1513 6.16948 17.1025 5.94154C17.0537 5.71362 16.9772 5.51228 16.873 5.33753H13.5625C12.4557 5.33753 11.4759 5.61675 10.623 6.17518C9.77015 6.73361 9.10121 7.51238 8.61618 8.51149C8.13115 9.5106 7.88864 10.6597 7.88864 11.9589C7.88864 13.2658 8.13115 14.4168 8.61618 15.4121C9.10121 16.4075 9.77015 17.1862 10.623 17.7485C11.4759 18.3107 12.4557 18.5918 13.5625 18.5918Z" fill="#BC2228" />
-                  </svg>
-                  <span>https://fptsoftware.com/</span>
+                  <span>Featured</span>
                 </div>
               </div>
             </div>
           </div>
           <div className='header_right'>
             <div className='save'>
-              <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0.302734 6.49512C0.302734 7.88184 0.668944 9.25392 1.40136 10.6114C2.13379 11.9688 3.17383 13.2904 4.52148 14.5762C5.86914 15.862 7.46093 17.0908 9.29687 18.2627C9.40104 18.3278 9.51986 18.388 9.65332 18.4434C9.78678 18.4987 9.90234 18.5264 10 18.5264C10.1042 18.5264 10.223 18.4987 10.3564 18.4434C10.4899 18.388 10.6087 18.3278 10.7129 18.2627C12.5489 17.0908 14.139 15.862 15.4834 14.5762C16.8278 13.2904 17.8662 11.9688 18.5986 10.6114C19.331 9.25392 19.6972 7.88184 19.6972 6.49512C19.6972 5.62923 19.5589 4.83659 19.2822 4.11719C19.0056 3.39779 18.6182 2.77441 18.1201 2.24707C17.6221 1.71973 17.0361 1.31283 16.3623 1.02637C15.6885 0.739909 14.9544 0.59668 14.1601 0.59668C13.2552 0.59668 12.4463 0.795249 11.7334 1.19239C11.0205 1.58952 10.4427 2.11686 10 2.77442C9.5638 2.11686 8.98763 1.58952 8.27148 1.19239C7.55534 0.795249 6.74479 0.59668 5.83984 0.59668C5.05208 0.59668 4.32129 0.739909 3.64746 1.02637C2.97363 1.31283 2.38606 1.71973 1.88476 2.24707C1.38346 2.77441 0.994466 3.39779 0.717773 4.11719C0.441081 4.83659 0.302734 5.62923 0.302734 6.49512ZM1.875 6.49512C1.875 5.62923 2.0459 4.87239 2.38769 4.22461C2.72949 3.57682 3.19824 3.07226 3.79394 2.71094C4.38965 2.34961 5.06511 2.16895 5.82031 2.16895C6.43229 2.16895 6.96289 2.278 7.41211 2.4961C7.86133 2.7142 8.24218 2.98601 8.55468 3.31153C8.86718 3.63705 9.1276 3.96257 9.33593 4.28809C9.47265 4.4834 9.58821 4.61524 9.68261 4.6836C9.77701 4.75196 9.88281 4.78614 10 4.78614C10.1172 4.78614 10.2214 4.75033 10.3125 4.67871C10.4037 4.60709 10.5208 4.47689 10.664 4.28809C10.8854 3.96907 11.154 3.64518 11.4697 3.31641C11.7855 2.98763 12.1631 2.7142 12.6025 2.4961C13.042 2.278 13.5677 2.16895 14.1797 2.16895C14.9349 2.16895 15.6104 2.34961 16.206 2.71094C16.8018 3.07226 17.2705 3.57682 17.6123 4.22461C17.9541 4.87239 18.125 5.62923 18.125 6.49512C18.125 7.40006 17.9069 8.3164 17.4707 9.24414C17.0345 10.1719 16.4437 11.0817 15.6982 11.9737C14.9528 12.8655 14.1064 13.7168 13.1591 14.5274C12.2119 15.3379 11.2272 16.0817 10.2051 16.7588C10.0944 16.8369 10.026 16.876 10 16.876C9.97396 16.876 9.90885 16.8369 9.80468 16.7588C8.78255 16.0817 7.79785 15.3379 6.85058 14.5274C5.90332 13.7168 5.05534 12.8655 4.30664 11.9737C3.55794 11.0817 2.96549 10.1719 2.52929 9.24414C2.0931 8.3164 1.875 7.40006 1.875 6.49512Z" fill="#BC2228" />
+              <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 21.2637L11.9993 17.5137L6 21.2637V4.76367C6 4.56476 6.07902 4.37399 6.21967 4.23334C6.36032 4.09269 6.55109 4.01367 6.75 4.01367H17.25C17.4489 4.01367 17.6397 4.09269 17.7803 4.23334C17.921 4.37399 18 4.56476 18 4.76367V21.2637Z" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
+
             </div>
             <div className='apply'>
               <span>
-                Theo dõi công ty
+                Ứng tuyển Ngay
               </span>
               <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 12.2637H19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -51,7 +44,7 @@ export default function CompanyInfo() {
         <div className='info'>
           <div className='info_left'>
             <div className='info_left_content'>
-              <h3>Mô tả về công ty</h3>
+              <h3>Job Description</h3>
               <div className='description'>
                 <span>
                   Velstar is a Shopify Plus agency, and we partner with brands to help them grow, we also do the same with our people!
@@ -64,7 +57,7 @@ export default function CompanyInfo() {
                 </span>
                 <span>Want to work with us? You're in good company!</span>
               </div>
-              <p>Chính sách:</p>
+              <p>Requirements:</p>
               <ul>
                 <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
                 <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
@@ -75,44 +68,154 @@ export default function CompanyInfo() {
                 <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
                 <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
               </ul>
-              <SearchJob />
+              <p>Desirable:</p>
+              <ul>
+                <li>Working knowledge of eCommerce platforms, ideally Shopify but also others e.g. Magento, WooCommerce, Visualsoft to enable seamless migrations.</li>
+                <li>Working knowledge of payment gateways</li>
+                <li>Working knowledge of payment gateways</li>
+              </ul>
+              <p>Benefits</p>
+              <ul>
+                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
+                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
+                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
+                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
+                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
+                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
+                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
+                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
+                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
+                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
+              </ul>
             </div>
 
           </div>
           <div className='info_right'>
             <div className='info_right_top'>
-              <div className='label'>
-                <svg width="20" height="39" viewBox="0 0 20 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <g clip-path="url(#clip0_367_6117)">
-                    <path d="M9.96094 29.2198C11.3216 29.2198 12.6026 28.9593 13.8037 28.4385C15.0049 27.9177 16.0645 27.1983 16.9824 26.2803C17.9004 25.3623 18.6198 24.3028 19.1406 23.1016C19.6615 21.9004 19.9219 20.6195 19.9219 19.2588C19.9219 17.8981 19.6615 16.6172 19.1406 15.416C18.6198 14.2148 17.9004 13.1553 16.9824 12.2373C16.0645 11.3193 15.0033 10.5999 13.7988 10.0791C12.5944 9.55827 11.3119 9.29785 9.95117 9.29785C8.5905 9.29785 7.30957 9.55827 6.1084 10.0791C4.90723 10.5999 3.84928 11.3193 2.93457 12.2373C2.01986 13.1553 1.30208 14.2148 0.78125 15.416C0.260417 16.6172 0 17.8981 0 19.2588C0 20.6195 0.260417 21.9004 0.78125 23.1016C1.30208 24.3028 2.02148 25.3623 2.93945 26.2803C3.85742 27.1983 4.91699 27.9177 6.11816 28.4385C7.31933 28.9593 8.60026 29.2198 9.96094 29.2198ZM9.96094 27.5596C8.80859 27.5596 7.73112 27.3447 6.72852 26.9151C5.72591 26.4854 4.84538 25.8913 4.08691 25.1329C3.32845 24.3744 2.736 23.4939 2.30957 22.4913C1.88314 21.4887 1.66992 20.4112 1.66992 19.2588C1.66992 18.1064 1.88314 17.029 2.30957 16.0264C2.736 15.0238 3.32682 14.1416 4.08203 13.3799C4.83724 12.6182 5.71614 12.0241 6.71875 11.5977C7.72136 11.1712 8.79883 10.958 9.95117 10.958C11.1035 10.958 12.181 11.1712 13.1836 11.5977C14.1862 12.0241 15.0684 12.6182 15.8301 13.3799C16.5918 14.1416 17.1875 15.0238 17.6172 16.0264C18.0469 17.029 18.2617 18.1064 18.2617 19.2588C18.2617 20.4112 18.0485 21.4887 17.6221 22.4913C17.1956 23.4939 16.6032 24.3744 15.8447 25.1329C15.0862 25.8913 14.2041 26.4854 13.1982 26.9151C12.1924 27.3447 11.1133 27.5596 9.96094 27.5596ZM4.59961 20.0791H8.69141C8.89974 20.0791 9.00391 20.1865 9.00391 20.4014V24.4346C9.00391 24.7276 9.08529 24.9327 9.24805 25.0499C9.41081 25.167 9.58822 25.2012 9.78027 25.1524C9.97236 25.1035 10.1172 24.9749 10.2148 24.7667L14.5508 15.5283C14.668 15.2744 14.6875 15.0466 14.6094 14.8447C14.5313 14.6429 14.3897 14.5029 14.1846 14.4248C13.9795 14.3467 13.75 14.3662 13.4961 14.4834L4.27734 18.8682C4.0625 18.9658 3.93229 19.1123 3.88672 19.3077C3.84115 19.5029 3.87695 19.6803 3.99414 19.8399C4.11133 19.9993 4.31315 20.0791 4.59961 20.0791Z" fill="#BC2228" />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_367_6117">
-                      <rect width="19.9219" height="38" fill="white" transform="translate(0 0.263672)" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                <span>Địa chỉ công ty</span>
+              <div className='salary'>
+                <span className='title'>
+                  Salary (USD)
+                </span>
+                <span className='value'>
+                  $100,000 - $120,000
+                </span>
+                <span className='for'>
+                  Yearly salary
+                </span>
               </div>
-              <p>Đường D1, Khu Công Nghệ Cao, Phường Tân Phú, Quận 9, Thành phố Hồ Chí Minh</p>
-            </div>
-            <div className='info_right_top location'>
-              <div className='label'>
+              <div className='location'>
                 <svg width="38" height="39" viewBox="0 0 38 39" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M14.25 27.5762L4.75 29.9512V8.57617L14.25 6.20117" stroke="#BC2228" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
                   <path d="M23.75 32.3262L14.25 27.5762V6.20117L23.75 10.9512V32.3262Z" stroke="#BC2228" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
                   <path d="M23.75 10.9512L33.25 8.57617V29.9512L23.75 32.3262" stroke="#BC2228" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
-
-
-                <span>Xem trên Maps</span>
+                <span className='title'>
+                  Job Location
+                </span>
+                <span className='content'>
+                  Dhaka, Bangladesh
+                </span>
               </div>
-              <img src='https://staticmapmaker.com/img/google-placeholder.png'></img>
             </div>
-            <div className='info_right_top contact'>
-              <div className='candidate_contact'>
+            <div className='info_right_bottom'>
+              <div className='top'>
+                <p>Job Overview</p>
+                <div className='content'>
+                  <div className='item job_posted'>
+                    <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M26 5.26367H6C5.44772 5.26367 5 5.71139 5 6.26367V26.2637C5 26.816 5.44772 27.2637 6 27.2637H26C26.5523 27.2637 27 26.816 27 26.2637V6.26367C27 5.71139 26.5523 5.26367 26 5.26367Z" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M22 3.26367V7.26367" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M10 3.26367V7.26367" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M5 11.2637H27" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span className='label'>
+                      Job Posted:
+                    </span>
+                    <span className='info'>
+                      14 Jun, 2021
+                    </span>
+                  </div>
+
+
+                  <div className='item job_exprire'>
+                    <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M16.6667 27.2637C22.7419 27.2637 27.6667 22.3388 27.6667 16.2637C27.6667 10.1885 22.7419 5.26367 16.6667 5.26367C10.5916 5.26367 5.66675 10.1885 5.66675 16.2637C5.66675 22.3388 10.5916 27.2637 16.6667 27.2637Z" stroke="#BC2228" stroke-width="2" stroke-miterlimit="10" />
+                      <path d="M16.6667 16.2632L21.6165 11.3135" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M13.6667 1.26367H19.6667" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <span className='label'>
+                      Job expire in:
+                    </span>
+                    <span className='info'>
+                      14 Aug, 2021
+                    </span>
+                  </div>
+
+
+
+                  <div className='item job_level'>
+                    <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4.33325 22.2637L16.3333 29.2637L28.3333 22.2637" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M4.33325 16.2637L16.3333 23.2637L28.3333 16.2637" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M4.33325 10.2637L16.3333 17.2637L28.3333 10.2637L16.3333 3.26367L4.33325 10.2637Z" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+
+                    <span className='label'>
+                      Job Level:
+                    </span>
+                    <span className='info'>
+                      Entry Level
+                    </span>
+                  </div>
+
+
+
+                  <div className='item experience'>
+                    <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5 8.26367V24.2637C5 24.7941 5.21071 25.3028 5.58579 25.6779C5.96086 26.053 6.46957 26.2637 7 26.2637H27C27.2652 26.2637 27.5196 26.1583 27.7071 25.9708C27.8946 25.7832 28 25.5289 28 25.2637V11.2637C28 10.9985 27.8946 10.7441 27.7071 10.5566C27.5196 10.369 27.2652 10.2637 27 10.2637H7C6.46957 10.2637 5.96086 10.053 5.58579 9.67789C5.21071 9.30281 5 8.7941 5 8.26367ZM5 8.26367C5 7.73324 5.21071 7.22453 5.58579 6.84946C5.96086 6.47439 6.46957 6.26367 7 6.26367H24" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M23 18.2637C23 18.5398 22.7761 18.7637 22.5 18.7637C22.2239 18.7637 22 18.5398 22 18.2637C22 17.9875 22.2239 17.7637 22.5 17.7637C22.7761 17.7637 23 17.9875 23 18.2637Z" fill="$fontColor" stroke="#BC2228" stroke-width="2" />
+                    </svg>
+
+                    <span className='label'>
+                      Experience
+                    </span>
+                    <span className='info'>
+                      $50k-80k/month
+                    </span>
+                  </div>
+
+
+
+                  <div className='item education'>
+                    <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g clip-path="url(#clip0_21_8024)">
+                        <path d="M27.001 9.26367H5.00098C4.44869 9.26367 4.00098 9.71139 4.00098 10.2637V26.2637C4.00098 26.816 4.44869 27.2637 5.00098 27.2637H27.001C27.5533 27.2637 28.001 26.816 28.001 26.2637V10.2637C28.001 9.71139 27.5533 9.26367 27.001 9.26367Z" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M21 9.26367V7.26367C21 6.73324 20.7893 6.22453 20.4142 5.84946C20.0391 5.47439 19.5304 5.26367 19 5.26367H13C12.4696 5.26367 11.9609 5.47439 11.5858 5.84946C11.2107 6.22453 11 6.73324 11 7.26367V9.26367" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M28.0012 16.0527C24.354 18.1628 20.2137 19.2707 16.0002 19.2641C11.7873 19.2707 7.64768 18.1632 4.00098 16.0538" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M14.5 15.2637H17.5" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_21_8024">
+                          <rect width="32" height="32" fill="white" transform="translate(0 0.263672)" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+
+
+
+                    <span className='label'>
+                      Education
+                    </span>
+                    <span className='info'>
+                      Graduation
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className='bottom'>
                 <p>
-                  Thông tin cá nhân
+                  Share this job:
                 </p>
                 <div className='contact'>
                   <div className='link'>
@@ -173,8 +276,7 @@ export default function CompanyInfo() {
             </div>
           </div>
         </div>
-
-        <RelativeCompanys />
+        <RelativeJobs />
       </div>
 
     </div>
