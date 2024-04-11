@@ -14,19 +14,21 @@ import CandidateInfo from '@/pages/candidateInfo/CandidateInfo'
 import CompanyInfo from '@/pages/companyInfo/CompanyInfo'
 import ManagerCompany from '@/pages/managerCompany/ManagerCompany'
 import AddJob from '@/pages/addJob/AddJob'
+import ManagerJob from '@/pages/managerJob/ManagerJob'
 export default function RouteSetup() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout />} >
           <Route index element={<Home />}></Route>
-          <Route path='jobInfo' element={<JobInfo />}></Route>
+          <Route path='job-info' element={<JobInfo />}></Route>
           <Route path='search' element={<Search />}></Route>
           <Route path='search-candidate' element={<SearchCandidate />}></Route>
-          <Route path='candidateInfo' element={<CandidateInfo />}></Route>
-          <Route path='companyInfo' element={<CompanyInfo />}></Route>
-          <Route path='managerCompany' element={<ManagerCompany />}></Route>
-          <Route path='addJob' element={<AddJob />}></Route>
+          <Route path='candidate-info' element={<CandidateInfo />}></Route>
+          <Route path='company-info' element={<CompanyInfo />}></Route>
+          <Route path='manager-company' element={<ManagerCompany />}></Route>
+          <Route path='add-job' element={<AddJob />}></Route>
+          <Route path='manager-job' element={<ManagerJob />}></Route>
         </Route>
         <Route path='/login' element={<LoginUser />} >
         </Route>
