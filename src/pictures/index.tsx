@@ -22,6 +22,13 @@ import company from './images/homepage/company.png'
 import candidate from './images/homepage/candidate.png'
 import new_job from './images/homepage/new_job.png'
 import cv from './images/cv.png'
+import icon_plus from "./icon/icon-plus.png";
+import icon_cv from "./icon/icon-cv.png";
+import icon_cake from "./icon/icon-cake.png";
+import icon_location from "./icon/icon-location.png";
+import icon_phone from "./icon/icon-phone.png";
+import icon_user from "./icon/icon-user.png";
+import icon_network from "./icon/icon-network.png";
 
 export default {
     logo_RikkeiEdu,
@@ -47,5 +54,12 @@ export default {
     company,
     candidate,
     new_job,
-    cv
+    cv,
+    icon_plus,
+    icon_cv,
+    icon_cake,
+    icon_location,
+    icon_phone,
+    icon_user,
+    icon_network
 }
