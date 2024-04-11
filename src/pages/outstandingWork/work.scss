@@ -1,0 +1,104 @@
+.outstanding_work {
+    font-family: $mainFont;
+    .outstanding-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 100px 60px;
+        padding-bottom: 50px;
+        h2 {
+            font-weight: 500;
+            font-size: 40px;
+        }
+        .view-more {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            span {
+                font-size: 16px;
+                font-weight: 600;
+                color: rgba(188, 34, 40, 1);
+            }
+        }
+    }
+
+    .outstanding-jobs {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        gap: 24px;
+        padding: 0 60px;
+        .job-item {
+            padding: 24px;
+            border: 1px solid rgba(228, 229, 232, 1);
+            border-radius: 8px;
+            box-shadow: 0px 2px 18px 0px rgba(24, 25, 28, 0.03);
+            .job-header {
+                gap: 6px;
+                .job_title-box {
+                    .title {
+                        font-size: 18px;
+                        line-height: 28px;
+                        font-weight: 600;
+                        color: rgba(24, 25, 28, 1);
+                    }
+                }
+                .job_pos_sala {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    .position {
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: rgba(11, 160, 44, 1);
+                        background-color: rgba(231, 246, 234, 1);
+                        padding: 4px 8px;
+                        border-radius: 3px;
+                    }
+                    .salary {
+                        color: rgba(118, 127, 140, 1);
+                        font-size: 14px;
+                        font-weight: 400;
+                        line-height: 20px;
+                    }
+                }
+            }
+            .job-company {
+                display: flex;
+                align-items: center;
+                margin-top: 20px;
+                gap: 12px;
+                .company-icon {
+                    img {
+                        width: 48px;
+                        height: 48px;
+                        border-radius: 4px;
+                    }
+                }
+                .company-content {
+                    width: 280px;
+                    .title {
+                        font-size: 16px;
+                        line-height: 24px;
+                        font-weight: 600;
+                        color: rgba(24, 25, 28, 1);
+                    }
+                    .location {
+                        gap: 4px;
+                        font-size: 14px;
+                        color: rgba(118, 127, 140, 1);
+                        display: flex;
+                        align-items: center;
+                        svg {
+                        }
+                        span {
+                        }
+                    }
+                }
+                .bookmark {
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+        }
+    }
+}

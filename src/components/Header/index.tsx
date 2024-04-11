@@ -1,9 +1,11 @@
-import React from 'react'
-
-import './header.scss'
+import TopNav from './components/topNav'
+import Navigation from './components/navigation'
 
 export default function Header() {
   return (
-    <div>Header</div>
+    <>
+      <TopNav />
+      <Navigation />
+    </>
   )
 }

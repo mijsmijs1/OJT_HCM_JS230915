@@ -1,5 +1,6 @@
 import pictures from '@/pictures'
 import './search.scss'
+
 import Breadcrumb from '@/components/breadcrumb/Breadcrumb'
 
 export default function Search() {
