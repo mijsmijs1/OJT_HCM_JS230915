@@ -2,7 +2,7 @@ import pictures from '@/pictures'
 import './managerCompany.scss'
 import OpenJobs from './components/openJobs/OpenJobs'
 import GoodCandidate from '../home/components/goodCandidate/GoodCandidate'
-import { useState } from 'react'
+import react from 'react'
 import EditCompanyForm from './components/editCompanyForm/EditCompanyForm'
 
 export default function ManagerCompany() {
@@ -200,3 +200,7 @@ export default function ManagerCompany() {
         </div>
     )
 }
+function useState(arg0: boolean): [any, any] {
+    throw new Error('Function not implemented.')
+}
+

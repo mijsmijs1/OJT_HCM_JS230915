@@ -1,0 +1,325 @@
+.modal {
+    // display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    border-radius: 8px;
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 701px;
+    height: 480px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    font-size: 32px;
+    padding-top: 21px;
+    text-align: center;
+}
+
+.modal-body {
+    padding-top: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+
+    p {
+        width: 641px;
+        height: 23px;
+        color: #6F7482;
+    }
+}
+
+.modal-footer {
+    margin-top: 30px;
+    text-align: center;
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+
+    .button-update {
+        cursor: pointer;
+        border: none;
+        font-size: 16px;
+        background-color: #BC2228;
+        border-radius: 3px;
+        width: 120px;
+        height: 48px;
+        color: #FFFFFF;
+    }
+
+    .button-delete {
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 3px;
+        width: 104px;
+        height: 48px;
+    }
+}
+
+// finish modal info user
+// modal HV user
+.modal {
+    // display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    padding-bottom: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content-EX {
+    border-radius: 8px;
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 701px;
+    height: 730px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header-EX {
+    font-size: 32px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.modal-body-EX {
+    padding-left: 30px;
+    padding-right: 30px;
+    // padding-top: 30px;
+    // padding-left: 30px;
+    // padding-right: 30px;
+
+    // p {
+    //     width: 641px;
+    //     height: 23px;
+    //     color: #6F7482;
+    // }
+    .modal-body-item {
+        margin-top: 30px;
+
+        label {
+            width: 641px;
+            height: 24px;
+            color: #6F7482;
+        }
+
+        input {
+            width: 641px;
+            height: 48px;
+            border-radius: 4px;
+            margin-top: 2px;
+        }
+    }
+
+    .modal-body-item-v2 {
+        width: 641px;
+        height: 172px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        p {
+            color: #6F7482;
+            font-size: 16px;
+        }
+    }
+
+    .modal-body-item-date {
+        label {
+
+            font-size: 12px;
+            color: #BC2228;
+            height: 0;
+            margin: 0;
+        }
+
+        input {
+            padding-bottom: 8px;
+            width: 173px;
+            border-radius: 0px;
+            border: none;
+            border-bottom: 1px solid black;
+        }
+
+        .input-end-date {
+            padding-bottom: 8px;
+            border-bottom: 1px solid #BC2228;
+        }
+
+        p {
+            font-size: 16px;
+        }
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-body-info-more {
+        p {
+            color: #6F7482;
+            font-size: 16px;
+            width: 641px;
+            height: 23px;
+        }
+    }
+}
+
+.modal-footer-EX {
+    padding-bottom: 10px;
+    margin-top: 30px;
+    text-align: center;
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+
+    .button-update {
+        cursor: pointer;
+        border: none;
+        font-size: 16px;
+        background-color: #BC2228;
+        border-radius: 3px;
+        width: 120px;
+        height: 48px;
+        color: #FFFFFF;
+    }
+
+    .button-delete {
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+        border-radius: 3px;
+        width: 104px;
+        height: 48px;
+    }
+}

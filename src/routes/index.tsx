@@ -7,7 +7,7 @@ import LoginUser from '@/components/authen/loginuser/LoginUser'
 import RegisterUser from '@/components/authen/registeruser/registerUser'
 import LoginAdmin from '@/components/authen/loginadmin/LoginAdmin'
 import RegisterCompany from "@components/authen/registerCompany/RegisterCompany"
-import RegisterAdmin from '@/components/authen/registerAdmin/RegisterAdmin'
+import RegisterAdmin from "@components/authen/registerAdmin/RegisterAdmin"
 import Search from '@/pages/search/Search'
 import SearchCandidate from '@/pages/searchCandidate/SearchCandidate'
 import CandidateInfo from '@/pages/candidateInfo/CandidateInfo'
@@ -17,6 +17,7 @@ import AddJob from '@/pages/addJob/AddJob'
 import ManagerJob from '@/pages/managerJob/ManagerJob'
 import AdminJobManager from '@/pages/adminJobManager/AdminJobManager'
 import CvManagement from '@/pages/cvManagement'
+import Profile from "@pages/profile/Profile"
 
 export default function RouteSetup() {
   return (
@@ -34,6 +35,8 @@ export default function RouteSetup() {
           <Route path='manager-job' element={<ManagerJob />}></Route>
           <Route path='admin-manager-job' element={<AdminJobManager />}></Route>
           <Route path='cv-management' element={<CvManagement />}></Route>
+          <Route path='/profile' element={<Profile />} >
+          </Route>
         </Route>
         <Route path='/login' element={<LoginUser />} >
         </Route>
