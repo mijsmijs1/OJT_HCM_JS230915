@@ -1,7 +1,7 @@
-import Header from "@/components/Header";
+import Header from "@/components/header";
 import { Outlet } from 'react-router-dom'
 import './layout.scss'
-import Footer from "@/components/Footer/Footer";
+import Footer from "@/components/footer/Footer";
 
 export default function Layout() {
     // Back to top

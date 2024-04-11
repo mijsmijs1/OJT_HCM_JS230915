@@ -1,6 +1,6 @@
 import Breadcrumb from '@/components/breadcrumb/Breadcrumb'
 import './searchCandidate.scss'
-import GoodCandidate from '../home/components/goodCandidate/GoodCandidate'
+// import GoodCandidate from '../home/components/goodCandidate/GoodCandidate'
 
 export default function SearchCandidate() {
     return (
@@ -93,7 +93,7 @@ export default function SearchCandidate() {
                             </div>
                         </div>
                     </div>
-                    <GoodCandidate />
+                    {/* <GoodCandidate /> */}
                 </div>
             </div>
         </>
