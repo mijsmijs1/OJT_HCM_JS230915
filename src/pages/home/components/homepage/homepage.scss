@@ -151,6 +151,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 100px 60px;
+        padding-bottom: 50px;
         h2 {
             font-weight: 500;
             font-size: 40px;
@@ -163,6 +164,197 @@
                 font-size: 16px;
                 font-weight: 600;
                 color: rgba(188, 34, 40, 1);
+            }
+        }
+    }
+
+    .outstanding-jobs {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        gap: 24px;
+        padding: 0 60px;
+        .job-item {
+            // width: 380px;
+            padding: 24px;
+            border: 1px solid rgba(228, 229, 232, 1);
+            border-radius: 8px;
+            box-shadow: 0px 2px 18px 0px rgba(24, 25, 28, 0.03);
+            .job-header {
+                gap: 6px;
+                .job_title-box {
+                    .title {
+                        font-size: 18px;
+                        line-height: 28px;
+                        font-weight: 600;
+                        color: rgba(24, 25, 28, 1);
+                    }
+                }
+                .job_pos_sala {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    .position {
+                        font-size: 12px;
+                        font-weight: 600;
+                        color: rgba(11, 160, 44, 1);
+                        background-color: rgba(231, 246, 234, 1);
+                        padding: 4px 8px;
+                        border-radius: 3px;
+                    }
+                    .salary {
+                        color: rgba(118, 127, 140, 1);
+                        font-size: 14px;
+                        font-weight: 400;
+                        line-height: 20px;
+                    }
+                }
+            }
+            .job-company {
+                display: flex;
+                align-items: center;
+                margin-top: 20px;
+                gap: 12px;
+                .company-icon {
+                    img {
+                        width: 48px;
+                        height: 48px;
+                        border-radius: 4px;
+                    }
+                }
+                .company-content {
+                    width: 280px;
+                    .title {
+                        font-size: 16px;
+                        line-height: 24px;
+                        font-weight: 600;
+                        color: rgba(24, 25, 28, 1);
+                    }
+                    .location {
+                        gap: 4px;
+                        font-size: 14px;
+                        color: rgba(118, 127, 140, 1);
+                        display: flex;
+                        align-items: center;
+                        svg {
+                        }
+                        span {
+                        }
+                    }
+                }
+                .bookmark {
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+        }
+    }
+}
+
+.testimonial-container {
+    font-family: $mainFont;
+    background-color: rgba(241, 242, 244, 1);
+    padding: 100px 0;
+    gap: 50px;
+    h2 {
+        font-size: 40px;
+        text-align: center;
+        color: rgba(25, 31, 51, 1);
+        font-weight: 500;
+        line-height: 48px;
+    }
+    .testimonial-box {
+        position: relative;
+        .arrow {
+            position: absolute;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 1);
+            border-radius: 5px;
+            cursor: pointer;
+            top: 120px;;
+            img {
+                width: 24px;
+                height: 24px;
+            }
+        }
+        .arrow_left {
+            left: -35px;
+        }
+        .arrow_right {
+            right: -35px;
+        }
+        .dots {
+            position: absolute;
+            right: 50%;
+            bottom: -70px;
+        }
+        .testimonial-content-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 60px;
+            .testimonial-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 24px;
+
+                .comment-box {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    width: 340px;
+                    height: 270px;
+                    background-color: rgba(255, 255, 255, 1);
+                    border-radius: 12px;
+                    box-shadow: 0px 12px 80px 0px rgba(0, 44, 109, 0.05);
+                    padding: 24px;
+                    .comment-top-box {
+                        .comment-star {
+                        }
+                        .comment-content {
+                            margin-top: 16px;
+                            font-size: 16px;
+                            font-weight: 400;
+                            color: rgba(70, 77, 97, 1);
+                        }
+                    }
+                    .comment-bottom-box {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        .comment-left {
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            .comment-ava-box {
+                                .comment-ava {
+                                    img {
+                                        width: 48px;
+                                        height: 48px;
+                                    }
+                                }
+                            }
+                            .comment-name-role {
+                                color: rgba(25, 31, 51, 1);
+                                .comment-name {
+                                    font-size: 16px;
+                                    font-weight: 600;
+                                }
+                                .comment-role {
+                                    color: rgba(118, 126, 148, 1);
+                                    font-weight: 400;
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+                        .comment-right {
+                            .quote {
+                                width: 48px;
+                                height: 48px;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

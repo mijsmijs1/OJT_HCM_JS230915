@@ -47,7 +47,7 @@ export default function TopNav() {
 
                     {/* language */}
                     <div className='language'>
-                        <img src={pictures.flagEN} alt="flag EN" />
+                        <img src={pictures.flag_EN} alt="flag EN" />
                         <select>
                             <option>English</option>
                         </select>
