@@ -13,6 +13,7 @@ import SearchCandidate from '@/pages/searchCandidate/SearchCandidate'
 import CandidateInfo from '@/pages/candidateInfo/CandidateInfo'
 import CompanyInfo from '@/pages/companyInfo/CompanyInfo'
 import ManagerCompany from '@/pages/managerCompany/ManagerCompany'
+import AddJob from '@/pages/addJob/AddJob'
 export default function RouteSetup() {
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ export default function RouteSetup() {
           <Route path='candidateInfo' element={<CandidateInfo />}></Route>
           <Route path='companyInfo' element={<CompanyInfo />}></Route>
           <Route path='managerCompany' element={<ManagerCompany />}></Route>
+          <Route path='addJob' element={<AddJob />}></Route>
         </Route>
         <Route path='/login' element={<LoginUser />} >
         </Route>
