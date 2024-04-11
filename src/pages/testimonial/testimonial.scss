@@ -1,0 +1,111 @@
+.testimonial-container {
+    font-family: $mainFont;
+    background-color: rgba(241, 242, 244, 1);
+    padding: 100px 0;
+    height: 652px;
+    gap: 50px;
+    h2 {
+        font-size: 40px;
+        text-align: center;
+        color: rgba(25, 31, 51, 1);
+        font-weight: 500;
+        line-height: 48px;
+        margin-bottom: 50px;
+    }
+    .testimonial-box {
+        position: relative;
+        .arrow {
+            position: absolute;
+            padding: 12px;
+            background-color: rgba(255, 255, 255, 1);
+            border-radius: 5px;
+            cursor: pointer;
+            top: 120px;
+            img {
+                width: 24px;
+                height: 24px;
+            }
+        }
+        .arrow_left {
+            left: -35px;
+        }
+        .arrow_right {
+            right: -35px;
+        }
+        .dots {
+            position: absolute;
+            right: 50%;
+            bottom: -70px;
+        }
+        .testimonial-content-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 60px;
+            .testimonial-content {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 24px;
+
+                .comment-box {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    width: 400px;
+                    height: 270px;
+                    background-color: rgba(255, 255, 255, 1);
+                    border-radius: 12px;
+                    box-shadow: 0px 12px 80px 0px rgba(0, 44, 109, 0.05);
+                    padding: 24px;
+                    .comment-top-box {
+                        .comment-star {
+                        }
+                        .comment-content {
+                            margin-top: 16px;
+                            font-size: 16px;
+                            font-weight: 400;
+                            color: rgba(70, 77, 97, 1);
+                        }
+                    }
+                    .comment-bottom-box {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        .comment-left {
+                            display: flex;
+                            align-items: center;
+                            gap: 12px;
+                            .comment-ava-box {
+                                .comment-ava {
+                                    img {
+                                        width: 48px;
+                                        height: 48px;
+                                    }
+                                }
+                            }
+                            .comment-name-role {
+                                color: rgba(25, 31, 51, 1);
+                                .comment-name {
+                                    font-size: 16px;
+                                    font-weight: 600;
+                                }
+                                .comment-role {
+                                    color: rgba(118, 126, 148, 1);
+                                    font-weight: 400;
+                                    font-size: 14px;
+                                }
+                            }
+                        }
+                        .comment-right {
+                            .quote {
+                                width: 48px;
+                                height: 48px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
