@@ -194,7 +194,7 @@ export default function ManagerCompany() {
                         </div>
                     </div>
                 </div>
-                <GoodCandidate />
+                {/* <GoodCandidate /> */}
             </div>
 
         </div>

@@ -1,13 +1,20 @@
 import React, { useState } from 'react'
-import "./logincompany.scss"
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Button, Input, Space } from 'antd';
 import pictures from '@/pictures'
+import { useNavigate } from 'react-router-dom';
+
+import "./logincompany.scss"
+
 export default function LoginCompany() {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const navigate = useNavigate()
+
     return (
         <div>
-            <div className='box-logo-rikkei'>
+            <div className='box-logo-rikkei' onClick={() => {
+                window.location.href = "/"
+            }}>
                 <img className='Rikkei_logo' src={pictures.logo_RikkeiEduV2} alt='Rikkei_logo'></img>
             </div>
             <div className='box-login-company'>
@@ -38,8 +45,10 @@ export default function LoginCompany() {
                             <div className='box-item-forgot'>
                                 <p>Quên mật khẩu?</p>
                             </div>
-                            <div className='box-item-create-account'>
-                                <p>Bạn không có tài khoản?<span> Tạo 1 tài khoản</span></p>
+                            <div className='box-item-create-account' >
+                                <p>Bạn không có tài khoản?<span onClick={() => {
+                                    navigate('/register-company');
+                                }}> Tạo 1 tài khoản</span></p>
                             </div>
                         </form>
                     </div>

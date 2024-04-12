@@ -1,16 +1,23 @@
 import pictures from '@/pictures'
 import Navigate from '@/components/navigate'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Store } from '@/store'
 
 import './navigation.scss'
 
 export default function Navigation() {
+    // const userStore = useSelector((store: Store) => store.userStore)
+    const navigate = useNavigate()
     const isToken = Boolean(localStorage.getItem('token'))
 
     return (
         <div className='nav-container'>
             <div className="nav-box">
                 {/* LOGO */}
-                <div className='logo'>
+                <div className='logo' onClick={() => {
+                    window.location.href = "/"
+                }}>
                     <img src={pictures.logo_RikkeiEduV2} alt="logo" />
                 </div>
                 {/* END LOGO */}
@@ -57,27 +64,33 @@ export default function Navigation() {
                     ) : (
                         <div className='button-group'>
                             {/* login */}
-                            <button className='login-button layout'>Đăng nhập</button>
+                            <button className='login-button layout' onClick={() => {
+                                window.location.href = '/login';
+                            }}>Đăng nhập</button>
 
                             {/* register */}
-                            <button className='register-button layout'>Đăng kí</button>
+                            <button className='register-button layout' onClick={() => {
+                                window.location.href = '/register';
+                            }}>Đăng kí</button>
 
                             {/* recruit */}
-                            <button className='recruit-button layout'>Đăng tuyển</button>
+                            <button className='recruit-button layout' onClick={() => {
+                                window.location.href = '/login-company';
+                            }}>Đăng tuyển</button>
 
                         </div>
                     )
                 }
                 {/* END BUTTON GROUP */}
             </div>
-            
-            
+
+
             {
                 isToken ? (
                     <>
-                      <Navigate/>  
+                        <Navigate />
                     </>
-                ):(
+                ) : (
                     <></>
                 )
             }

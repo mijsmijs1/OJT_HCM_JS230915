@@ -1,26 +1,79 @@
 import React, { useState } from 'react'
-import "./loginuser.scss"
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Button, Input, Space } from 'antd';
+import { Button, Input, Modal, Space, message } from 'antd';
+import api from '@services/apis'
 import pictures from '@/pictures'
+import { useNavigate } from 'react-router-dom';
+
+import "./loginuser.scss"
 
 export default function LoginUser() {
+    const navigate = useNavigate()
     const [passwordVisible, setPasswordVisible] = useState(false);
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault()
+        try {
+            const email = (e.target as any).email.value
+            const password = (e.target as any).password.value
+
+            // check emty
+            if (!email || !password) {
+                message.warning("Please fill all fields!")
+                return
+            }
+
+            // check type email
+            if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
+                message.error({
+                    content: 'Email is not valname!'
+                });
+                return;
+            }
+
+            // data
+            let data = {
+                email,
+                password
+            }
+            
+            let result = await api.userApi.login(data)
+
+            // Success
+            if (result.status == 200) {
+                (e.target as any).reset()
+                localStorage.setItem("token", result.data.data)
+                message.success("Login successfuly! Return homepage in a few second")
+
+                setTimeout(() => {
+                    window.location.href = '/'
+                }, 1000)
+            }
+        } catch (err: any) {
+            Modal.error({
+                title: "Logged in failed!",
+                content: err.response?.data?.message.join(" ") || 'Please try again in a few minutes',
+            })
+        }
+    }
     return (
         <div>
-            <div className='box-logo-rikkei'>
+            <div className='box-logo-rikkei' onClick={() => {
+                window.location.href = "/"
+            }}>
                 <img className='Rikkei_logo' src={pictures.logo_RikkeiEduV2} alt='Rikkei_logo'></img>
             </div>
             <div className='box-login'>
                 <div className='box-content'>
                     <div className='box-content-left'>
-                        <form action="">
+                        <form action="" onSubmit={handleLogin}> 
                             <div className='title-rikkei'>
                                 <h3>Cùng Rikkei Education xây dựng hồ sơ nổi bật và nhận được các cơ hội sự nghiệp lý tưởng</h3>
                             </div>
                             <div className='box-item-content'>
                                 <label htmlFor="email">Email</label><br />
                                 <Input
+                                    name='email'
                                     className='input-email'
                                     placeholder="abc@gmail.com"
                                 />
@@ -28,6 +81,7 @@ export default function LoginUser() {
                             <div className='box-item-content'>
                                 <label htmlFor="password">Password</label><br />
                                 <Input.Password
+                                    name='password'
                                     className='input-password'
                                     placeholder="*************"
                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
@@ -40,7 +94,9 @@ export default function LoginUser() {
                                 <p>Quên mật khẩu?</p>
                             </div>
                             <div className='box-item-create-account'>
-                                <p>Bạn không có tài khoản?<span> Tạo 1 tài khoản</span></p>
+                                <p>Bạn không có tài khoản?<span onClick={() => {
+                                    navigate('/register')
+                                }}> Tạo 1 tài khoản</span></p>
                             </div>
                         </form>
                     </div>

@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import "./registerAdmin.scss"
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Button, Input, Space } from 'antd';
 import pictures from '@/pictures'
+
+import "./registerAdmin.scss"
+
 export default function RegisterAdmin() {
     const [passwordVisible, setPasswordVisible] = useState(false);
     return (
