@@ -7,9 +7,8 @@ import { Store } from '@/store'
 import './navigation.scss'
 
 export default function Navigation() {
-    // const userStore = useSelector((store: Store) => store.userStore)
+    const userStore = useSelector((store: Store) => store.userStore)
     const navigate = useNavigate()
-    const isToken = Boolean(localStorage.getItem('token'))
 
     return (
         <div className='nav-container'>
@@ -40,7 +39,7 @@ export default function Navigation() {
 
                 {/* BUTTON GROUP */}
                 {
-                    isToken ? (
+                    userStore.data ? (
                         <>
                             {/* bell */}
                             <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +58,7 @@ export default function Navigation() {
                             </svg>
 
                             {/* name user */}
-                            <div className='user_name'>Nguyễn Minh Dương </div>
+                            <div className='user_name'>{userStore.data.username}</div>
                         </>
                     ) : (
                         <div className='button-group'>
@@ -86,7 +85,7 @@ export default function Navigation() {
 
 
             {
-                isToken ? (
+                userStore.data ? (
                     <>
                         <Navigate />
                     </>
