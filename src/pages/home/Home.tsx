@@ -1,9 +1,11 @@
 import pictures from '@/pictures'
+
 import Testimonial from '../testimonial'
 import OutstandingWork from '../outstandingWork'
 import OutstandingCompany from '../outstandingCompany'
-
 import './home.scss'
+import "./reponsiveHomeTablet.scss"
+import "./reponsiveHomePhone.scss"
 
 export default function Home() {
     const items = [
@@ -112,7 +114,7 @@ export default function Home() {
             {/* END INFORMATION */}
 
             <OutstandingWork />
-            <OutstandingCompany/>
+            <OutstandingCompany />
             <Testimonial />
         </>
     )
