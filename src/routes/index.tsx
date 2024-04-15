@@ -1,13 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from '@pages/home/Home'
-import LoginCompany from "@/components/authen/loginCompany/LoginCompany"
 import JobInfo from '@/pages/jobInfo/JobInfo'
 import Layout from '@/pages/layout/Layout'
-import LoginUser from '@/components/authen/loginuser/LoginUser'
-import RegisterUser from '@/components/authen/registeruser/registerUser'
-import LoginAdmin from '@/components/authen/loginadmin/LoginAdmin'
-import RegisterCompany from "@components/authen/registerCompany/RegisterCompany"
-import RegisterAdmin from "@components/authen/registerAdmin/RegisterAdmin"
 import Search from '@/pages/search/Search'
 import SearchCandidate from '@/pages/searchCandidate/SearchCandidate'
 import CandidateInfo from '@/pages/candidateInfo/CandidateInfo'
@@ -18,6 +12,7 @@ import ManagerJob from '@/pages/managerJob/ManagerJob'
 import AdminJobManager from '@/pages/adminJobManager/AdminJobManager'
 import CvManagement from '@/pages/cvManagement'
 import Profile from "@pages/profile/Profile"
+import { LazyLoad } from "@/utils/lazies/Lazy"
 
 export default function RouteSetup() {
   return (
@@ -38,17 +33,24 @@ export default function RouteSetup() {
           <Route path='/profile' element={<Profile />} >
           </Route>
         </Route>
-        <Route path='/login' element={<LoginUser />} >
+
+        {/* AUTHEN */}
+        {/* user */}
+        <Route path='/login' element={LazyLoad(() => import('@/components/authen/login/candidate'), localStorage.getItem("token") != null, "/")} >
         </Route>
-        <Route path='/register' element={<RegisterUser />} >
+        <Route path='/register' element={LazyLoad(() => import('@/components/authen/register/candidate'), localStorage.getItem("token") != null, "/")} >
         </Route>
-        <Route path='/admin' element={<LoginAdmin />} >
+
+        {/* company */}
+        <Route path='/login-company' element={LazyLoad(() => import('@/components/authen/login/company'), localStorage.getItem("token") != null, "/")} >
         </Route>
-        <Route path='/login-company' element={<LoginCompany />} >
+        <Route path='/register-company' element={LazyLoad(() => import('@/components/authen/register/company'), localStorage.getItem("token") != null, "/")} >
         </Route>
-        <Route path='/register-company' element={<RegisterCompany />} >
+
+        {/* admin */}
+        <Route path='/register-admin' element={LazyLoad(() => import('@/components/authen/register/admin'), localStorage.getItem("token") != null, "/")} >
         </Route>
-        <Route path='/register-admin' element={<RegisterAdmin />} >
+        <Route path='/admin' element={LazyLoad(() => import('@/components/authen/login/admin'), localStorage.getItem("token") != null && localStorage.getItem("isAmin") != null, "/")} >
         </Route>
       </Routes>
     </BrowserRouter>

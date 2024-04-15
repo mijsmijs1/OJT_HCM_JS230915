@@ -1,7 +1,9 @@
-import { userApi } from './user'
+import { candidateApi } from './candidate'
+import { companyApi } from './company'
 
 import './axios.instance'
 
 export default {
-    userApi,
+    candidateApi,
+    companyApi
 }

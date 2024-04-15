@@ -1,14 +1,14 @@
 import axios from "axios"
 
-const prefix = "user"
+const prefix = "candidate"
 const version = "v1";
 
-export const userApi = {
+export const candidateApi = {
     decodeToken: async (token: string) => {
         return await axios.get(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/decodeToken/${token}`)
     },
-    register: async (user: any) => {
-        return await axios.post(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/register`, user)
+    register: async (candidate: any) => {
+        return await axios.post(`${import.meta.env.VITE_SERVER}/api/${version}/auth/register`, candidate)
     },
     login: async (loginData: any) => {
         return await axios.post(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/login`, loginData)
@@ -16,10 +16,10 @@ export const userApi = {
     getData: async (data: any) => {
         return await axios.post(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/get-data`, data)
     },
-    findUserById: async (id: number) => {
+    findCandidateById: async (id: number) => {
         return await axios.get(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/${id}`)
     },
-    update: async (userId: number, data: any) => {
-        return await axios.patch(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/${userId}`, data)
-    },
+    update: async (candidateId: number, data: any) => {
+        return await axios.patch(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/${candidateId}`, data)
+    }
 }

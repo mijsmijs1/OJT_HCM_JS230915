@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
-import { userAction, userReducer } from "./slices/user.slice"
+import { candidateAction, candidateReducer } from "./slices/candidate.slice"
+import { companyAction, companyReducer } from "./slices/company.slice"
 
 const RootReducer = combineReducers({
-    userStore: userReducer,
+    candidateStore: candidateReducer,
+    companyStore: companyReducer,
 })
 
 export type Store = ReturnType<typeof RootReducer>
@@ -11,6 +13,7 @@ export const store = configureStore({
     reducer: RootReducer
 })
 
-store.dispatch(userAction.fetchUser())
+store.dispatch(candidateAction.fetchCandidate())
+store.dispatch(companyAction.fetchCompany())
 
 export default store
