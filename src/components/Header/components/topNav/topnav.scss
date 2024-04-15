@@ -7,15 +7,18 @@
     background-color: #f1f2f4;
     font-size: $m;
     font-family: $mainFont;
+
     .left {
         display: flex;
         gap: 24px;
+
         .item {
             font-size: $m;
             font-weight: 500;
             line-height: 20px;
             padding: 14px 0px 14px 0px;
             cursor: pointer;
+
             &.active {
                 font-weight: 600;
                 color: #bc2228;
@@ -23,32 +26,39 @@
             }
         }
     }
+
     .right {
         display: flex;
         align-items: center;
         gap: 24px;
+
         .phone {
             display: flex;
             align-items: center;
             gap: 8px;
+
             svg {
                 width: 24px;
                 height: 24px;
             }
+
             div {
                 font-weight: 600;
                 line-height: 20px;
                 color: #18191c;
             }
         }
+
         .language {
             display: flex;
             align-items: center;
             gap: 8px;
+
             img {
                 width: 24px;
                 height: 16px;
             }
+
             select {
                 width: 68px;
                 height: 20px;
@@ -57,9 +67,18 @@
                 background-color: unset;
                 color: #5e6670;
                 cursor: pointer;
-                option {
-                }
+
+                option {}
             }
+
+        }
+
+        .bar {
+            display: none;
         }
     }
+}
+
+.top-nav-container-sidebar {
+    display: none;
 }

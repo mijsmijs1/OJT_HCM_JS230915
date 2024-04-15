@@ -1,0 +1,103 @@
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+    .header_container {
+        max-width: 100%;
+        width: 100%;
+        top: 0;
+        position: sticky;
+        z-index: 1000;
+
+    }
+
+    .information {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .info-main-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-left {
+            margin-left: 56.5px !important;
+        }
+
+        .sugestion-box {
+            text-align: center;
+        }
+
+        .info-right {
+            text-align: center;
+            width: 98%;
+            margin: 0 !important;
+        }
+
+        .info-bottom {
+            display: none;
+        }
+
+        .info-item-box {
+            padding: 0 !important;
+        }
+
+    }
+
+    .outstanding_work {
+        padding-left: 8px;
+        padding-right: 8px;
+
+        .outstanding-title {
+            justify-content: flex-start;
+            gap: 34%;
+        }
+    }
+
+    .outstanding_work .outstanding-jobs {
+        width: 768px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+        padding: 0px;
+
+        .job-item {
+            padding: 2px;
+            // padding: 15px;
+        }
+    }
+
+    .outstanding_company {
+        .outstanding-title {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 100px 60px;
+            padding-bottom: 50px;
+            gap: 276px;
+        }
+    }
+
+    .testimonial-content {
+        width: 768px;
+    }
+
+    .comment-box {
+        height: 312px;
+    }
+
+    .testimonial-container .testimonial-box .arrow_right {
+        right: -9px;
+    }
+
+    .outstanding_company .content .search_result .item {
+        width: 30%;
+        height: 199px;
+    }
+
+    .outstanding_company .content .search_result .item {
+        width: 30%;
+        height: 217px;
+    }
+
+
+}
