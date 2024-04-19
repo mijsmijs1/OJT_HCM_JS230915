@@ -36,6 +36,12 @@
       "@utils/*": [
         "src/utils/*"
       ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@slices/*": [
+        "src/store/slices/*"
+      ]
     },
     /* Linting */
     "strict": true,

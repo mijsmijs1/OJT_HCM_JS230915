@@ -11,10 +11,12 @@
         font-family: $mainFont;
         font-size: $m;
         gap: 30px;
+        cursor: pointer;
         .logo {
             img {
                 width: 98.69px;
                 height: 34.87px;
+                cursor: pointer;
             }
         }
         .search-box {
@@ -63,6 +65,16 @@
             font-size: 14px;
             font-family: Cabin;
             font-weight: 500;
+        }
+        .logout{
+            color: rgba(188, 34, 40, 1);
+            font-size: 14px;
+            font-family: Cabin;
+            font-weight: 500;
+            transition: all 0.2s;
+            &:hover{
+                transform: scale(1.1);
+            }
         }
         .button-group {
             display: flex;

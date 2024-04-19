@@ -25,7 +25,7 @@ export default function TopNav() {
         <>
             <div className='top-nav-container'>
                 {/* left */}
-                <div className='left'>
+                <div className='left' key={Date.now()*Math.random()}>
                     {
                         item.map((item) => (
                             <div className={`item ${item.isActive}`}>{item.title}</div>

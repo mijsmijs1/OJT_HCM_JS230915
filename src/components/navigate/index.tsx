@@ -1,34 +1,40 @@
-
-
-import './navigate.scss'
+import React from 'react';
+import './navigate.scss';
 
 export default function Navigate() {
-    const item=[
-        {
-            title:'Hồ sơ',
-            link:'',
-            isAcitve:''
-        },
-        {
-            title:'Quản lý công việc',
-            link:'',
-            isAcitve:'active'
-        },
-        {
-            title:'Tiêu chí tìm việc',
-            link:'',
-            isAcitve:''
-        }
-    ]
-  return (
-    <>
-    <div className='nav_box' key={Date.now() * Math.random()}>
+  const items = [
     {
-        item.map((item)=>(
-            <div className={`nav_item ${item.isAcitve}`}>{item.title}</div>
-        ))
-    }
+      title: 'Hồ sơ',
+      link: '/profile',
+      isActive: '',
+    },
+    {
+      title: 'Quản lý công việc',
+      link: '/manage-jobs',
+      isActive: '',
+    },
+    {
+      title: 'Tiêu chí tìm việc',
+      link: '/job-criteria',
+      isActive: '',
+    },
+  ];
+
+  const handleItemClick = (link: any) => {
+    window.location.href = link;
+  };
+
+  return (
+    <div className='nav_box'>
+      {items.map((item) => (
+        <div
+          key={item.title}
+          className={`nav_item ${item.isActive}`}
+          onClick={() => handleItemClick(item.link)}
+        >
+          {item.title}
+        </div>
+      ))}
     </div>
-    </>
-  )
+  );
 }

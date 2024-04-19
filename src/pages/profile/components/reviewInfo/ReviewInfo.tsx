@@ -1,13 +1,15 @@
 import React from 'react'
+import { Input } from 'antd'
+
 import "./reviewInfo.scss"
-import { Flex, Input, Select } from 'antd';
+
 export default function ReviewInfo(props: { setopenModalInfo: any }) {
     const { TextArea } = Input;
     const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         console.log('Change:', e.target.value);
     };
     const handleCloseModal = () => {
-        props.setopenModalInfo(false) // Sử dụng setOpenModalEX như một hàm setState
+        props.setopenModalInfo(false) 
     };
     return (
         <div>

@@ -1,16 +1,35 @@
 import pictures from '@/pictures'
 import Navigate from '@/components/navigate'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Store } from '@/store'
+import api from '@services/apis'
+import { candidateAction } from '@/store/slices/candidate.slice'
+import { Modal, message } from 'antd'
 
 import './navigation.scss'
 
 export default function Navigation() {
-    const isToken = Boolean(localStorage.getItem('token'))
+    const candidateStore = useSelector((store: Store) => store.candidateStore)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
+    const handleLogout = async () => {
+        Modal.confirm({
+            title: "Notification",
+            content: "Are you sure you want to log out?",
+            onOk: () => {
+                localStorage.removeItem("token")
+                dispatch(candidateAction.setData(null))
+            }})
+    }
     return (
         <div className='nav-container'>
             <div className="nav-box">
                 {/* LOGO */}
-                <div className='logo'>
+                <div className='logo' onClick={() => {
+                    window.location.href = "/"
+                }}>
                     <img src={pictures.logo_RikkeiEduV2} alt="logo" />
                 </div>
                 {/* END LOGO */}
@@ -33,7 +52,7 @@ export default function Navigation() {
 
                 {/* BUTTON GROUP */}
                 {
-                    isToken ? (
+                    candidateStore.data?.data ? (
                         <>
                             {/* bell */}
                             <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -52,32 +71,40 @@ export default function Navigation() {
                             </svg>
 
                             {/* name user */}
-                            <div className='user_name'>Nguyễn Minh Dương </div>
+                            <div className='user_name'>{candidateStore.data.data.name}</div>
+
+                            {/* logout */}
+                            <div className='logout' onClick={handleLogout}>Logout</div>
                         </>
                     ) : (
                         <div className='button-group'>
                             {/* login */}
-                            <button className='login-button layout'>Đăng nhập</button>
+                            <button className='login-button layout' onClick={() => {
+                                window.location.href = '/login';
+                            }}>Đăng nhập</button>
 
                             {/* register */}
-                            <button className='register-button layout'>Đăng kí</button>
+                            <button className='register-button layout' onClick={() => {
+                                window.location.href = '/register';
+                            }}>Đăng kí</button>
 
                             {/* recruit */}
-                            <button className='recruit-button layout'>Đăng tuyển</button>
+                            <button className='recruit-button layout' onClick={() => {
+                                window.location.href = '/login-company';
+                            }}>Đăng tuyển</button>
 
                         </div>
                     )
                 }
                 {/* END BUTTON GROUP */}
             </div>
-            
-            
+
             {
-                isToken ? (
+                candidateStore?.data?.data ? (
                     <>
-                      <Navigate/>  
+                        <Navigate />
                     </>
-                ):(
+                ) : (
                     <></>
                 )
             }
