@@ -7,7 +7,7 @@ export default function ProjectModal(props: { setOpenModalPU: any }) {
         console.log('Change:', e.target.value);
     };
     const handleCloseModal = () => {
-        props.setOpenModalPU(false) // Sử dụng setOpenModalEX như một hàm setState
+        props.setOpenModalPU(false)
     };
     return (
         <div>
@@ -24,6 +24,7 @@ export default function ProjectModal(props: { setOpenModalPU: any }) {
                                 <div className='modal-body-item'>
                                     <label htmlFor="school">Tên dự án</label><br />
                                     <Input
+                                        name='name'
                                         className='input-school'
                                         placeholder="ABC Corp"
                                     />
@@ -63,11 +64,11 @@ export default function ProjectModal(props: { setOpenModalPU: any }) {
                                     />
                                 </div>
                             </div>
+                            <div className="modal-footer-PU">
+                                <button className='button-update'>Cập nhật</button>
+                                <button onClick={handleCloseModal} className='button-delete'>Hủy bỏ</button>
+                            </div>
                         </form>
-                    </div>
-                    <div className="modal-footer-PU">
-                        <button className='button-update'>Cập nhật</button>
-                        <button onClick={handleCloseModal} className='button-delete'>Hủy bỏ</button>
                     </div>
                 </div>
 

@@ -12,7 +12,7 @@ import ManagerJob from '@/pages/managerJob/ManagerJob'
 import AdminJobManager from '@/pages/adminJobManager/AdminJobManager'
 import CvManagement from '@/pages/cvManagement'
 import Profile from "@pages/profile/Profile"
-import { LazyLoad } from "@/utils/lazies/Lazy"
+import { lazyFn } from "@/utils/lazies/Lazy"
 
 export default function RouteSetup() {
   return (
@@ -30,27 +30,27 @@ export default function RouteSetup() {
           <Route path='manager-job' element={<ManagerJob />}></Route>
           <Route path='admin-manager-job' element={<AdminJobManager />}></Route>
           <Route path='cv-management' element={<CvManagement />}></Route>
-          <Route path='/profile' element={<Profile />} >
+          <Route path='profile' element={<Profile />} >
           </Route>
         </Route>
 
         {/* AUTHEN */}
         {/* user */}
-        <Route path='/login' element={LazyLoad(() => import('@/components/authen/login/candidate'), localStorage.getItem("token") != null, "/")} >
+        <Route path='/login' element={lazyFn(() => import('@/components/authen/login/candidate'), localStorage.getItem("token") == null, "/")} >
         </Route>
-        <Route path='/register' element={LazyLoad(() => import('@/components/authen/register/candidate'), localStorage.getItem("token") != null, "/")} >
+        <Route path='/register' element={lazyFn(() => import('@/components/authen/register/candidate'), localStorage.getItem("token") == null, "/")} >
         </Route>
 
         {/* company */}
-        <Route path='/login-company' element={LazyLoad(() => import('@/components/authen/login/company'), localStorage.getItem("token") != null, "/")} >
+        <Route path='/login-company' element={lazyFn(() => import('@/components/authen/login/company'), localStorage.getItem("token") == null, "/")} >
         </Route>
-        <Route path='/register-company' element={LazyLoad(() => import('@/components/authen/register/company'), localStorage.getItem("token") != null, "/")} >
+        <Route path='/register-company' element={lazyFn(() => import('@/components/authen/register/company'), localStorage.getItem("token") == null, "/")} >
         </Route>
 
         {/* admin */}
-        <Route path='/register-admin' element={LazyLoad(() => import('@/components/authen/register/admin'), localStorage.getItem("token") != null, "/")} >
+        <Route path='/register-admin' element={lazyFn(() => import('@/components/authen/register/admin'), localStorage.getItem("token") == null, "/")} >
         </Route>
-        <Route path='/admin' element={LazyLoad(() => import('@/components/authen/login/admin'), localStorage.getItem("token") != null && localStorage.getItem("isAmin") != null, "/")} >
+        <Route path='/admin' element={lazyFn(() => import('@/components/authen/login/admin'), localStorage.getItem("token") == null && localStorage.getItem("isAmin") != null, "/")} >
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,20 +1,22 @@
 import React from 'react'
+import { Input, Select } from 'antd'
+
 import "./skills.scss"
-import { Flex, Input, Select } from 'antd';
+
 export default function Skills(props: { setOpenModalSK: any }) {
     const { TextArea } = Input;
     const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         console.log('Change:', e.target.value);
     };
     const handleCloseModal = () => {
-        props.setOpenModalSK(false) // Sử dụng setOpenModalEX như một hàm setState
+        props.setOpenModalSK(false) 
     };
     return (
         <div>
             <div id="myModal" className="modal">
 
                 {/* <!-- Modal content --> */}
-                <div className="modal-content-SK">
+                <form className="modal-content-SK">
                     <div className="modal-header-SK">
                         <h2>Kĩ năng</h2>
                     </div>
@@ -79,7 +81,7 @@ export default function Skills(props: { setOpenModalSK: any }) {
                             handleCloseModal()
                         }} className='button-delete'>Hủy bỏ</button>
                     </div>
-                </div>
+                </form>
 
             </div>
         </div>

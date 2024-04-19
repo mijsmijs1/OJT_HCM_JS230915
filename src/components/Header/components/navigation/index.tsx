@@ -1,15 +1,28 @@
 import pictures from '@/pictures'
 import Navigate from '@/components/navigate'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Store } from '@/store'
+import api from '@services/apis'
+import { candidateAction } from '@/store/slices/candidate.slice'
+import { Modal, message } from 'antd'
 
 import './navigation.scss'
 
 export default function Navigation() {
     const candidateStore = useSelector((store: Store) => store.candidateStore)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
+    const handleLogout = async () => {
+        Modal.confirm({
+            title: "Notification",
+            content: "Are you sure you want to log out?",
+            onOk: () => {
+                localStorage.removeItem("token")
+                dispatch(candidateAction.setData(null))
+            }})
+    }
     return (
         <div className='nav-container'>
             <div className="nav-box">
@@ -39,7 +52,7 @@ export default function Navigation() {
 
                 {/* BUTTON GROUP */}
                 {
-                    candidateStore.data ? (
+                    candidateStore.data?.data ? (
                         <>
                             {/* bell */}
                             <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +71,10 @@ export default function Navigation() {
                             </svg>
 
                             {/* name user */}
-                            <div className='user_name'>{candidateStore.data.name}</div>
+                            <div className='user_name'>{candidateStore.data.data.name}</div>
+
+                            {/* logout */}
+                            <div className='logout' onClick={handleLogout}>Logout</div>
                         </>
                     ) : (
                         <div className='button-group'>
@@ -83,9 +99,8 @@ export default function Navigation() {
                 {/* END BUTTON GROUP */}
             </div>
 
-
             {
-                candidateStore.data ? (
+                candidateStore?.data?.data ? (
                     <>
                         <Navigate />
                     </>

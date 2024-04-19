@@ -1,7 +1,11 @@
 import { lazy, Suspense } from "react"
-import Loading from "./components/Loading"
+import Loading from "./components/loading"
+import Permission from "./components/per"
 
-export const LazyLoad = (importFunc: any, access: boolean = true, fallback: string | null = null) => {
+export const lazyFn = (importFunc: any, access: boolean = true, fallback: string | null = null) => {
+
+  // check per
+  if (!access) return <Permission fallback={fallback}/> 
 
   // set timeout for load
   const LazyComponent = lazy(() => {

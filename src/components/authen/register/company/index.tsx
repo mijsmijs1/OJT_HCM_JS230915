@@ -27,13 +27,6 @@ export default function RegisterCompany() {
                                 <h3>Thông tin tài khoản</h3>
                             </div>
                             <div className='box-item-content-company'>
-                                <label htmlFor="input-name">Họ tên</label><br />
-                                <Input
-                                    className='input-name-company'
-                                    placeholder="Nhập họ tên"
-                                />
-                            </div>
-                            <div className='box-item-content-company'>
                                 <label htmlFor="email">Email</label><br />
                                 <Input
                                     className='input-email-company'

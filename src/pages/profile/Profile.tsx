@@ -1,47 +1,32 @@
-import React, { useState } from 'react'
-import "./profile.scss"
-import Header from "@/components/Header"
-import Footer from '@/components/Footer/Footer'
-const { TextArea } = Input;
-import { Flex, Input } from 'antd';
+import { useState } from 'react'
 import pictures from '@/pictures'
 import ExperienceModal from './components/experienceModal/ExperienceModal';
 import ProjectModal from './components/projectUser/ProjectModal';
 import CertificateModal from './components/certificate/CertificateModal';
 import Skills from './components/skills/Skills';
-import UpdateInfo from './components/updateInfo/UpdateInfo';
+import UpdateInfo from './components/updateInfo';
 import ReviewInfo from './components/reviewInfo/ReviewInfo';
 import Education from './components/education/Education';
+import UpdateProfile from './components/updateInfo';
+import { Store } from '@/store'
+import { useSelector } from 'react-redux';
+
+import "./profile.scss"
+
 export default function Profile() {
-    const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        console.log('Change:', e.target.value);
-    };
     const [openModalUI, setOpenModalUI] = useState(false);
+    const [openModalProfile, setOpenModalProfile] = useState(false);
     const [openModalSK, setOpenModalSK] = useState(false);
     const [openModalCF, setOpenModalCF] = useState(false);
     const [openModalPU, setOpenModalPU] = useState(false);
     const [openModalEX, setOpenModalEX] = useState(false);
     const [openModalInfo, setOpenModalInfo] = useState(false);
     const [openModalHV, setOpenModalHV] = useState(false);
+    const candidateStore = useSelector((store: Store) => store.candidateStore)
 
     return (
         <div className='profile_container'>
             <div className='content'>
-                <div className='profile_header'>
-                    <div className='header_content'>
-                        <div className='header_content_menu'>
-                            <div className='header_content_menu_item'>
-                                <h3 className='content_profile'>Hồ sơ</h3>
-                            </div>
-                            <div className='header_content_menu_item'>
-                                <h3 className='content_profile_manager'>Quản lý CV</h3>
-                            </div>
-                            <div className='header_content_menu_item'>
-                                <h3 className='content_profile_target'>Tiêu chí làm việc</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div className='profile_content'>
                     <div className='box_content_right'>
                         <div className='box_content_right_title'>
@@ -81,10 +66,13 @@ export default function Profile() {
                             <button style={{ cursor: "pointer" }} className='button-review'>Xem và tải </button>
                         </div>
                     </div>
+
                     <div className='profile_content_left'>
                         <div className='profile_content_info_company'>
                             <div className='profile_content_info_header'>
-                                <span style={{ cursor: "pointer" }} > <svg style={{ cursor: "pointer" }} width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <span style={{ cursor: "pointer" }} onClick={() => {
+                                    setOpenModalUI(true)
+                                }}> <svg style={{ cursor: "pointer" }} width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3.61161 19.8514H15.4791C16.3889 19.8514 17.0948 19.6038 17.5968 19.1087C18.0989 18.6137 18.35 17.8711 18.35 16.881V6.63806L16.7225 8.18074V16.8044C16.7225 17.3026 16.5978 17.6779 16.3485 17.9303C16.0991 18.1826 15.8026 18.3087 15.4589 18.3087H3.64193C3.1365 18.3087 2.74732 18.1826 2.47438 17.9303C2.20145 17.6779 2.06499 17.3026 2.06499 16.8044V5.92902C2.06499 5.43076 2.20145 5.05388 2.47438 4.79836C2.74732 4.54285 3.1365 4.41509 3.64193 4.41509H12.8509L14.4784 2.87242H3.61161C2.56031 2.87242 1.76847 3.11995 1.23608 3.61501C0.703693 4.11007 0.4375 4.85266 0.4375 5.84278V16.881C0.4375 17.8711 0.703693 18.6137 1.23608 19.1087C1.76847 19.6038 2.56031 19.8514 3.61161 19.8514ZM7.29114 13.6423L9.26232 12.8279L18.7038 3.88809L17.3189 2.59455L7.88755 11.5344L6.97777 13.3357C6.93734 13.4188 6.95587 13.5002 7.03337 13.5801C7.11087 13.6599 7.19679 13.6807 7.29114 13.6423ZM19.4518 3.18862L20.1797 2.47956C20.3481 2.30709 20.434 2.11705 20.4374 1.90945C20.4408 1.70184 20.3549 1.51819 20.1797 1.3585L19.9472 1.12853C19.7921 0.981611 19.6051 0.914539 19.3861 0.927314C19.1671 0.94009 18.9733 1.02313 18.8048 1.17644L18.0669 1.86633L19.4518 3.18862Z" fill="#BC2228" />
                                 </svg></span>
 
@@ -93,44 +81,50 @@ export default function Profile() {
                                 <div className='box_profile_content_info_logo'>
                                     <img style={{ cursor: "pointer" }} src={pictures.logo_FPT} alt="" />
                                 </div>
-                                <div className='profile_content_info_user'>
-                                    <h2>Nguyễn Minh Dương</h2>
-                                    <h3>Full-stack Developer</h3>
-                                    <div className='profile_content_info_des_menu'>
-                                        <div className='profile_content_info_des_left'>
-                                            <div className='profile_content_info_item'>
-                                                <i className="fa-regular fa-envelope"></i>
-                                                <p>Abc@Gmail.com</p>
-                                            </div>
-                                            <div className='profile_content_info_item'>
-                                                <img src={pictures.icon_cake} alt="" />
-                                                <p>8/3/2023</p>
-                                            </div>
-                                            <div className='profile_content_info_item'>
-                                                <img src={pictures.icon_location} alt="" />
-                                                <p> Địa chỉ hiện tại</p>
-                                            </div>
-                                        </div>
-                                        <div className='profile_content_info_des_right'>
-                                            <div className='profile_content_info_item'>
-                                                <img src={pictures.icon_phone} alt="" />
-                                                <p>0123456789</p>
-                                            </div>
-                                            <div className='profile_content_info_item'>
-                                                <img src={pictures.icon_user} alt="" />
-                                                <p>Giới tính</p>
-                                            </div>
-                                            <div className='profile_content_info_item'>
-                                                <img src={pictures.icon_network} alt="" />
-                                                <p>Trang cá nhân</p>
-                                            </div>
-                                        </div>
-                                    </div>
 
-                                </div>
+                                {
+                                    candidateStore.data?.data && (
+                                        <div className='profile_content_info_user'>
+                                            <h2>{candidateStore.data?.data.name}</h2>
+                                            <h3>Full-stack Developer</h3>
+                                            <div className='profile_content_info_des_menu'>
+                                                <div className='profile_content_info_des_left'>
+                                                    <div className='profile_content_info_item'>
+                                                        <i className="fa-regular fa-envelope"></i>
+                                                        <p>{candidateStore.data?.data.email}</p>
+                                                    </div>
+                                                    <div className='profile_content_info_item'>
+                                                        <img src={pictures.icon_cake} alt="" />
+                                                        <p></p>
+                                                    </div>
+                                                    <div className='profile_content_info_item'>
+                                                        <img src={pictures.icon_location} alt="" />
+                                                        <p> {candidateStore.data?.data.address}</p>
+                                                    </div>
+                                                </div>
+                                                <div className='profile_content_info_des_right'>
+                                                    <div className='profile_content_info_item'>
+                                                        <img src={pictures.icon_phone} alt="" />
+                                                        <p>{candidateStore.data?.data.phone}</p>
+                                                    </div>
+                                                    <div className='profile_content_info_item'>
+                                                        <img src={pictures.icon_user} alt="" />
+                                                        <p>{candidateStore.data?.data.gender}</p>
+                                                    </div>
+                                                    <div className='profile_content_info_item'>
+                                                        <img src={pictures.icon_network} alt="" />
+                                                        <p>{candidateStore.data?.data.link_fb}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    )
+                                }
+
                             </div>
-
                         </div>
+
                         <div className='profile_content_info_user_menu'>
                             <div className='profile_content_info_user_item'>
                                 <div className='content_info_user_header'>

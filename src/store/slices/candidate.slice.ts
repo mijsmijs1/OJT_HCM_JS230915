@@ -65,37 +65,51 @@ export type SkillsCandidate = {
 
 // CANDIDATE
 export type Candidate = {
-    id: number
-    name: string
-    isOpen: boolean
-    dob: string
-    address: string
-    email: string
-    phone: string
-    password: string
-    gender: CandidateGender,
-    link_fb: string,
-    link_linkedin: string,
-    link_git: string,
-    education: EducationCandidate[],
-    experience: ExperienceCandidate[],
-    projects: ProjectCandidate[],
-    certificates: CertificateCandidate[],
-    skills: SkillsCandidate[],
-    jobs: Job[]
+    data: {
+        id: number
+        name: string
+        isOpen: boolean
+        dob: string
+        // birthday: string
+        address: string
+        email: string
+        phone: string
+        password: string
+        gender: CandidateGender,
+        link_fb: string,
+        link_linkedin: string,
+        link_git: string,
+        education: EducationCandidate[],
+        experience: ExperienceCandidate[],
+        projects: ProjectCandidate[],
+        certificates: CertificateCandidate[],
+        skills: SkillsCandidate[],
+        jobs: Job[]
+    }
 }
 
 /* INTERFACE */
 interface InitState {
     data: Candidate | null,
     loading: boolean,
+    error: string | null
 }
 
 /* INIT */
 let initialState: InitState = {
     data: null,
     loading: false,
+    error: null
 }
+
+// fetch candidate
+const fetchCandidate = createAsyncThunk(
+    'candidate/checkToken',
+    async () => {
+        const res = await api.authenApi.checkToken()
+        return res.data
+    }
+)
 
 const candidateSlice = createSlice({
     name: "candidate",
@@ -108,24 +122,19 @@ const candidateSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchCandidate.pending, (state) => {
             state.loading = true;
+            state.error = null
         })
         builder.addCase(fetchCandidate.fulfilled, (state, action) => {
             state.data = action.payload;
             state.loading = false;
+            state.error = null
         })
+        builder.addCase(fetchCandidate.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message ?? 'Unknown error';
+            })
     }
 })
-
-// fetch candidate
-const fetchCandidate = createAsyncThunk(
-    'candidate/validateToken',
-    async () => {
-        const res = await api.candidateApi.getData({
-            token: localStorage.getItem("token") || "null"
-        })
-        return res.data.data
-    }
-)
 
 export const candidateReducer = candidateSlice.reducer;
 export const candidateAction = {

@@ -36,12 +36,12 @@ export default function LoginUser() {
                 password
             }
             
-            let result = await api.candidateApi.login(data)
-
+            let result = await api.authenApi.loginCandidate(data)
+            
             // Success
             if (result.status == 200) {
                 (e.target as any).reset()
-                localStorage.setItem("token", result.data.data)
+                localStorage.setItem("token", result.data.accessToken)
                 message.success("Login successfuly! Return homepage in a few second")
 
                 setTimeout(() => {

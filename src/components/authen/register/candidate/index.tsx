@@ -57,7 +57,7 @@ export default function RegisterUser() {
                 password
             }
 
-            let res = await api.candidateApi.register(data)
+            let res = await api.authenApi.registerCandidate(data)
             // Success
             if (res.status == 200) {
                 Modal.success({
