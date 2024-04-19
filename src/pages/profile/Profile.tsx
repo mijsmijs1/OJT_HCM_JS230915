@@ -83,15 +83,15 @@ export default function Profile() {
                                 </div>
 
                                 {
-                                    candidateStore.data?.data && (
+                                    candidateStore.data && (
                                         <div className='profile_content_info_user'>
-                                            <h2>{candidateStore.data?.data.name}</h2>
+                                            <h2>{candidateStore.data?.name}</h2>
                                             <h3>Full-stack Developer</h3>
                                             <div className='profile_content_info_des_menu'>
                                                 <div className='profile_content_info_des_left'>
                                                     <div className='profile_content_info_item'>
                                                         <i className="fa-regular fa-envelope"></i>
-                                                        <p>{candidateStore.data?.data.email}</p>
+                                                        <p>{candidateStore.data?.email}</p>
                                                     </div>
                                                     <div className='profile_content_info_item'>
                                                         <img src={pictures.icon_cake} alt="" />
@@ -99,21 +99,21 @@ export default function Profile() {
                                                     </div>
                                                     <div className='profile_content_info_item'>
                                                         <img src={pictures.icon_location} alt="" />
-                                                        <p> {candidateStore.data?.data.address}</p>
+                                                        <p> {candidateStore.data?.address}</p>
                                                     </div>
                                                 </div>
                                                 <div className='profile_content_info_des_right'>
                                                     <div className='profile_content_info_item'>
                                                         <img src={pictures.icon_phone} alt="" />
-                                                        <p>{candidateStore.data?.data.phone}</p>
+                                                        <p>{candidateStore.data?.phone}</p>
                                                     </div>
                                                     <div className='profile_content_info_item'>
                                                         <img src={pictures.icon_user} alt="" />
-                                                        <p>{candidateStore.data?.data.gender}</p>
+                                                        <p>{candidateStore.data?.gender}</p>
                                                     </div>
                                                     <div className='profile_content_info_item'>
                                                         <img src={pictures.icon_network} alt="" />
-                                                        <p>{candidateStore.data?.data.link_fb}</p>
+                                                        <p>{candidateStore.data?.link_fb}</p>
                                                     </div>
                                                 </div>
                                             </div>

@@ -35,13 +35,14 @@ export default function LoginUser() {
                 email,
                 password
             }
-            
+
             let result = await api.authenApi.loginCandidate(data)
-            
+
             // Success
             if (result.status == 200) {
                 (e.target as any).reset()
                 localStorage.setItem("token", result.data.accessToken)
+                localStorage.setItem("refreshToken", result.data.accessToken)
                 message.success("Login successfuly! Return homepage in a few second")
 
                 setTimeout(() => {
@@ -65,7 +66,7 @@ export default function LoginUser() {
             <div className='box-login'>
                 <div className='box-content'>
                     <div className='box-content-left'>
-                        <form action="" onSubmit={handleLogin}> 
+                        <form action="" onSubmit={handleLogin}>
                             <div className='title-rikkei'>
                                 <h3>Cùng Rikkei Education xây dựng hồ sơ nổi bật và nhận được các cơ hội sự nghiệp lý tưởng</h3>
                             </div>
