@@ -25,9 +25,7 @@ export const candidateApi = {
     createSkill: async (skills: any) => {
         return await axios.post(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/create-skill`, skills)
     },
-    updateAccount: async (candidateId: number, data: any) => {
-        return await axios.patch(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/${candidateId}`, data)
-    },
+
     updateCertificate: async (candidateId: number, data: any) => {
         return await axios.patch(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/update-certificate/${candidateId}`, data)
     },

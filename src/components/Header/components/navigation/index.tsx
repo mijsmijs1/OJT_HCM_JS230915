@@ -21,7 +21,8 @@ export default function Navigation() {
             onOk: () => {
                 localStorage.removeItem("token")
                 dispatch(candidateAction.setData(null))
-            }})
+            }
+        })
     }
     return (
         <div className='nav-container'>
@@ -52,7 +53,7 @@ export default function Navigation() {
 
                 {/* BUTTON GROUP */}
                 {
-                    candidateStore.data?.data ? (
+                    candidateStore.data ? (
                         <>
                             {/* bell */}
                             <svg width="19" height="21" viewBox="0 0 19 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -71,7 +72,7 @@ export default function Navigation() {
                             </svg>
 
                             {/* name user */}
-                            <div className='user_name'>{candidateStore.data.data.name}</div>
+                            <div className='user_name'>{candidateStore.data.name}</div>
 
                             {/* logout */}
                             <div className='logout' onClick={handleLogout}>Logout</div>
@@ -100,7 +101,7 @@ export default function Navigation() {
             </div>
 
             {
-                candidateStore?.data?.data ? (
+                candidateStore?.data ? (
                     <>
                         <Navigate />
                     </>

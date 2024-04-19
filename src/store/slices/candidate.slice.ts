@@ -65,27 +65,27 @@ export type SkillsCandidate = {
 
 // CANDIDATE
 export type Candidate = {
-    data: {
-        id: number
-        name: string
-        isOpen: boolean
-        dob: string
-        // birthday: string
-        address: string
-        email: string
-        phone: string
-        password: string
-        gender: CandidateGender,
-        link_fb: string,
-        link_linkedin: string,
-        link_git: string,
-        education: EducationCandidate[],
-        experience: ExperienceCandidate[],
-        projects: ProjectCandidate[],
-        certificates: CertificateCandidate[],
-        skills: SkillsCandidate[],
-        jobs: Job[]
-    }
+
+    id: number
+    name: string
+    isOpen: boolean
+    dob: string
+    // birthday: string
+    address: string
+    email: string
+    phone: string
+    password: string
+    gender: CandidateGender,
+    link_fb: string,
+    link_linkedin: string,
+    link_git: string,
+    education: EducationCandidate[],
+    experience: ExperienceCandidate[],
+    projects: ProjectCandidate[],
+    certificates: CertificateCandidate[],
+    skills: SkillsCandidate[],
+    jobs: Job[]
+
 }
 
 /* INTERFACE */
@@ -107,7 +107,7 @@ const fetchCandidate = createAsyncThunk(
     'candidate/checkToken',
     async () => {
         const res = await api.authenApi.checkToken()
-        return res.data
+        return res.data.data
     }
 )
 
@@ -117,6 +117,9 @@ const candidateSlice = createSlice({
     reducers: {
         setData: (state, action) => {
             state.data = action.payload;
+        },
+        updateData: (state, action) => {
+            state.data = { ...state.data, ...action.payload }
         }
     },
     extraReducers: (builder) => {
@@ -130,9 +133,9 @@ const candidateSlice = createSlice({
             state.error = null
         })
         builder.addCase(fetchCandidate.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.error.message ?? 'Unknown error';
-            })
+            state.loading = false;
+            state.error = action.error.message ?? 'Unknown error';
+        })
     }
 })
 
