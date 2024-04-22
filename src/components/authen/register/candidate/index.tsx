@@ -72,7 +72,7 @@ export default function RegisterUser() {
         } catch (err: any) {
             Modal.error({
                 title: "Register failed!",
-                content: err.response?.data?.message || "Please try again in a few minutes!"
+                content: err.response.data.message || "Please try again in a few minutes!"
             })
         }
     }
@@ -94,6 +94,7 @@ export default function RegisterUser() {
                             <div className='box-item-content'>
                                 <label htmlFor="name">Họ tên</label><br />
                                 <Input
+                                    autoFocus
                                     name='name'
                                     className='input-name'
                                     placeholder="Nhập họ tên"
@@ -104,7 +105,7 @@ export default function RegisterUser() {
                                 <Input
                                     name='email'
                                     className='input-emails'
-                                    placeholder="abc@gmail.com"
+                                    placeholder="Nhập email (vd: abc@gmail.com)"
                                 />
                             </div>
                             <div className='box-item-content'>
@@ -112,7 +113,7 @@ export default function RegisterUser() {
                                 <Input.Password
                                     name='password'
                                     className='input-passwords'
-                                    placeholder="*************"
+                                    placeholder="Nhập mật khẩu"
                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                 />
                             </div>
@@ -121,7 +122,7 @@ export default function RegisterUser() {
                                 <Input.Password
                                     name='confirmPassword'
                                     className='input-confirm-password'
-                                    placeholder="*************"
+                                    placeholder="Xác nhận mật khẩu"
                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                 />
                             </div>
@@ -133,7 +134,7 @@ export default function RegisterUser() {
                             </div>
                             <div className='box-item-create-account'>
                                 <p>Bạn đã có tài khoản?<span onClick={() => {
-                                    navigate('/login')
+                                    window.location.href= '/login'
                                 }}> đăng nhập</span></p>
                             </div>
                         </form>

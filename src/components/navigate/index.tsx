@@ -6,7 +6,7 @@ export default function Navigate() {
     {
       title: 'Hồ sơ',
       link: '/profile',
-      isActive: '',
+      isActive: 'active',
     },
     {
       title: 'Quản lý công việc',

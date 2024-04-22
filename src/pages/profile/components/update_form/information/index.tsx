@@ -2,33 +2,20 @@ import { Input, Modal, message } from 'antd';
 import pictures from '@/pictures';
 import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@/store';
-
-import "./updateInfo.scss"
 import apis from '@/services/apis';
-import { candidateAction } from '@/store/slices/candidate.slice';
-export default function UpdateInfo(props: { setOpenModalUI: any }) {
+import { candidateAction } from '@/store/slices/candidate/candidate.slice';
+import convertStringToDateValue from '@/components/convert_string_to_date'
+
+import "./information.scss"
+
+export default function InfoForm(props: { setOpenModalUI: any }) {
     const candidateStore = useSelector((store: Store) => store.candidateStore)
+    const dispatch = useDispatch()
     const handleCloseModal = () => {
         props.setOpenModalUI(false)
     }
-    const dispatch = useDispatch()
-    function convertStringToDateValue(dateString: string) {
-        // Tách phần ngày và phần thời gian từ chuỗi đầu vào
-        let [datePart, timePart] = dateString.split('T');
-
-        // Tách các phần của ngày
-        let [year, month, day] = datePart.split('-');
-
-        // Tạo giá trị mặc định cho input
-        let defaultValue = `${year}-${month}-${day}`;
-
-        // Trả về giá trị mặc định
-        return defaultValue;
-
-    }
     const handleUpdateCandidate = async (e: React.FormEvent) => {
         e.preventDefault();
-        console.log('da vao')
         try {
             if ((e.target as any).name.value == '' || (e.target as any).gender.value == '' || (e.target as any).address.value == '' || (e.target as any).phone.value == '' || (e.target as any).link_fb.value == '' || (e.target as any).dob.value == '') {
                 message.error('Please complete all required fields!')
@@ -42,14 +29,16 @@ export default function UpdateInfo(props: { setOpenModalUI: any }) {
                 link_fb: (e.target as any).link_fb.value,
                 dob: (e.target as any).dob.value
             }
-            console.log(updateData)
             let updatedData = await apis.authenApi.updateAccount(updateData)
+            console.log('updatedData', updatedData);
+            
             if (updatedData.status == 200) {
                 localStorage.setItem('token', updatedData.data.accessToken)
                 localStorage.setItem('refreshToken', updatedData.data.refreshToken)
                 dispatch(candidateAction.updateData(updatedData.data.data))
                 Modal.success({
-                    title: updatedData.data.message,
+                    title: "Successful",
+                    content: updatedData.data.message,
                     onOk: () => {
                         handleCloseModal()
                     }
@@ -58,8 +47,8 @@ export default function UpdateInfo(props: { setOpenModalUI: any }) {
         }
         catch (err: any) {
             Modal.error({
-                title: "Update failed!",
-                content: err.response?.data?.message.join(" ") || err.response?.data?.message || 'Please try again in a few minutes',
+                title: "Failed!",
+                content: err.response.data.message || 'Please try again in a few minutes',
             })
         }
     }
@@ -92,32 +81,38 @@ export default function UpdateInfo(props: { setOpenModalUI: any }) {
                             {
                                 candidateStore?.data && (
                                     <div className='modal-body-menu'>
+                                        {/* name */}
                                         <div className='modal-body-item'>
-                                            <label htmlFor="name">Họ và tên</label><br />
+                                            <label htmlFor="name">
+                                                <span>* </span>Họ và tên
+                                            </label>
+                                            <br />
                                             <Input
                                                 name='name'
                                                 className='input-name'
                                                 defaultValue={candidateStore.data.name}
                                             />
                                         </div>
-                                        {/* <div className='modal-body-item'>
-                                            <label htmlFor="rank">Chức danh</label><br />
-                                            <Input
-                                                name='dob'
-                                                className='input-rank'
-                                                placeholder={candidateStore.data.dob}
-                                            />
-                                        </div> */}
+
+                                        {/* address */}
                                         <div className='modal-body-item'>
-                                            <label htmlFor="location">Địa chỉ</label><br />
+                                            <label htmlFor="location">
+                                                <span>* </span>Địa chỉ
+                                            </label>
+                                            <br />
                                             <Input
                                                 name='address'
                                                 className='input-location'
                                                 defaultValue={candidateStore.data.address && candidateStore.data.address}
                                             />
                                         </div>
+
+                                        {/* email */}
                                         <div className='modal-body-item'>
-                                            <label htmlFor="email">Email</label><br />
+                                            <label htmlFor="email">
+                                                <span>* </span>Email
+                                            </label>
+                                            <br />
                                             <Input
                                                 type='email'
                                                 className='input-email'
@@ -125,8 +120,13 @@ export default function UpdateInfo(props: { setOpenModalUI: any }) {
                                                 defaultValue={candidateStore.data.email && candidateStore.data.email}
                                             />
                                         </div>
+
+                                        {/* phone */}
                                         <div className='modal-body-item'>
-                                            <label htmlFor="phone">SĐT</label><br />
+                                            <label htmlFor="phone">
+                                                <span>* </span>SĐT
+                                            </label>
+                                            <br />
                                             <Input
                                                 type='text'
                                                 className='input-phone'
@@ -134,25 +134,40 @@ export default function UpdateInfo(props: { setOpenModalUI: any }) {
                                                 defaultValue={candidateStore.data.phone && candidateStore.data.phone}
                                             />
                                         </div>
+
+                                        {/* date of birthday */}
                                         <div className='modal-body-item'>
-                                            <label htmlFor="date">DOB</label><br />
+                                            <label htmlFor="date">
+                                                <span>* </span>Ngày sinh
+                                            </label>
+                                            <br />
                                             <Input
-                                                style={{ color: "#E4E5E8" }}
                                                 type='date'
                                                 name='dob'
                                                 className='input-date'
+                                                style={{ cursor: 'pointer' }}
                                                 defaultValue={candidateStore.data.dob && convertStringToDateValue(candidateStore.data.dob)}
                                             />
                                         </div>
+
+                                        {/* gender */}
                                         <div className='modal-body-item'>
-                                            <label htmlFor="gen">Giới tính</label><br />
+                                            <label htmlFor="gen">
+                                                <span>* </span>Giới tính
+                                            </label>
+                                            <br />
                                             <select name="gender" id="" defaultValue={candidateStore.data.gender && candidateStore.data.gender}>
                                                 <option value="MALE">Nam</option>
                                                 <option value="FEMALE">Nữ</option>
                                             </select>
                                         </div>
+
+                                        {/* link */}
                                         <div className='modal-body-item'>
-                                            <label htmlFor="info-user">Trang cá nhân</label><br />
+                                            <label htmlFor="info-user">
+                                                <span>* </span>Trang cá nhân
+                                            </label>
+                                            <br />
                                             <Input
                                                 className='input-info-user'
                                                 name='link_fb'
@@ -161,8 +176,8 @@ export default function UpdateInfo(props: { setOpenModalUI: any }) {
                                         </div>
                                     </div>
                                 )
-
                             }
+                            {/* button */}
                             <div className="modal-footer-UI">
                                 <button className='button-update' type='submit'>Cập nhật</button>
                                 <button onClick={() => {
@@ -171,9 +186,7 @@ export default function UpdateInfo(props: { setOpenModalUI: any }) {
                             </div>
                         </form>
                     </div>
-
                 </div>
-
             </div >
         </div >
     )

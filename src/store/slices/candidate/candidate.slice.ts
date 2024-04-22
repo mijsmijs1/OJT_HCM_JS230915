@@ -1,33 +1,14 @@
 import api from '@services/apis'
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { Job } from "./job.slice"
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { Job } from "../job.slice.ts"
+import { EducationCandidate } from './education.slice.ts'
+import { ExperienceCandidate } from './experience.slice.ts'
+import { CertificateCandidate } from './certificate.slice.ts'
 
 export enum CandidateGender {
     MALE = "MALE",
     FEMALE = "FEMALE",
     OTHER = "OTHER"
-}
-
-// education
-export type EducationCandidate = {
-    id: number
-    candidate_id: number
-    name_education: string
-    major: string
-    started_at: string
-    end_at: string
-    info: string
-}
-
-// experience
-export type ExperienceCandidate = {
-    id: number
-    candidate_id: number
-    position: string
-    company: string
-    started_at: string
-    end_at: string
-    info: string
 }
 
 // project
@@ -36,17 +17,6 @@ export type ProjectCandidate = {
     candidate_id: number
     name: string
     link: string
-    started_at: string
-    end_at: string
-    info: string
-}
-
-// certificate
-export type CertificateCandidate = {
-    id: number
-    candidate_id: number
-    name: string
-    organization: string
     started_at: string
     end_at: string
     info: string
@@ -65,12 +35,10 @@ export type SkillsCandidate = {
 
 // CANDIDATE
 export type Candidate = {
-
     id: number
     name: string
     isOpen: boolean
     dob: string
-    // birthday: string
     address: string
     email: string
     phone: string
@@ -85,12 +53,16 @@ export type Candidate = {
     certificates: CertificateCandidate[],
     skills: SkillsCandidate[],
     jobs: Job[]
-
 }
 
 /* INTERFACE */
 interface InitState {
     data: Candidate | null,
+    educationData: EducationCandidate[] | null,
+    experienceData: ExperienceCandidate[] | null,
+    projectData: ProjectCandidate[] | null,
+    certificateData: CertificateCandidate[] | null,
+    skillData: SkillsCandidate[] | null,
     loading: boolean,
     error: string | null
 }
@@ -98,6 +70,11 @@ interface InitState {
 /* INIT */
 let initialState: InitState = {
     data: null,
+    educationData: null,
+    experienceData: null,
+    projectData: null,
+    certificateData: null,
+    skillData: null,
     loading: false,
     error: null
 }
@@ -107,6 +84,7 @@ const fetchCandidate = createAsyncThunk(
     'candidate/checkToken',
     async () => {
         const res = await api.authenApi.checkToken()
+        console.log(res.data.data);
         return res.data.data
     }
 )
@@ -115,12 +93,12 @@ const candidateSlice = createSlice({
     name: "candidate",
     initialState,
     reducers: {
-        setData: (state, action) => {
+        setData: (state, action: PayloadAction<Candidate>) => {
             state.data = action.payload;
         },
-        updateData: (state, action) => {
-            state.data = { ...state.data, ...action.payload }
-        }
+        updateData: (state, action: PayloadAction<Partial<Candidate>>) => {
+            state.data = { ...state.data!, ...action.payload };
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchCandidate.pending, (state) => {
@@ -140,7 +118,7 @@ const candidateSlice = createSlice({
 })
 
 export const candidateReducer = candidateSlice.reducer;
-export const candidateAction = {
+export const candidateAction: any = {
     ...candidateSlice.actions,
-    fetchCandidate
+    fetchCandidate,
 }

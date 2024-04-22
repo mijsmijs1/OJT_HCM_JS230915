@@ -3,9 +3,9 @@ import Navigate from '@/components/navigate'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Store } from '@/store'
-import api from '@services/apis'
-import { candidateAction } from '@/store/slices/candidate.slice'
-import { Modal, message } from 'antd'
+import apis from '@services/apis'
+import { candidateAction } from '@/store/slices/candidate/candidate.slice'
+import { Modal } from 'antd'
 
 import './navigation.scss'
 
@@ -16,14 +16,28 @@ export default function Navigation() {
 
     const handleLogout = async () => {
         Modal.confirm({
-            title: "Notification",
-            content: "Are you sure you want to log out?",
+            title: "Thông báo",
+            content: "Bạn có muốn đăng xuất tài khoản?",
             onOk: () => {
+                const refreshToken = localStorage.getItem('refreshToken');
+                if (!refreshToken) {
+                    console.log('Refresh token not found.');
+                    return;
+                }
+                apis.authenApi.logout(refreshToken)
                 localStorage.removeItem("token")
+                localStorage.removeItem("refreshToken")
                 dispatch(candidateAction.setData(null))
-            }
-        })
+                Modal.success({
+                    title: 'Successful',
+                    content: "Logout successfully",
+                    onOk: () => window.location.href='/login',
+                    cancelText: null
+                });
+            },
+        });
     }
+
     return (
         <div className='nav-container'>
             <div className="nav-box">

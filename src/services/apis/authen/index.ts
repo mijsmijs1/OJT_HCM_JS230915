@@ -31,8 +31,8 @@ export const authenApi = {
     refreshToken: async (refreshToken: any) => {
         return await axios.get(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/refresh-token`, { ...refreshToken })
     },
-    logout: async () => {
-        return await axios.get(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/logout`)
+    logout: async (refreshToken: any) => {
+        return await axios.get(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/logout`, { ...refreshToken })
     },
     updateAccount: async (data: any) => {
         return await axios.patch(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/update-candidate-account`, data)

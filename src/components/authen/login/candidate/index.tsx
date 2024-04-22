@@ -3,12 +3,10 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Input, Modal, message } from 'antd';
 import api from '@services/apis'
 import pictures from '@/pictures'
-import { useNavigate } from 'react-router-dom';
 
 import "./candidate_login.scss"
 
 export default function LoginUser() {
-    const navigate = useNavigate()
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -49,10 +47,10 @@ export default function LoginUser() {
                     window.location.href = '/'
                 }, 1000)
             }
-        } catch (err: any) {
+        } catch (err: any) {            
             Modal.error({
                 title: "Logged in failed!",
-                content: err.response?.data?.message.join(" ") || 'Please try again in a few minutes',
+                content: err.response.data.message || 'Please try again in a few minutes',
             })
         }
     }
@@ -75,7 +73,8 @@ export default function LoginUser() {
                                 <Input
                                     name='email'
                                     className='input-email'
-                                    placeholder="abc@gmail.com"
+                                    placeholder="Nhập email (vd: abc@gmail.com)"
+                                    autoFocus
                                 />
                             </div>
                             <div className='box-item-content'>
@@ -83,7 +82,7 @@ export default function LoginUser() {
                                 <Input.Password
                                     name='password'
                                     className='input-password'
-                                    placeholder="*************"
+                                    placeholder="Nhập mật khẩu"
                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                 />
                             </div>
@@ -95,7 +94,7 @@ export default function LoginUser() {
                             </div>
                             <div className='box-item-create-account'>
                                 <p>Bạn không có tài khoản?<span onClick={() => {
-                                    navigate('/register')
+                                    window.location.href= '/register'
                                 }}> Tạo 1 tài khoản</span></p>
                             </div>
                         </form>

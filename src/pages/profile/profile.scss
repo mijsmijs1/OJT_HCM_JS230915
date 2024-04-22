@@ -1,9 +1,9 @@
 .profile_container {
     max-width: 100%;
     width: 100%;
+    font-family: $mainFont;
 
     .content {
-        // max-width: 100%;
         width: 100%;
         max-width: 1410px;
         height: 1627px;
@@ -12,7 +12,7 @@
             height: 48px;
             padding: 14px;
             gap: 24px;
-            background-color: #FFFFFF;
+            background-color: #ffffff;
             width: 1440px;
             display: flex;
             align-items: center;
@@ -24,23 +24,22 @@
             }
 
             .header_content_menu_item {
-
                 .content_profile {
                     width: 39px;
                     height: 20px;
-                    color: #BC2228;
+                    color: #bc2228;
                 }
 
                 .content_profile_manager {
                     width: 75px;
                     height: 20px;
-                    color: #5E6670;
+                    color: #5e6670;
                 }
 
                 .content_profile_target {
                     width: 108px;
                     height: 20px;
-                    color: #5E6670;
+                    color: #5e6670;
                 }
             }
         }
@@ -55,15 +54,15 @@
             justify-content: space-between;
         }
 
-        .box_content_right {
-            background-color: #FFFFFF;
+        .box_content_left {
+            background-color: #ffffff;
             border-radius: 8px;
-            border: 1px solid #CCCCCC;
+            border: 1px solid #cccccc;
             width: 534px;
             height: 833px;
             padding: 30px;
 
-            .box_content_right_title {
+            .box_content_left_title {
                 width: 474px;
                 height: 58px;
                 margin-bottom: 30px;
@@ -73,14 +72,14 @@
                 }
             }
 
-            .box_content_right_info {
+            .box_content_left_info {
                 width: 474px;
                 height: 430px;
-                border-bottom: 1px solid #CCCCCC;
-                border-top: 1px solid #CCCCCC;
+                border-bottom: 1px solid #cccccc;
+                border-top: 1px solid #cccccc;
             }
 
-            .content_right_info_item {
+            .content_left_info_item {
                 width: 504px;
                 height: 58px;
                 display: flex;
@@ -94,7 +93,7 @@
                 }
 
                 h3 {
-                    color: #BC2228;
+                    color: #bc2228;
                     font-size: 20px;
                 }
 
@@ -129,38 +128,50 @@
                 margin-top: 30px;
 
                 .button-review {
-
                     width: 248px;
                     height: 56px;
                     border-radius: 4px;
                     border: none;
-                    background-color: #BC2228;
-                    color: #FFFFFF;
+                    background-color: #bc2228;
+                    color: #ffffff;
                 }
             }
 
             .profile_content_info_company {
-                background-color: #FFFFFF;
+                background-color: #ffffff;
                 width: 826px;
                 height: 245px;
                 border: 1px solid black;
             }
         }
 
-        .profile_content_left {
+        .profile_content_right {
             width: 100%;
 
             .profile_content_info_company {
                 border-radius: 5px;
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                box-shadow:
+                    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+                    0 6px 20px 0 rgba(0, 0, 0, 0.19);
                 width: 100%;
                 height: 245px;
-                background-color: #FFFFFF;
+                background-color: #ffffff;
 
                 .profile_content_info_header {
                     text-align: end;
                     padding-top: 18px;
                     padding-right: 68px;
+                    span {
+                        cursor: pointer;
+                        svg {
+                            transition: all 0.15s ease-in-out;
+                        }
+                        &:hover {
+                            svg {
+                                transform: scale(1.2);
+                            }
+                        }
+                    }
                 }
 
                 .box_profile_content_info {
@@ -186,22 +197,20 @@
                         }
 
                         h3 {
-                            margin-top: 7px;
-                            width: 124px;
-                            height: 24px;
+                            margin-top: 10px;
                             font-size: 14px;
-                            color: #767F8C;
+                            color: #767f8c;
                         }
 
                         .profile_content_info_des_menu {
-                            margin-top: 7px;
+                            margin-top: 10px;
                             display: flex;
                             gap: 54px;
                             align-items: center;
                             justify-content: space-between;
 
                             .profile_content_info_des_left {
-                                color: #767F8C;
+                                color: #767f8c;
                                 font-size: 14px;
                                 width: 216px;
                                 height: 95px;
@@ -215,12 +224,14 @@
                                     display: flex;
                                     align-items: center;
                                     gap: 7px;
-                                    margin-top: 7px;
+                                    margin-top: 10px;
+                                }
+                                p {
                                 }
                             }
 
                             .profile_content_info_des_right {
-                                color: #767F8C;
+                                color: #767f8c;
                                 font-size: 14px;
                                 width: 192px;
                                 height: 95px;
@@ -234,7 +245,7 @@
                                     display: flex;
                                     gap: 7px;
                                     align-items: center;
-                                    margin-top: 7px;
+                                    margin-top: 10px;
                                 }
                             }
                         }
@@ -243,16 +254,16 @@
             }
 
             .profile_content_info_user_menu {
-
                 .profile_content_info_user_item {
-                    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                    box-shadow:
+                        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+                        0 6px 20px 0 rgba(0, 0, 0, 0.19);
                     border-radius: 8px;
                     margin-top: 50px;
-                    background-color: #FFFFFF;
-                    padding-top: 18px;
-                    padding-left: 24px;
+                    background-color: #ffffff;
+                    padding: 18px 24px;
                     width: 821px;
-                    height: 146px;
+                    min-height: 146px;
 
                     .content_info_user_header {
                         padding-right: 67px;
@@ -264,6 +275,10 @@
                             cursor: pointer;
                             width: 19px;
                             height: 19px;
+                            &:hover{
+                                transition: all .3s ease-in-out;
+                                transform: scale(1.1);
+                            }
                         }
 
                         h3 {
@@ -274,10 +289,40 @@
 
                     .content_info_user_title {
                         margin-top: 22px;
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
 
+                            th,
+                            td {
+                                padding: 8px;
+                                text-align: left;
+                            }
+
+                            th {
+                                color: #bc2228;
+                            }
+
+                            td{
+                                color:#5e6670;
+                                span{
+                                    margin: 0 5px;
+                                    &:hover{
+                                        svg{
+                                            transition: all .15s ease-in-out;
+                                            transform: scale(1.15);
+                                        }
+                                    } 
+                                }
+                            }
+                            tr:hover td{
+                                cursor: pointer;
+                                background-color: #ddd;
+                            }
+                        }
                         p {
                             font-size: 16px;
-                            color: #767F8C80;
+                            color: #767f8c80;
                         }
                     }
 
@@ -288,7 +333,7 @@
                         padding-bottom: 4px;
                         align-items: center;
                         justify-content: space-between;
-                        border-bottom: 1px solid #C4C4C4;
+                        border-bottom: 1px solid #c4c4c4;
 
                         img {
                             cursor: pointer;
@@ -299,8 +344,6 @@
                         h3 {
                             font-size: 24px;
                         }
-
-
                     }
 
                     .content_info_user_title_v2 {
@@ -312,7 +355,7 @@
 
                         .content_info_user_title_v2_left {
                             p {
-                                color: #767F8C;
+                                color: #767f8c;
                             }
                         }
 
@@ -326,10 +369,3 @@
         }
     }
 }
-
-// modal info user
-
-
-// finish modal info user
-// modal HV user
-// finish HV user

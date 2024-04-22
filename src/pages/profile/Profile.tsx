@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import pictures from '@/pictures'
-import ExperienceModal from './components/experienceModal/ExperienceModal';
-import ProjectModal from './components/projectUser/ProjectModal';
-import CertificateModal from './components/certificate/CertificateModal';
-import Skills from './components/skills/Skills';
-import UpdateInfo from './components/updateInfo';
-import ReviewInfo from './components/reviewInfo/ReviewInfo';
-import Education from './components/education/Education';
-import UpdateProfile from './components/updateInfo';
+import ExperienceForm from './components/create_form/experience';
+import ProjectForm from './components/create_form/project';
+import CertificateForm from './components/create_form/certificate';
+import SkillForm from './components/create_form/skill';
+import InfoForm from './components/update_form/information'
+import IntroduceForm from './components/create_form/introduce'
+import EducationForm from './components/create_form/education';
+import UpdateEducationForm from './components/update_form/education';
 import { Store } from '@/store'
 import { useSelector } from 'react-redux';
 
@@ -15,171 +15,299 @@ import "./profile.scss"
 
 export default function Profile() {
     const [openModalUI, setOpenModalUI] = useState(false);
-    const [openModalProfile, setOpenModalProfile] = useState(false);
-    const [openModalSK, setOpenModalSK] = useState(false);
-    const [openModalCF, setOpenModalCF] = useState(false);
-    const [openModalPU, setOpenModalPU] = useState(false);
-    const [openModalEX, setOpenModalEX] = useState(false);
-    const [openModalInfo, setOpenModalInfo] = useState(false);
-    const [openModalHV, setOpenModalHV] = useState(false);
+    const [openSkillForm, setOpenSkillForm] = useState(false);
+    const [openCertificateForm, setOpenCertificateForm] = useState(false);
+    const [openProjectForm, setOpenProjectForm] = useState(false);
+    const [openExperienceForm, setOpenExperienceForm] = useState(false);
+    const [openIntroduceForm, setOpenIntroduceForm] = useState(false);
+    const [openEducationForm, setOpenEducationForm] = useState(false);
+    const [openEditEducationForm, setOpenEditEducationForm] = useState(false);
+    const [educationData, setEducationData] = useState(false);
     const candidateStore = useSelector((store: Store) => store.candidateStore)
-
+    const candidateEducationStore = useSelector((store: Store) => store.educationStore)
+    
+    console.log('datttt',Object.values(candidateEducationStore.educationData || {}));
+    
     return (
         <div className='profile_container'>
             <div className='content'>
                 <div className='profile_content'>
-                    <div className='box_content_right'>
-                        <div className='box_content_right_title'>
-                            <h3>Nâng cấp hồ sơ xin việc của bạn bằng việc bổ sung các trường sau</h3>
+                    {/* left */}
+                    {
+                        <div className='box_content_left'>
+                            <div className='box_content_left_title'>
+                                <h3>Nâng cấp hồ sơ xin việc của bạn bằng việc bổ sung các trường sau</h3>
+                            </div>
+                            <div className='box_content_left_info'>
+                                <div className='content_left_info_item'>
+                                    <img style={{ cursor: "pointer" }} onClick={() => {
+                                        setOpenSkillForm(true)
+                                    }} src={pictures.icon_plus} alt="" />
+                                    <h3>Thêm giới thiệu bản thân</h3>
+                                </div>
+                                <div className='content_left_info_item'>
+                                    <img style={{ cursor: "pointer" }} onClick={() => {
+                                        setOpenModalUI(true)
+                                    }} src={pictures.icon_plus} alt="" />
+                                    <h3>Thêm giới thiệu bản thân</h3>
+                                </div>
+                                <div className='content_left_info_item'>
+                                    <img style={{ cursor: "pointer" }} src={pictures.icon_plus} alt="" />
+                                    <h3>Thêm giới thiệu bản thân</h3>
+                                </div>
+                                <div className='content_left_info_item'>
+                                    <img style={{ cursor: "pointer" }} src={pictures.icon_plus} alt="" />
+                                    <h3>Thêm giới thiệu bản thân</h3>
+                                </div>
+                                <div className='content_left_info_item'>
+                                    <i style={{ cursor: "pointer" }} className="fa-solid fa-angle-down"></i>
+                                    <h2>Thêm thông tin khác</h2>
+                                </div>
+                            </div>
+                            <div className='profile_content_info'>
+                                <img style={{ cursor: "pointer" }} src={pictures.icon_cv} alt="" />
+                                <h3>Nâng cấp hồ sơ xin việc của bạn bằng việc bổ sung các trường sau</h3>
+                            </div>
+                            <div className='profile_content_button'>
+                                <button style={{ cursor: "pointer" }} className='button-review'>Xem và tải </button>
+                            </div>
                         </div>
-                        <div className='box_content_right_info'>
-                            <div className='content_right_info_item'>
-                                <img style={{ cursor: "pointer" }} onClick={() => {
-                                    setOpenModalSK(true)
-                                }} src={pictures.icon_plus} alt="" />
-                                <h3>Thêm giới thiệu bản thân</h3>
-                            </div>
-                            <div className='content_right_info_item'>
-                                <img style={{ cursor: "pointer" }} onClick={() => {
-                                    setOpenModalUI(true)
-                                }} src={pictures.icon_plus} alt="" />
-                                <h3>Thêm giới thiệu bản thân</h3>
-                            </div>
-                            <div className='content_right_info_item'>
-                                <img style={{ cursor: "pointer" }} src={pictures.icon_plus} alt="" />
-                                <h3>Thêm giới thiệu bản thân</h3>
-                            </div>
-                            <div className='content_right_info_item'>
-                                <img style={{ cursor: "pointer" }} src={pictures.icon_plus} alt="" />
-                                <h3>Thêm giới thiệu bản thân</h3>
-                            </div>
-                            <div className='content_right_info_item'>
-                                <i style={{ cursor: "pointer" }} className="fa-solid fa-angle-down"></i>
-                                <h2>Thêm thông tin khác</h2>
-                            </div>
-                        </div>
-                        <div className='profile_content_info'>
-                            <img style={{ cursor: "pointer" }} src={pictures.icon_cv} alt="" />
-                            <h3>Nâng cấp hồ sơ xin việc của bạn bằng việc bổ sung các trường sau</h3>
-                        </div>
-                        <div className='profile_content_button'>
-                            <button style={{ cursor: "pointer" }} className='button-review'>Xem và tải </button>
-                        </div>
-                    </div>
+                    }
 
-                    <div className='profile_content_left'>
+                    {/* right */}
+                    <div className='profile_content_right'>
                         <div className='profile_content_info_company'>
                             <div className='profile_content_info_header'>
-                                <span style={{ cursor: "pointer" }} onClick={() => {
+                                <span onClick={() => {
                                     setOpenModalUI(true)
-                                }}> <svg style={{ cursor: "pointer" }} width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M3.61161 19.8514H15.4791C16.3889 19.8514 17.0948 19.6038 17.5968 19.1087C18.0989 18.6137 18.35 17.8711 18.35 16.881V6.63806L16.7225 8.18074V16.8044C16.7225 17.3026 16.5978 17.6779 16.3485 17.9303C16.0991 18.1826 15.8026 18.3087 15.4589 18.3087H3.64193C3.1365 18.3087 2.74732 18.1826 2.47438 17.9303C2.20145 17.6779 2.06499 17.3026 2.06499 16.8044V5.92902C2.06499 5.43076 2.20145 5.05388 2.47438 4.79836C2.74732 4.54285 3.1365 4.41509 3.64193 4.41509H12.8509L14.4784 2.87242H3.61161C2.56031 2.87242 1.76847 3.11995 1.23608 3.61501C0.703693 4.11007 0.4375 4.85266 0.4375 5.84278V16.881C0.4375 17.8711 0.703693 18.6137 1.23608 19.1087C1.76847 19.6038 2.56031 19.8514 3.61161 19.8514ZM7.29114 13.6423L9.26232 12.8279L18.7038 3.88809L17.3189 2.59455L7.88755 11.5344L6.97777 13.3357C6.93734 13.4188 6.95587 13.5002 7.03337 13.5801C7.11087 13.6599 7.19679 13.6807 7.29114 13.6423ZM19.4518 3.18862L20.1797 2.47956C20.3481 2.30709 20.434 2.11705 20.4374 1.90945C20.4408 1.70184 20.3549 1.51819 20.1797 1.3585L19.9472 1.12853C19.7921 0.981611 19.6051 0.914539 19.3861 0.927314C19.1671 0.94009 18.9733 1.02313 18.8048 1.17644L18.0669 1.86633L19.4518 3.18862Z" fill="#BC2228" />
-                                </svg></span>
-
+                                }}>
+                                    <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3.61161 19.8514H15.4791C16.3889 19.8514 17.0948 19.6038 17.5968 19.1087C18.0989 18.6137 18.35 17.8711 18.35 16.881V6.63806L16.7225 8.18074V16.8044C16.7225 17.3026 16.5978 17.6779 16.3485 17.9303C16.0991 18.1826 15.8026 18.3087 15.4589 18.3087H3.64193C3.1365 18.3087 2.74732 18.1826 2.47438 17.9303C2.20145 17.6779 2.06499 17.3026 2.06499 16.8044V5.92902C2.06499 5.43076 2.20145 5.05388 2.47438 4.79836C2.74732 4.54285 3.1365 4.41509 3.64193 4.41509H12.8509L14.4784 2.87242H3.61161C2.56031 2.87242 1.76847 3.11995 1.23608 3.61501C0.703693 4.11007 0.4375 4.85266 0.4375 5.84278V16.881C0.4375 17.8711 0.703693 18.6137 1.23608 19.1087C1.76847 19.6038 2.56031 19.8514 3.61161 19.8514ZM7.29114 13.6423L9.26232 12.8279L18.7038 3.88809L17.3189 2.59455L7.88755 11.5344L6.97777 13.3357C6.93734 13.4188 6.95587 13.5002 7.03337 13.5801C7.11087 13.6599 7.19679 13.6807 7.29114 13.6423ZM19.4518 3.18862L20.1797 2.47956C20.3481 2.30709 20.434 2.11705 20.4374 1.90945C20.4408 1.70184 20.3549 1.51819 20.1797 1.3585L19.9472 1.12853C19.7921 0.981611 19.6051 0.914539 19.3861 0.927314C19.1671 0.94009 18.9733 1.02313 18.8048 1.17644L18.0669 1.86633L19.4518 3.18862Z" fill="#BC2228" />
+                                    </svg>
+                                </span>
                             </div>
                             <div className='box_profile_content_info'>
-                                <div className='box_profile_content_info_logo'>
-                                    <img style={{ cursor: "pointer" }} src={pictures.logo_FPT} alt="" />
-                                </div>
-
+                                {/* info */}
                                 {
                                     candidateStore.data && (
-                                        <div className='profile_content_info_user'>
-                                            <h2>{candidateStore.data?.name}</h2>
-                                            <h3>Full-stack Developer</h3>
-                                            <div className='profile_content_info_des_menu'>
-                                                <div className='profile_content_info_des_left'>
-                                                    <div className='profile_content_info_item'>
-                                                        <i className="fa-regular fa-envelope"></i>
-                                                        <p>{candidateStore.data?.email}</p>
+                                        <>
+                                            {/* img */}
+                                            <div className='box_profile_content_info_logo'>
+                                                <img style={{ cursor: "pointer" }} src={pictures.logo_FPT} alt="" />
+                                            </div>
+
+                                            {/* profile */}
+                                            <div className='profile_content_info_user'>
+                                                {/* name */}
+                                                <h2>{candidateStore.data?.name}</h2>
+                                                {/* role */}
+                                                <h3>Full-stack Developer</h3>
+                                                {/* revew info */}
+                                                <div className='profile_content_info_des_menu'>
+                                                    {/* left */}
+                                                    <div className='profile_content_info_des_left'>
+                                                        {/* email */}
+                                                        <div className='profile_content_info_item'>
+                                                            <i className="fa-regular fa-envelope"></i>
+                                                            <p>{candidateStore.data?.email}</p>
+                                                        </div>
+
+                                                        {/* birthday */}
+                                                        <div className='profile_content_info_item'>
+                                                            <img src={pictures.icon_cake} alt="" />
+                                                            <p>{candidateStore.data?.dob.slice(0, 10).split("-").reverse().join("/") || 'Updating...'}</p>
+                                                        </div>
+
+                                                        {/* address */}
+                                                        <div className='profile_content_info_item'>
+                                                            <img src={pictures.icon_location} alt="" />
+                                                            <p> {candidateStore.data?.address || 'Updating...'}</p>
+                                                        </div>
                                                     </div>
-                                                    <div className='profile_content_info_item'>
-                                                        <img src={pictures.icon_cake} alt="" />
-                                                        <p></p>
-                                                    </div>
-                                                    <div className='profile_content_info_item'>
-                                                        <img src={pictures.icon_location} alt="" />
-                                                        <p> {candidateStore.data?.address}</p>
-                                                    </div>
-                                                </div>
-                                                <div className='profile_content_info_des_right'>
-                                                    <div className='profile_content_info_item'>
-                                                        <img src={pictures.icon_phone} alt="" />
-                                                        <p>{candidateStore.data?.phone}</p>
-                                                    </div>
-                                                    <div className='profile_content_info_item'>
-                                                        <img src={pictures.icon_user} alt="" />
-                                                        <p>{candidateStore.data?.gender}</p>
-                                                    </div>
-                                                    <div className='profile_content_info_item'>
-                                                        <img src={pictures.icon_network} alt="" />
-                                                        <p>{candidateStore.data?.link_fb}</p>
+
+                                                    {/* right */}
+                                                    <div className='profile_content_info_des_right'>
+                                                        {/* phone */}
+                                                        <div className='profile_content_info_item'>
+                                                            <img src={pictures.icon_phone} alt="" />
+                                                            <p>{candidateStore.data?.phone || 'Updating...'}</p>
+                                                        </div>
+
+                                                        {/* gender */}
+                                                        <div className='profile_content_info_item'>
+                                                            <img src={pictures.icon_user} alt="" />
+                                                            <p>{candidateStore.data?.gender == "MALE" ? 'Nam' : 'Nữ' || 'Updating...'}</p>
+                                                        </div>
+
+                                                        {/* social */}
+                                                        <div className='profile_content_info_item'>
+                                                            <img src={pictures.icon_network} alt="" />
+                                                            <p>{candidateStore.data?.link_fb || 'Updating...'}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                        </div>
+                                        </>
                                     )
                                 }
-
                             </div>
                         </div>
 
                         <div className='profile_content_info_user_menu'>
+                            {/* Introduce */}
                             <div className='profile_content_info_user_item'>
                                 <div className='content_info_user_header'>
                                     <h3>Giới thiệu bản thân</h3>
                                     <img style={{ cursor: "pointer" }} onClick={() => {
-                                        setOpenModalInfo(true)
+                                        setOpenIntroduceForm(true)
                                     }} src={pictures.icon_plus} alt="" />
                                 </div>
                                 <div className='content_info_user_title'>
                                     <p>Giới thiệu điểm mạnh của bản thân và kinh nghiệm của bạn</p>
                                 </div>
                             </div>
+
+                            {/* Education */}
                             <div className='profile_content_info_user_item'>
                                 <div className='content_info_user_header'>
                                     <h3>Học vấn</h3>
                                     <img style={{ cursor: "pointer" }} onClick={() => {
-                                        setOpenModalHV(true)
+                                        setOpenEducationForm(true)
                                     }} src={pictures.icon_plus} alt="" />
                                 </div>
+
                                 <div className='content_info_user_title'>
-                                    <p>Giới thiệu điểm mạnh của bản thân và kinh nghiệm của bạn</p>
+                                    {
+                                        Object.keys(candidateEducationStore.educationData || {}).length > 0 ? (
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tên trường</th>
+                                                        <th>Ngành</th>
+                                                        <th>Ngày bắt đầu</th>
+                                                        <th>Ngày kết thúc</th>
+                                                        <th>Khác</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        Object.values(candidateEducationStore.educationData || {}).map((item: any) => (
+                                                            <tr key={Date.now()*Math.random()}>
+                                                                <td>{item.name_education}</td>
+                                                                <td>{item.major}</td>
+                                                                <td>{item.started_at.slice(0, 10).split("-").reverse().join("/")}</td>
+                                                                <td>{item.end_at.slice(0, 10).split("-").reverse().join("/")}</td>
+                                                                <td>
+                                                                    {/* edit */}
+                                                                    <span onClick={()=>{
+                                                                        setOpenEditEducationForm(!openEditEducationForm)
+                                                                        setEducationData(item)
+                                                                    }}>
+                                                                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M3.61161 19.8514H15.4791C16.3889 19.8514 17.0948 19.6038 17.5968 19.1087C18.0989 18.6137 18.35 17.8711 18.35 16.881V6.63806L16.7225 8.18074V16.8044C16.7225 17.3026 16.5978 17.6779 16.3485 17.9303C16.0991 18.1826 15.8026 18.3087 15.4589 18.3087H3.64193C3.1365 18.3087 2.74732 18.1826 2.47438 17.9303C2.20145 17.6779 2.06499 17.3026 2.06499 16.8044V5.92902C2.06499 5.43076 2.20145 5.05388 2.47438 4.79836C2.74732 4.54285 3.1365 4.41509 3.64193 4.41509H12.8509L14.4784 2.87242H3.61161C2.56031 2.87242 1.76847 3.11995 1.23608 3.61501C0.703693 4.11007 0.4375 4.85266 0.4375 5.84278V16.881C0.4375 17.8711 0.703693 18.6137 1.23608 19.1087C1.76847 19.6038 2.56031 19.8514 3.61161 19.8514ZM7.29114 13.6423L9.26232 12.8279L18.7038 3.88809L17.3189 2.59455L7.88755 11.5344L6.97777 13.3357C6.93734 13.4188 6.95587 13.5002 7.03337 13.5801C7.11087 13.6599 7.19679 13.6807 7.29114 13.6423ZM19.4518 3.18862L20.1797 2.47956C20.3481 2.30709 20.434 2.11705 20.4374 1.90945C20.4408 1.70184 20.3549 1.51819 20.1797 1.3585L19.9472 1.12853C19.7921 0.981611 19.6051 0.914539 19.3861 0.927314C19.1671 0.94009 18.9733 1.02313 18.8048 1.17644L18.0669 1.86633L19.4518 3.18862Z" fill="#BC2228" />
+                                                                        </svg>
+                                                                    </span>
+                                                                    {/* delete */}
+                                                                    <span>
+                                                                        <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M5.7063 21.9843H14.6613C15.358 21.9843 15.9244 21.776 16.3606 21.3593C16.7968 20.9427 17.0312 20.3828 17.0637 19.6797L17.7375 5.48047H18.9094C19.1112 5.48047 19.2821 5.40722 19.4221 5.26074C19.5621 5.11426 19.632 4.9401 19.632 4.73828C19.632 4.53646 19.5604 4.36393 19.4172 4.22071C19.274 4.07747 19.1048 4.00586 18.9094 4.00586H1.45825C1.26294 4.00586 1.09204 4.0791 0.945557 4.22559C0.799072 4.37207 0.72583 4.54296 0.72583 4.73828C0.72583 4.9401 0.799072 5.11426 0.945557 5.26074C1.09204 5.40722 1.26294 5.48047 1.45825 5.48047H2.63013L3.30395 19.6894C3.3365 20.3926 3.56925 20.9508 4.0022 21.3642C4.43514 21.7776 5.00317 21.9843 5.7063 21.9843ZM5.84302 20.5097C5.56307 20.5097 5.3287 20.4153 5.13989 20.2265C4.95109 20.0377 4.85018 19.8001 4.83716 19.5136L4.15356 5.48047H16.1653L15.5207 19.5136C15.5077 19.8066 15.4068 20.0459 15.218 20.2314C15.0292 20.417 14.7916 20.5097 14.5051 20.5097H5.84302ZM7.28833 18.8398C7.47062 18.8398 7.61711 18.7861 7.72778 18.6787C7.83846 18.5713 7.8938 18.4329 7.8938 18.2636L7.59106 7.81445C7.59106 7.64518 7.5341 7.50846 7.42017 7.4043C7.30624 7.30013 7.16138 7.24805 6.9856 7.24805C6.80331 7.24805 6.65519 7.30176 6.54126 7.40918C6.42733 7.5166 6.37362 7.65494 6.38013 7.82422L6.6731 18.2636C6.67961 18.4394 6.7382 18.5794 6.84888 18.6836C6.95955 18.7878 7.10604 18.8398 7.28833 18.8398ZM10.179 18.8398C10.3678 18.8398 10.5208 18.7861 10.6379 18.6787C10.7551 18.5713 10.8137 18.4329 10.8137 18.2636V7.82422C10.8137 7.65494 10.7551 7.5166 10.6379 7.40918C10.5208 7.30176 10.3678 7.24805 10.179 7.24805C9.99666 7.24805 9.84693 7.30176 9.72974 7.40918C9.61255 7.5166 9.55395 7.65494 9.55395 7.82422V18.2636C9.55395 18.4329 9.61255 18.5713 9.72974 18.6787C9.84693 18.7861 9.99666 18.8398 10.179 18.8398ZM13.0793 18.8398C13.2551 18.8398 13.3984 18.7878 13.509 18.6836C13.6197 18.5794 13.6783 18.4394 13.6848 18.2636L13.9778 7.82422C13.9843 7.65494 13.9322 7.5166 13.8215 7.40918C13.7109 7.30176 13.5611 7.24805 13.3723 7.24805C13.1965 7.24805 13.0533 7.30013 12.9426 7.4043C12.832 7.50846 12.7734 7.64844 12.7668 7.82422L12.4738 18.2636C12.4674 18.4329 12.5195 18.5713 12.6301 18.6787C12.7408 18.7861 12.8905 18.8398 13.0793 18.8398ZM5.89185 4.69922H7.44458V2.60938C7.44458 2.33594 7.5341 2.11458 7.71313 1.94531C7.89217 1.77604 8.12817 1.69141 8.42114 1.69141H11.9172C12.2102 1.69141 12.4462 1.77604 12.6252 1.94531C12.8043 2.11458 12.8938 2.33594 12.8938 2.60938V4.69922H14.4465V2.51172C14.4465 1.80859 14.2301 1.25358 13.7971 0.84668C13.3642 0.439779 12.7734 0.236328 12.0246 0.236328H8.31372C7.56502 0.236328 6.9742 0.439779 6.54126 0.84668C6.10832 1.25358 5.89185 1.80859 5.89185 2.51172V4.69922Z" fill="#BC2228" />
+                                                                        </svg>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        ))
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        ) : (
+                                            <p>Giới thiệu điểm mạnh của bản thân và kinh nghiệm của bạn</p>
+                                        )
+                                    }
                                 </div>
                             </div>
+
+                            {/* Experience */}
                             <div className='profile_content_info_user_item'>
                                 <div className='content_info_user_header'>
                                     <h3>Kinh nghiệm làm việc</h3>
                                     <img style={{ cursor: "pointer" }} onClick={() => {
-                                        setOpenModalEX(true)
+                                        setOpenExperienceForm(true)
+                                    }} src={pictures.icon_plus} alt="" />
+                                </div>
+
+                                <div className='content_info_user_title'>
+                                    {
+                                        candidateStore.data?.experience.length != 0 ? (
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Vị trí</th>
+                                                        <th>Tên công ty</th>
+                                                        <th>Ngày bắt đầu</th>
+                                                        <th>Ngày kết thúc</th>
+                                                        <th>Khác</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        candidateStore.data?.experience.map((item: any) => (
+                                                            <tr key={item.id}>
+                                                                <td>{item.position}</td>
+                                                                <td>{item.company}</td>
+                                                                <td>{item.started_at.slice(0, 10).split("-").reverse().join("/")}</td>
+                                                                <td>{item.end_at.slice(0, 10).split("-").reverse().join("/")}</td>
+                                                                <td>
+                                                                    {/* edit */}
+                                                                    <span>
+                                                                        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M3.61161 19.8514H15.4791C16.3889 19.8514 17.0948 19.6038 17.5968 19.1087C18.0989 18.6137 18.35 17.8711 18.35 16.881V6.63806L16.7225 8.18074V16.8044C16.7225 17.3026 16.5978 17.6779 16.3485 17.9303C16.0991 18.1826 15.8026 18.3087 15.4589 18.3087H3.64193C3.1365 18.3087 2.74732 18.1826 2.47438 17.9303C2.20145 17.6779 2.06499 17.3026 2.06499 16.8044V5.92902C2.06499 5.43076 2.20145 5.05388 2.47438 4.79836C2.74732 4.54285 3.1365 4.41509 3.64193 4.41509H12.8509L14.4784 2.87242H3.61161C2.56031 2.87242 1.76847 3.11995 1.23608 3.61501C0.703693 4.11007 0.4375 4.85266 0.4375 5.84278V16.881C0.4375 17.8711 0.703693 18.6137 1.23608 19.1087C1.76847 19.6038 2.56031 19.8514 3.61161 19.8514ZM7.29114 13.6423L9.26232 12.8279L18.7038 3.88809L17.3189 2.59455L7.88755 11.5344L6.97777 13.3357C6.93734 13.4188 6.95587 13.5002 7.03337 13.5801C7.11087 13.6599 7.19679 13.6807 7.29114 13.6423ZM19.4518 3.18862L20.1797 2.47956C20.3481 2.30709 20.434 2.11705 20.4374 1.90945C20.4408 1.70184 20.3549 1.51819 20.1797 1.3585L19.9472 1.12853C19.7921 0.981611 19.6051 0.914539 19.3861 0.927314C19.1671 0.94009 18.9733 1.02313 18.8048 1.17644L18.0669 1.86633L19.4518 3.18862Z" fill="#BC2228" />
+                                                                        </svg>
+                                                                    </span>
+                                                                    {/* delete */}
+                                                                    <span>
+                                                                        <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                            <path d="M5.7063 21.9843H14.6613C15.358 21.9843 15.9244 21.776 16.3606 21.3593C16.7968 20.9427 17.0312 20.3828 17.0637 19.6797L17.7375 5.48047H18.9094C19.1112 5.48047 19.2821 5.40722 19.4221 5.26074C19.5621 5.11426 19.632 4.9401 19.632 4.73828C19.632 4.53646 19.5604 4.36393 19.4172 4.22071C19.274 4.07747 19.1048 4.00586 18.9094 4.00586H1.45825C1.26294 4.00586 1.09204 4.0791 0.945557 4.22559C0.799072 4.37207 0.72583 4.54296 0.72583 4.73828C0.72583 4.9401 0.799072 5.11426 0.945557 5.26074C1.09204 5.40722 1.26294 5.48047 1.45825 5.48047H2.63013L3.30395 19.6894C3.3365 20.3926 3.56925 20.9508 4.0022 21.3642C4.43514 21.7776 5.00317 21.9843 5.7063 21.9843ZM5.84302 20.5097C5.56307 20.5097 5.3287 20.4153 5.13989 20.2265C4.95109 20.0377 4.85018 19.8001 4.83716 19.5136L4.15356 5.48047H16.1653L15.5207 19.5136C15.5077 19.8066 15.4068 20.0459 15.218 20.2314C15.0292 20.417 14.7916 20.5097 14.5051 20.5097H5.84302ZM7.28833 18.8398C7.47062 18.8398 7.61711 18.7861 7.72778 18.6787C7.83846 18.5713 7.8938 18.4329 7.8938 18.2636L7.59106 7.81445C7.59106 7.64518 7.5341 7.50846 7.42017 7.4043C7.30624 7.30013 7.16138 7.24805 6.9856 7.24805C6.80331 7.24805 6.65519 7.30176 6.54126 7.40918C6.42733 7.5166 6.37362 7.65494 6.38013 7.82422L6.6731 18.2636C6.67961 18.4394 6.7382 18.5794 6.84888 18.6836C6.95955 18.7878 7.10604 18.8398 7.28833 18.8398ZM10.179 18.8398C10.3678 18.8398 10.5208 18.7861 10.6379 18.6787C10.7551 18.5713 10.8137 18.4329 10.8137 18.2636V7.82422C10.8137 7.65494 10.7551 7.5166 10.6379 7.40918C10.5208 7.30176 10.3678 7.24805 10.179 7.24805C9.99666 7.24805 9.84693 7.30176 9.72974 7.40918C9.61255 7.5166 9.55395 7.65494 9.55395 7.82422V18.2636C9.55395 18.4329 9.61255 18.5713 9.72974 18.6787C9.84693 18.7861 9.99666 18.8398 10.179 18.8398ZM13.0793 18.8398C13.2551 18.8398 13.3984 18.7878 13.509 18.6836C13.6197 18.5794 13.6783 18.4394 13.6848 18.2636L13.9778 7.82422C13.9843 7.65494 13.9322 7.5166 13.8215 7.40918C13.7109 7.30176 13.5611 7.24805 13.3723 7.24805C13.1965 7.24805 13.0533 7.30013 12.9426 7.4043C12.832 7.50846 12.7734 7.64844 12.7668 7.82422L12.4738 18.2636C12.4674 18.4329 12.5195 18.5713 12.6301 18.6787C12.7408 18.7861 12.8905 18.8398 13.0793 18.8398ZM5.89185 4.69922H7.44458V2.60938C7.44458 2.33594 7.5341 2.11458 7.71313 1.94531C7.89217 1.77604 8.12817 1.69141 8.42114 1.69141H11.9172C12.2102 1.69141 12.4462 1.77604 12.6252 1.94531C12.8043 2.11458 12.8938 2.33594 12.8938 2.60938V4.69922H14.4465V2.51172C14.4465 1.80859 14.2301 1.25358 13.7971 0.84668C13.3642 0.439779 12.7734 0.236328 12.0246 0.236328H8.31372C7.56502 0.236328 6.9742 0.439779 6.54126 0.84668C6.10832 1.25358 5.89185 1.80859 5.89185 2.51172V4.69922Z" fill="#BC2228" />
+                                                                        </svg>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        ))
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        ) : (
+                                            <p>Giới thiệu điểm mạnh của bản thân và kinh nghiệm của bạn</p>
+                                        )
+                                    }
+                                </div>
+                            </div>
+
+                            {/* Skill */}
+                            <div className='profile_content_info_user_item'>
+                                <div className='content_info_user_header'>
+                                    <h3>Kỹ năng</h3>
+                                    <img style={{ cursor: "pointer" }} onClick={() => {
+                                        setOpenSkillForm(true)
                                     }} src={pictures.icon_plus} alt="" />
                                 </div>
                                 <div className='content_info_user_title'>
-                                    <p>Giới thiệu điểm mạnh của bản thân và kinh nghiệm của bạn</p>
+                                    <p>Giới thiệu kỹ năng của bạn</p>
                                 </div>
                             </div>
-                            <div className='profile_content_info_user_item'>
-                                <div className='content_info_user_header'>
-                                    <h3>Kinh nghiệm làm việc</h3>
-                                    <svg style={{ cursor: "pointer" }} onClick={() => {
-                                        setOpenModalEX(true)
-                                    }} width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.61161 19.8514H15.4791C16.3889 19.8514 17.0948 19.6038 17.5968 19.1087C18.0989 18.6137 18.35 17.8711 18.35 16.881V6.63806L16.7225 8.18074V16.8044C16.7225 17.3026 16.5978 17.6779 16.3485 17.9303C16.0991 18.1826 15.8026 18.3087 15.4589 18.3087H3.64193C3.1365 18.3087 2.74732 18.1826 2.47438 17.9303C2.20145 17.6779 2.06499 17.3026 2.06499 16.8044V5.92902C2.06499 5.43076 2.20145 5.05388 2.47438 4.79836C2.74732 4.54285 3.1365 4.41509 3.64193 4.41509H12.8509L14.4784 2.87242H3.61161C2.56031 2.87242 1.76847 3.11995 1.23608 3.61501C0.703693 4.11007 0.4375 4.85266 0.4375 5.84278V16.881C0.4375 17.8711 0.703693 18.6137 1.23608 19.1087C1.76847 19.6038 2.56031 19.8514 3.61161 19.8514ZM7.29114 13.6423L9.26232 12.8279L18.7038 3.88809L17.3189 2.59455L7.88755 11.5344L6.97777 13.3357C6.93734 13.4188 6.95587 13.5002 7.03337 13.5801C7.11087 13.6599 7.19679 13.6807 7.29114 13.6423ZM19.4518 3.18862L20.1797 2.47956C20.3481 2.30709 20.434 2.11705 20.4374 1.90945C20.4408 1.70184 20.3549 1.51819 20.1797 1.3585L19.9472 1.12853C19.7921 0.981611 19.6051 0.914539 19.3861 0.927314C19.1671 0.94009 18.9733 1.02313 18.8048 1.17644L18.0669 1.86633L19.4518 3.18862Z" fill="#BC2228" />
-                                    </svg>
-                                </div>
-                                <div className='content_info_user_title'>
-                                    <p>Giới thiệu điểm mạnh của bản thân và kinh nghiệm của bạn</p>
-                                </div>
-                            </div>
+
+                            {/* Project */}
                             <div className='profile_content_info_user_item'>
                                 <div className='content_info_user_header_v2'>
                                     <h3>Dự án Cá Nhân</h3>
                                     <img style={{ cursor: "pointer" }} onClick={() => {
-                                        setOpenModalPU(true)
+                                        setOpenProjectForm(true)
                                     }} src={pictures.icon_plus} alt="" />
                                 </div>
+
                                 <div className='content_info_user_titles'>
+                                    {
+
+                                    }
                                     <div className='content_info_user_title_v2'>
                                         <div className='content_info_user_title_v2_left'>
                                             <p>Hiện tại</p>
@@ -194,56 +322,105 @@ export default function Profile() {
                                             </svg>
                                             </span>
                                         </div>
-
-
                                     </div>
                                 </div>
                             </div>
+
+                            {/* Certificate */}
                             <div className='profile_content_info_user_item'>
                                 <div className='content_info_user_header'>
                                     <h3>Chứng Chỉ</h3>
                                     <img style={{ cursor: "pointer" }} onClick={() => {
-                                        setOpenModalCF(true)
+                                        setOpenCertificateForm(true)
                                     }} src={pictures.icon_plus} alt="" />
                                 </div>
+
                                 <div className='content_info_user_title'>
-                                    <p>Bổ sung chứng chỉ liên quan đến kỹ năng của bạn</p>
+                                    {
+                                        candidateStore.data?.certificates.length != 0 ? (
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tên chứng chỉ</th>
+                                                        <th>Tổ chức</th>
+                                                        <th>Ngày đạt</th>
+                                                        <th>Ngày hết hạn</th>
+                                                        <th>Khác</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {
+                                                        candidateStore.data?.certificates.map((item: any) => (
+                                                            <tr key={Date.now() * Math.random()}>
+                                                                <td>{item.name}</td>
+                                                                <td>{item.organization}</td>
+                                                                <td>{item.started_at.slice(0, 10).split("-").reverse().join("/")}</td>
+                                                                <td>{item.end_at.slice(0, 10).split("-").reverse().join("/")}</td>
+                                                                <td>
+                                                                    <td>
+                                                                        {/* edit */}
+                                                                        <span>
+                                                                            <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                <path d="M3.61161 19.8514H15.4791C16.3889 19.8514 17.0948 19.6038 17.5968 19.1087C18.0989 18.6137 18.35 17.8711 18.35 16.881V6.63806L16.7225 8.18074V16.8044C16.7225 17.3026 16.5978 17.6779 16.3485 17.9303C16.0991 18.1826 15.8026 18.3087 15.4589 18.3087H3.64193C3.1365 18.3087 2.74732 18.1826 2.47438 17.9303C2.20145 17.6779 2.06499 17.3026 2.06499 16.8044V5.92902C2.06499 5.43076 2.20145 5.05388 2.47438 4.79836C2.74732 4.54285 3.1365 4.41509 3.64193 4.41509H12.8509L14.4784 2.87242H3.61161C2.56031 2.87242 1.76847 3.11995 1.23608 3.61501C0.703693 4.11007 0.4375 4.85266 0.4375 5.84278V16.881C0.4375 17.8711 0.703693 18.6137 1.23608 19.1087C1.76847 19.6038 2.56031 19.8514 3.61161 19.8514ZM7.29114 13.6423L9.26232 12.8279L18.7038 3.88809L17.3189 2.59455L7.88755 11.5344L6.97777 13.3357C6.93734 13.4188 6.95587 13.5002 7.03337 13.5801C7.11087 13.6599 7.19679 13.6807 7.29114 13.6423ZM19.4518 3.18862L20.1797 2.47956C20.3481 2.30709 20.434 2.11705 20.4374 1.90945C20.4408 1.70184 20.3549 1.51819 20.1797 1.3585L19.9472 1.12853C19.7921 0.981611 19.6051 0.914539 19.3861 0.927314C19.1671 0.94009 18.9733 1.02313 18.8048 1.17644L18.0669 1.86633L19.4518 3.18862Z" fill="#BC2228" />
+                                                                            </svg>
+                                                                        </span>
+                                                                        {/* delete */}
+                                                                        <span>
+                                                                            <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                                <path d="M5.7063 21.9843H14.6613C15.358 21.9843 15.9244 21.776 16.3606 21.3593C16.7968 20.9427 17.0312 20.3828 17.0637 19.6797L17.7375 5.48047H18.9094C19.1112 5.48047 19.2821 5.40722 19.4221 5.26074C19.5621 5.11426 19.632 4.9401 19.632 4.73828C19.632 4.53646 19.5604 4.36393 19.4172 4.22071C19.274 4.07747 19.1048 4.00586 18.9094 4.00586H1.45825C1.26294 4.00586 1.09204 4.0791 0.945557 4.22559C0.799072 4.37207 0.72583 4.54296 0.72583 4.73828C0.72583 4.9401 0.799072 5.11426 0.945557 5.26074C1.09204 5.40722 1.26294 5.48047 1.45825 5.48047H2.63013L3.30395 19.6894C3.3365 20.3926 3.56925 20.9508 4.0022 21.3642C4.43514 21.7776 5.00317 21.9843 5.7063 21.9843ZM5.84302 20.5097C5.56307 20.5097 5.3287 20.4153 5.13989 20.2265C4.95109 20.0377 4.85018 19.8001 4.83716 19.5136L4.15356 5.48047H16.1653L15.5207 19.5136C15.5077 19.8066 15.4068 20.0459 15.218 20.2314C15.0292 20.417 14.7916 20.5097 14.5051 20.5097H5.84302ZM7.28833 18.8398C7.47062 18.8398 7.61711 18.7861 7.72778 18.6787C7.83846 18.5713 7.8938 18.4329 7.8938 18.2636L7.59106 7.81445C7.59106 7.64518 7.5341 7.50846 7.42017 7.4043C7.30624 7.30013 7.16138 7.24805 6.9856 7.24805C6.80331 7.24805 6.65519 7.30176 6.54126 7.40918C6.42733 7.5166 6.37362 7.65494 6.38013 7.82422L6.6731 18.2636C6.67961 18.4394 6.7382 18.5794 6.84888 18.6836C6.95955 18.7878 7.10604 18.8398 7.28833 18.8398ZM10.179 18.8398C10.3678 18.8398 10.5208 18.7861 10.6379 18.6787C10.7551 18.5713 10.8137 18.4329 10.8137 18.2636V7.82422C10.8137 7.65494 10.7551 7.5166 10.6379 7.40918C10.5208 7.30176 10.3678 7.24805 10.179 7.24805C9.99666 7.24805 9.84693 7.30176 9.72974 7.40918C9.61255 7.5166 9.55395 7.65494 9.55395 7.82422V18.2636C9.55395 18.4329 9.61255 18.5713 9.72974 18.6787C9.84693 18.7861 9.99666 18.8398 10.179 18.8398ZM13.0793 18.8398C13.2551 18.8398 13.3984 18.7878 13.509 18.6836C13.6197 18.5794 13.6783 18.4394 13.6848 18.2636L13.9778 7.82422C13.9843 7.65494 13.9322 7.5166 13.8215 7.40918C13.7109 7.30176 13.5611 7.24805 13.3723 7.24805C13.1965 7.24805 13.0533 7.30013 12.9426 7.4043C12.832 7.50846 12.7734 7.64844 12.7668 7.82422L12.4738 18.2636C12.4674 18.4329 12.5195 18.5713 12.6301 18.6787C12.7408 18.7861 12.8905 18.8398 13.0793 18.8398ZM5.89185 4.69922H7.44458V2.60938C7.44458 2.33594 7.5341 2.11458 7.71313 1.94531C7.89217 1.77604 8.12817 1.69141 8.42114 1.69141H11.9172C12.2102 1.69141 12.4462 1.77604 12.6252 1.94531C12.8043 2.11458 12.8938 2.33594 12.8938 2.60938V4.69922H14.4465V2.51172C14.4465 1.80859 14.2301 1.25358 13.7971 0.84668C13.3642 0.439779 12.7734 0.236328 12.0246 0.236328H8.31372C7.56502 0.236328 6.9742 0.439779 6.54126 0.84668C6.10832 1.25358 5.89185 1.80859 5.89185 2.51172V4.69922Z" fill="#BC2228" />
+                                                                            </svg>
+                                                                        </span>
+                                                                    </td>
+                                                                </td>
+                                                            </tr>
+                                                        ))
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        ) : (
+                                            <p>Bổ sung chứng chỉ liên quan đến kỹ năng của bạn</p>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {/* <!-- The Modal-Review-User --> */}
+
+                {/* <!-- Create Introduce Form --> */}
                 {
-                    openModalInfo && <ReviewInfo setopenModalInfo={setOpenModalInfo} />
+                    openIntroduceForm && <IntroduceForm setOpenIntroduceForm={setOpenIntroduceForm} />
                 }
-                {/*  */}
-                {/* <!-- The Modal-Review-HV --> */}
+                {/* <!-- Create Education Form --> */}
                 {
-                    openModalHV && <Education setOpenModalHV={setOpenModalHV} />
+                    openEducationForm && <EducationForm setOpenEducationForm={setOpenEducationForm} />
                 }
-                {/* <!-- The Modal-Experient-User --> */}
+                {/* <!-- Update Education Form --> */}
                 {
-                    openModalEX && <ExperienceModal setOpenModalEX={setOpenModalEX} />
+                    openEditEducationForm && <UpdateEducationForm setOpenEditEducationForm={setOpenEditEducationForm} educationData={educationData} />
                 }
-                {/* <!-- The Modal-Project-User --> */}
+                {/* <!-- Create Experience Form --> */}
                 {
-                    openModalPU && <ProjectModal setOpenModalPU={setOpenModalPU} />
+                    openExperienceForm && <ExperienceForm setOpenExperienceForm={setOpenExperienceForm} />
                 }
-                {/* <!-- The Modal-Certificate-User --> */}
+                {/* <!-- Create ProjectForm --> */}
                 {
-                    openModalCF && <CertificateModal setOpenModalCF={setOpenModalCF} />
+                    openProjectForm && <ProjectForm setOpenProjectForm={setOpenProjectForm} />
                 }
-                {/* <!-- The Modal-Skills-User --> */}
+                {/* <!-- Create Certificate Form --> */}
                 {
-                    openModalSK && <Skills setOpenModalSK={setOpenModalSK} />
+                    openCertificateForm && <CertificateForm setOpenCertificateForm={setOpenCertificateForm} />
                 }
-                {/* <!-- The Modal-Update-User --> */}
+                {/* <!-- Create Skill Form --> */}
                 {
-                    openModalUI && <UpdateInfo setOpenModalUI={setOpenModalUI} />
+                    openSkillForm && <SkillForm setOpenSkillForm={setOpenSkillForm} />
+                }
+                {/* <!-- Update Info Form --> */}
+                {
+                    openModalUI && <InfoForm setOpenModalUI={setOpenModalUI} />
                 }
             </div>
-        </div>
+        </div >
 
     )
 }

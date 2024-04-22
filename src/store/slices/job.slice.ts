@@ -1,7 +1,7 @@
 import api from '@services/apis'
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { Candidate } from "./candidate.slice"
-import { Company } from './company.slice'
+import { Candidate } from "./candidate/candidate.slice"
+import { Company } from './company/company.slice'
 
 // types jobs
 export type Types_Jobs = {
