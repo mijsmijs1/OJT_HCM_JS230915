@@ -18,10 +18,13 @@ export type Store = ReturnType<typeof RootReducer>
 export const store = configureStore({
     reducer: RootReducer
 })
-
+// candidate
 store.dispatch(candidateAction.fetchCandidate())
 store.dispatch(candidateEducationAction.fetchCandidateEducation())
 store.dispatch(candidateExperienceAction.fetchCandidateExperience())
-store.dispatch(candidateCertificateAction.fetchCandidateCertificates());
+store.dispatch(candidateCertificateAction.fetchCandidateCertificates())
+
+// company
+store.dispatch(companyAction.fetchCompany())
 
 export default store

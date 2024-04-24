@@ -4,6 +4,7 @@
 
 .box-logo-rikkei {
     padding: 60px;
+    padding-bottom: 40px;
     width: 100%;
 
     img {
@@ -42,9 +43,21 @@
             }
 
             .box-item-content {
-                margin-top: 20px;
+                margin-top: 30px;
                 .input-name{
-                    max-height: 40px;
+                    max-height: 45px;
+                }
+                span, input{
+                    height: 45px;
+                }
+                span{
+                    display: flex;
+                    align-items: center;
+                    input{
+                    }
+                    span{
+
+                    }
                 }
                 label {
                     font-size: 16px;
@@ -138,7 +151,7 @@
                 .button-login {
                     cursor: pointer;
                     font-size: 16px;
-                    height: 65px;
+                    height: 50px;
                     width: 100%;
                     color: #ffffff;
                     border-radius: 5px;

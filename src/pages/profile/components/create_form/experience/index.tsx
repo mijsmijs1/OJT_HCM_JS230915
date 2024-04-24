@@ -21,11 +21,19 @@ export default function ExperienceForm(props: { setOpenExperienceForm: any }) {
             const started_at = (e.target as any).startDate.value
             const end_at = (e.target as any).endDate.value
             const info = (e.target as any).detail.value
+            const startDate = new Date(started_at);
+            const endDate = new Date(end_at)
 
-              // Check if any field is empty
-              if (!position || !company || !started_at || !end_at || !info) {
+            // Check if any field is empty
+            if (!position || !company || !started_at || !end_at || !info) {
                 message.warning("Please fill in all fields")
                 return
+            }
+            // Check valid time
+            if (endDate <= startDate) {
+                message.warning("Thời gian không hợp lệ");
+                (e.target as any).endDate.value = ''
+                return;
             }
             // data
             let data = {
@@ -36,21 +44,16 @@ export default function ExperienceForm(props: { setOpenExperienceForm: any }) {
                 info
             }
             console.log(data);
-            
+
             let result = await apis.candidateApi.createExperience(data)
             dispatch(candidateExperienceAction.fetchCandidateExperience())
-            
-            // Success
-            if (result.status == 200) {
-                (e.target as any).reset()
-                Modal.success({
-                    title: 'Successfully',
-                    content: result.data.message,
-                    onOk: handleCloseModal,
-                    cancelText: null,
-                })
-            }
 
+            Modal.success({
+                title: 'Successfully',
+                content: result.data.message,
+                onOk: handleCloseModal,
+                cancelText: null,
+            })
         } catch (err: any) {
             Modal.error({
                 title: "Failed!",

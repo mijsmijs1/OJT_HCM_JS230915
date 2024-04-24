@@ -27,6 +27,7 @@ export default function LoginCompany() {
                                 <Input
                                     className='input-email'
                                     placeholder="abc@gmail.com"
+                                    autoFocus
                                 />
                             </div>
                             <div className='box-item-content-company'>

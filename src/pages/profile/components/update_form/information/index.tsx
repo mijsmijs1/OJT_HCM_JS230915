@@ -5,6 +5,7 @@ import { Store } from '@/store';
 import apis from '@/services/apis';
 import { candidateAction } from '@/store/slices/candidate/candidate.slice';
 import convertStringToDateValue from '@/components/convert_string_to_date'
+import isValidUrl from '@/components/validateURL'
 
 import "./information.scss"
 
@@ -14,13 +15,20 @@ export default function InfoForm(props: { setOpenModalUI: any }) {
     const handleCloseModal = () => {
         props.setOpenModalUI(false)
     }
+
     const handleUpdateCandidate = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             if ((e.target as any).name.value == '' || (e.target as any).gender.value == '' || (e.target as any).address.value == '' || (e.target as any).phone.value == '' || (e.target as any).link_fb.value == '' || (e.target as any).dob.value == '') {
-                message.error('Please complete all required fields!')
+                message.warning('Vui lòng điền đầy đủ thông tin!')
                 return
             }
+
+            if (!isValidUrl((e.target as any).link_fb.value)) {
+                message.warning('Chưa đúng định dạng URL!')
+                return
+            }
+            // update Data
             let updateData = {
                 name: (e.target as any).name.value,
                 gender: (e.target as any).gender.value,
@@ -91,6 +99,7 @@ export default function InfoForm(props: { setOpenModalUI: any }) {
                                                 name='name'
                                                 className='input-name'
                                                 defaultValue={candidateStore.data.name}
+                                                autoFocus
                                             />
                                         </div>
 
@@ -110,7 +119,7 @@ export default function InfoForm(props: { setOpenModalUI: any }) {
                                         {/* email */}
                                         <div className='modal-body-item'>
                                             <label htmlFor="email">
-                                                <span>* </span>Email
+                                                Email
                                             </label>
                                             <br />
                                             <Input

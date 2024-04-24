@@ -10,7 +10,7 @@ export default function Navigate() {
     },
     {
       title: 'Quản lý công việc',
-      link: '/manage-jobs',
+      link: 'manager-job',
       isActive: '',
     },
     {

@@ -57,13 +57,24 @@ export type Company = {
 interface InitState {
     data: Company | null,
     loading: boolean,
+    error: string | null
 }
 
 /* INIT */
 let initialState: InitState = {
     data: null,
     loading: false,
+    error: null
 }
+
+// fetch company
+const fetchCompany = createAsyncThunk(
+    'company/checkToken',
+    async () => {
+        const res = await api.authenApi.checkToken()
+        return res.data.data
+    }
+)
 
 const companySlice = createSlice({
     name: "company",
@@ -76,24 +87,19 @@ const companySlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchCompany.pending, (state) => {
             state.loading = true;
+            state.error = null
         })
         builder.addCase(fetchCompany.fulfilled, (state, action) => {
             state.data = action.payload;
             state.loading = false;
+            state.error = null
+        })
+        builder.addCase(fetchCompany.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message ?? 'Unknown error';
         })
     }
 })
-
-// fetch company
-const fetchCompany = createAsyncThunk(
-    'company/validateToken',
-    async () => {
-        const res = await api.companyApi.getData({
-            token: localStorage.getItem("token") || "null"
-        })
-        return res.data.data
-    }
-)
 
 export const companyReducer = companySlice.reducer;
 export const companyAction = {

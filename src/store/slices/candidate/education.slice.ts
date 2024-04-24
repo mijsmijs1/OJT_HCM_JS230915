@@ -38,9 +38,6 @@ const candidateEducationSlice = createSlice({
     setEducationData(state, action: PayloadAction<EducationCandidate[]>) {
       state.educationData = action.payload
     },
-    updateData: (state, action: PayloadAction<Partial<EducationCandidate>>) => {
-      state.educationData = { ...state.educationData!, ...action.payload };
-  }
   },
   extraReducers: (builder) => {
     builder

@@ -22,7 +22,7 @@ export default function App() {
         console.log('Error checking token validity:', err)
       }
     }
-  };
+  }
 
   const refreshToken = async () => {
     try {
@@ -44,10 +44,9 @@ export default function App() {
 
   useEffect(() => {
     if (token) {
-      checkTokenValidity();
+      checkTokenValidity()
     }
   }, [token])
-
 
   return (
     <div>

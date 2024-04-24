@@ -4,7 +4,6 @@ import Breadcrumb from '@/components/breadcrumb/Breadcrumb'
 import AppliedCandidates from './components/appliedCandidates/AppliedCandidates'
 import { useState } from 'react'
 import UpdateJobForm from './components/updateJobForm/UpdateJobForm'
-import DeleteJobModal from './components/deleteJobModal/DeleteJobModal'
 
 export default function ManagerJob() {
     let [displayEditForm, setDisplayEditForm] = useState(false)

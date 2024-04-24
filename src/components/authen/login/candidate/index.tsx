@@ -16,14 +16,14 @@ export default function LoginUser() {
 
             // check emty
             if (!email || !password) {
-                message.warning("Please fill all fields!")
+                message.warning("Vui lòng nhập đầy đủ thông tin!")
                 return
             }
 
             // check type email
             if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
                 message.error({
-                    content: 'Email is not valname!'
+                    content: 'Không đúng định dạng mail!'
                 });
                 return;
             }
@@ -41,7 +41,7 @@ export default function LoginUser() {
                 (e.target as any).reset()
                 localStorage.setItem("token", result.data.accessToken)
                 localStorage.setItem("refreshToken", result.data.accessToken)
-                message.success("Login successfuly! Return homepage in a few second")
+                message.success("Ứng viên đăng nhập thành công, điều hướng về trang chủ trong ít giây nữa")
 
                 setTimeout(() => {
                     window.location.href = '/'
@@ -49,8 +49,8 @@ export default function LoginUser() {
             }
         } catch (err: any) {            
             Modal.error({
-                title: "Logged in failed!",
-                content: err.response.data.message || 'Please try again in a few minutes',
+                title: "Thất bại!",
+                content: err.response.data.message || 'Vui lòng thử lại sau ít phút',
             })
         }
     }

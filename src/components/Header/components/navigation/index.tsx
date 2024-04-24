@@ -37,6 +37,8 @@ export default function Navigation() {
             },
         });
     }
+    console.log('store',candidateStore?.data);
+    
 
     return (
         <div className='nav-container'>
@@ -89,7 +91,7 @@ export default function Navigation() {
                             <div className='user_name'>{candidateStore.data.name}</div>
 
                             {/* logout */}
-                            <div className='logout' onClick={handleLogout}>Logout</div>
+                            <div className='logout' onClick={handleLogout}>Đăng xuất</div>
                         </>
                     ) : (
                         <div className='button-group'>

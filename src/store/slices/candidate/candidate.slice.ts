@@ -4,33 +4,13 @@ import { Job } from "../job.slice.ts"
 import { EducationCandidate } from './education.slice.ts'
 import { ExperienceCandidate } from './experience.slice.ts'
 import { CertificateCandidate } from './certificate.slice.ts'
+import { SkillsCandidate } from './skill.slice.ts'
+import { ProjectCandidate } from './project.slice.ts'
 
 export enum CandidateGender {
     MALE = "MALE",
     FEMALE = "FEMALE",
     OTHER = "OTHER"
-}
-
-// project
-export type ProjectCandidate = {
-    id: number
-    candidate_id: number
-    name: string
-    link: string
-    started_at: string
-    end_at: string
-    info: string
-}
-
-// skill
-export type SkillsCandidate = {
-    id: number
-    candidate_id: number
-    name: string
-    level_job_id: number
-    started_at: string
-    end_at: string
-    info: string
 }
 
 // CANDIDATE
@@ -84,7 +64,6 @@ const fetchCandidate = createAsyncThunk(
     'candidate/checkToken',
     async () => {
         const res = await api.authenApi.checkToken()
-        console.log(res.data.data);
         return res.data.data
     }
 )

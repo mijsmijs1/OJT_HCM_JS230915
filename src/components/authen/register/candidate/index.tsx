@@ -22,7 +22,7 @@ export default function RegisterUser() {
             //  is not emty
             if (!name || !email || !password || !confirmPassword) {
                 message.warning({
-                    content: 'Please fill all fields!'
+                    content: 'Vui lòng nhập đầy đủ thông tin!'
                 })
                 return
             }
@@ -30,7 +30,7 @@ export default function RegisterUser() {
             // check type email
             if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
                 message.error({
-                    content: 'Email is not valname!'
+                    content: 'Sai định dạng mail!'
                 });
                 return;
             }
@@ -38,7 +38,7 @@ export default function RegisterUser() {
             // check pass
             if (password.length < 6) {
                 message.error({
-                    content: 'Password must be at least 6 characters long!'
+                    content: 'Mật khẩu ít nhất 6 ký tự!'
                 })
                 return
             }
@@ -46,11 +46,12 @@ export default function RegisterUser() {
             // check confirm pass
             if (password != confirmPassword) {
                 message.error({
-                    content: 'Confirm password not match!'
+                    content: 'Mật khẩu không trùng khớp!'
                 })
                 return
             }
 
+            // data
             const data = {
                 name,
                 email,
@@ -58,11 +59,12 @@ export default function RegisterUser() {
             }
 
             let res = await api.authenApi.registerCandidate(data)
+
             // Success
-            if (res.status == 200) {
+            if(res.status == 200){
                 Modal.success({
-                    title: "Sign Up successfully",
-                    content: "Please check your email for confirmation ^^",
+                    title: "Thành công",
+                    content: "Đăng kí tài khoản ứng viên thành công ^^",
                     onOk: () => {
                         (e.target as any).reset()
                         navigate('/login')
@@ -71,8 +73,8 @@ export default function RegisterUser() {
             }
         } catch (err: any) {
             Modal.error({
-                title: "Register failed!",
-                content: err.response.data.message || "Please try again in a few minutes!"
+                title: "Thất bại",
+                content: err.response.data.message || "Vui lòng thử lại sau ít phút!"
             })
         }
     }

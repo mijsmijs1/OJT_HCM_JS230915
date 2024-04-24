@@ -21,13 +21,20 @@ export default function EducationForm(props: { setOpenEducationForm: any }) {
             const started_at = (e.target as any).startDate.value
             const end_at = (e.target as any).endDate.value
             const info = (e.target as any).info.value
+            const startDate = new Date(started_at);
+            const endDate = new Date(end_at)
 
-             // Check if any field is empty
+            // Check if any field is empty
             if (!name_education || !major || !started_at || !end_at || !info) {
-                message.warning("Please fill in all fields")
+                message.warning("Vui lòng điền đầy đủ thông tin")
                 return
             }
-
+            // Check valid time
+            if (endDate <= startDate) {
+                message.warning("Thời gian không hợp lệ");
+                (e.target as any).endDate.value = ''
+                return;
+            }
             // data
             let data = {
                 name_education,
@@ -38,17 +45,14 @@ export default function EducationForm(props: { setOpenEducationForm: any }) {
             }
             let res = await apis.candidateApi.createEducation(data)
             dispatch(candidateEducationAction.fetchCandidateEducation())
-            
-            // Success
-            if (res.status == 200) {
-                (e.target as any).reset()
-                Modal.success({
-                    title: 'Successfully',
-                    content: res.data.message,
-                    onOk: handleCloseModal,
-                    cancelText: null,
-                })
-            }
+
+            Modal.success({
+                title: 'Successfully',
+                content: res.data.message,
+                onOk: handleCloseModal,
+                cancelText: null,
+            })
+
         } catch (err: any) {
             Modal.error({
                 title: "Failed!",
