@@ -50,7 +50,7 @@ export default function RouteSetup() {
         {/* admin */}
         <Route path='/register-admin' element={lazyFn(() => import('@/components/authen/register/admin'), localStorage.getItem("token") == null, "/")} >
         </Route>
-        <Route path='/admin' element={lazyFn(() => import('@/components/authen/login/admin'), localStorage.getItem("token") == null && localStorage.getItem("isAmin") != null, "/")} >
+        <Route path='/admin' element={lazyFn(() => import('@/components/authen/login/admin'), localStorage.getItem("token") == null, "/")} >
         </Route>
       </Routes>
     </BrowserRouter>

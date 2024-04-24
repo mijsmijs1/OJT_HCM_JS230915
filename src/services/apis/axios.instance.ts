@@ -6,6 +6,7 @@ import axios from "axios";
   "Cache-Control": "no-cache, no-store, must-revalidate",
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Credentials": true,
+  "language": "vi",
   "Authorization": `Bearer ${String(localStorage.getItem("token"))}`
 };
 

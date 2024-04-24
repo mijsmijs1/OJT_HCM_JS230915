@@ -17,7 +17,7 @@
     max-width: 100%;
     width: 100%;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
     display: flex;
 
     .box-register-content-left-company {
@@ -29,7 +29,7 @@
             border-right: 2px solid;
             border-image-slice: 1;
             border-image-source: linear-gradient(to bottom, #ffffff, #0A033C, #ffffff);
-            padding: 123px;
+            padding: 20px 123px;
 
             .title-rikkei-company {
                 width: 100%;
@@ -164,7 +164,7 @@
             width: 100%;
             margin-bottom: 20px;
             border-right: 2px solid;
-            padding: 123px;
+            padding: 20px 123px;
 
             .title-rikkei-company {
                 width: 100%;

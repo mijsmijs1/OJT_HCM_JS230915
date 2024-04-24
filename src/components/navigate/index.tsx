@@ -6,11 +6,11 @@ export default function Navigate() {
     {
       title: 'Hồ sơ',
       link: '/profile',
-      isActive: '',
+      isActive: 'active',
     },
     {
       title: 'Quản lý công việc',
-      link: '/manage-jobs',
+      link: 'manager-job',
       isActive: '',
     },
     {

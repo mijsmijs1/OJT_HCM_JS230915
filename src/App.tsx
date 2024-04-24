@@ -22,35 +22,29 @@ export default function App() {
         console.log('Error checking token validity:', err)
       }
     }
-  };
+  }
 
   const refreshToken = async () => {
     try {
-      console.log('Refresh token not found1.');
       setIsLoading(true);
       const refreshToken = localStorage.getItem('refreshToken');
       if (!refreshToken) {
         console.log('Refresh token not found.');
         return
       }
-      console.log('Refresh token not found.21312312321');
       const res = await api.authenApi.refreshToken({ refreshToken })
-      console.log('Refresh token not found.9999');
       setIsLoading(false);
       const newToken = res.data.accessToken;
       localStorage.setItem('token', newToken);
       setToken(newToken)
-      console.log('Token refreshed successfully.');
     } catch (err) {
-      console.log('Error refreshing token:', err);
       setIsLoading(false);
-
     }
   }
 
   useEffect(() => {
     if (token) {
-      checkTokenValidity();
+      checkTokenValidity()
     }
   }, [token])
 
