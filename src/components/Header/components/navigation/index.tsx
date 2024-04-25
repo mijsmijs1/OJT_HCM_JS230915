@@ -72,7 +72,7 @@ export default function Navigation() {
                             </svg>
 
                             {/* name user */}
-                            <div className='user_name'>{candidateStore.data.name}</div>
+                            <div className='user_name'>{candidateStore.data?.name || candidateStore.data?.email.split('@')[0]}</div>
 
                             {/* logout */}
                             <div className='logout' onClick={handleLogout}>Logout</div>

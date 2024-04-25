@@ -4,10 +4,16 @@ import OpenJobs from './components/openJobs/OpenJobs'
 import GoodCandidate from '../home/components/goodCandidate/GoodCandidate'
 import react, { useState } from 'react'
 import EditCompanyForm from './components/editCompanyForm/EditCompanyForm'
+import { useParams } from 'react-router-dom'
 
 export default function ManagerCompany() {
     let [displayEditForm, setDisplayEditForm] = useState(false)
+    // const accountCompany = 
+
+    const { companyId } = useParams()
+    console.log(companyId)
     return (
+        
         <div className='company_manager_container'>
             {
                 displayEditForm && <EditCompanyForm setDisplayEditForm={setDisplayEditForm} />

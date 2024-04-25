@@ -3,27 +3,35 @@
     height: 100vh;
     background-color: $blackColor;
     color: $whiteColor;
-    font-family: "Amazon Ember",Arial,sans-serif;
+    font-family: "Amazon Ember", Arial, sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+
     .access {
         font-size: 80px;
         color: $redColor;
     }
-    .title-access{
+
+    .title-access {
         font-size: 30px;
 
     }
-    hr{
+
+    hr {
         width: 50%;
         margin: 20px auto;
     }
-    .icon{
+
+    .icon {
         font-size: 30px;
     }
-    .err{
+
+    .err {
         margin-top: 20px;
         font-size: 20px;
         color: $redColor;

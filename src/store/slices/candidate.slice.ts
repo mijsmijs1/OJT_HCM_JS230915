@@ -107,7 +107,9 @@ const fetchCandidate = createAsyncThunk(
     'candidate/checkToken',
     async () => {
         const res = await api.authenApi.checkToken()
-        return res.data.data
+        if (res.data.data.role == 'candidate') {
+            return res.data.data
+        }
     }
 )
 

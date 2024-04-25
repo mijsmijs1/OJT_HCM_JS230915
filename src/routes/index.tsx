@@ -6,7 +6,6 @@ import Search from '@/pages/search/Search'
 import SearchCandidate from '@/pages/searchCandidate/SearchCandidate'
 import CandidateInfo from '@/pages/candidateInfo/CandidateInfo'
 import CompanyInfo from '@/pages/companyInfo/CompanyInfo'
-import ManagerCompany from '@/pages/managerCompany/ManagerCompany'
 import AddJob from '@/pages/addJob/AddJob'
 import ManagerJob from '@/pages/managerJob/ManagerJob'
 import AdminJobManager from '@/pages/adminJobManager/AdminJobManager'
@@ -25,7 +24,7 @@ export default function RouteSetup() {
           <Route path='search-candidate' element={<SearchCandidate />}></Route>
           <Route path='candidate-info' element={<CandidateInfo />}></Route>
           <Route path='company-info' element={<CompanyInfo />}></Route>
-          <Route path='manager-company' element={<ManagerCompany />}></Route>
+          <Route path='manager-company/:companyId' element={lazyFn(() => import('@/pages/managerCompany/ManagerCompany'), localStorage.getItem("token") != null, "/")}></Route>
           <Route path='add-job' element={<AddJob />}></Route>
           <Route path='manager-job' element={<ManagerJob />}></Route>
           <Route path='admin-manager-job' element={<AdminJobManager />}></Route>

@@ -14,6 +14,6 @@ export const store = configureStore({
 })
 
 store.dispatch(candidateAction.fetchCandidate())
-store.dispatch(companyAction.fetchCompany())
+store.dispatch(companyAction.fetchCompanyAccount())
 
 export default store

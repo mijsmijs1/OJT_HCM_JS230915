@@ -2,7 +2,6 @@ import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Input, Modal, Select, message } from 'antd';
 import pictures from '@/pictures'
 import { useNavigate } from 'react-router-dom';
-import api from '@services/apis'
 
 import "./company_register.scss"
 

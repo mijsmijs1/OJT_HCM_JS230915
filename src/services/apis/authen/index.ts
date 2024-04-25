@@ -28,8 +28,8 @@ export const authenApi = {
     checkToken: async () => {
         return await axios.get(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/check-token`,)
     },
-    refreshToken: async (refreshToken: any) => {
-        return await axios.get(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/refresh-token`, { ...refreshToken })
+    refreshToken: async (refreshToken: string) => {
+        return await axios.post(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/refresh-token`, { refreshToken: refreshToken })
     },
     logout: async () => {
         return await axios.get(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/logout`)
