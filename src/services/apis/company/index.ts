@@ -8,13 +8,13 @@ export const companyApi = {
     findCompanyById: async (id: number) => {
         return await axios.get(`${SERVER_BASE_URL}/${id}`)
     },
-    findAllCompany: async () => {
-        return await axios.get(`${SERVER_BASE_URL}/get-all`)
-    },
-    registerCompany: async (data: any) => {
+    register: async (data: any) => {
         return await axios.post(`${SERVER_BASE_URL}/register`, data);
     },
-    update: async (companyId: number, data: any) => {
-        return await axios.patch(`${SERVER_BASE_URL}/${companyId}`, data)
-    }
+    createCompany: async (data: any) => {
+        return await axios.post(`${SERVER_BASE_URL}/create-company`, data)
+    },
+    createAddress: async ( companyId: number, data: any) => {
+        return await axios.post(`${SERVER_BASE_URL}/create-address/${companyId}`, data)
+    },
 }

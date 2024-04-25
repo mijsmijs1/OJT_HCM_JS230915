@@ -1,32 +1,121 @@
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Input, Modal, Select, message } from 'antd';
-import pictures from '@/pictures'
+import pictures from '@/pictures';
 import { useNavigate } from 'react-router-dom';
-import api from '@services/apis'
+import apis from '@services/apis';
+import { useEffect, useState } from 'react';
 
-import "./company_register.scss"
+import './company_register.scss';
+
+interface Province {
+    Name: string;
+    Districts: District[];
+}
+
+interface District {
+    Name: string;
+    Wards: Ward[];
+}
+
+interface Ward {
+    Level: string;
+    Name: string;
+}
 
 export default function RegisterCompany() {
     const navigate = useNavigate()
 
+    const [selectedCity, setSelectedCity] = useState('')
+    const [districts, setDistricts] = useState<District[]>([])
+    const [selectedDistrict, setSelectedDistrict] = useState<string>('')
+    const [wards, setWards] = useState<Ward[]>([])
+    const [selectedWard, setSelectedWard] = useState<string>('')
+    const [provinces, setProvinces] = useState<Province[]>([])
+
+    // call api get location
+    const fetchProvinces = async () => {
+        try {
+            const response = await fetch('https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json');
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const locationData = await response.json();
+            setProvinces(locationData);
+        } catch (err) {
+            console.log('Error fetching location data:', err);
+        }
+    }
+
+    useEffect(() => {
+        fetchProvinces();
+    }, [])
+
+    // cities
+    const handleCityChange = (value: string) => {
+        setSelectedCity(value)
+        const selectedProvince = provinces.find(province => province.Name == value);
+        if (selectedProvince) {
+            setDistricts(selectedProvince.Districts)
+            setSelectedDistrict('');
+            setWards([]);
+            setSelectedWard('');
+        }
+    }
+
+    // districts
+    const handleDistrictChange = (value: string) => {
+        setSelectedDistrict(value);
+        const selectedDistrictData = districts.find(district => district.Name == value);
+        if (selectedDistrictData) {
+            console.log('city', selectedDistrictData);
+            setWards(selectedDistrictData.Wards);
+            setSelectedWard('');
+        }
+    }
+
+    // HANDLE REGISTER
     const handleRegisterCompany = async (e: React.FormEvent) => {
-        e.preventDefault()
+        e.preventDefault();
 
         try {
-            const name = (e.target as any).name.value
-            const email = (e.target as any).email.value
-            const password = (e.target as any).password.value
-            const confirmPassword = (e.target as any).confirmPassword.value
+            let email = (e.target as any).email.value;
+            const password = (e.target as any).password.value;
+            const confirmPassword = (e.target as any).confirmPassword.value;
 
-            //  is not emty
-            if (!name || !email || !password || !confirmPassword) {
+            // company
+            const name = (e.target as any).name.value;
+            const phone = (e.target as any).phone.value;
+
+            // address
+            const detailAddress = (e.target as any).detailAddress.value
+            const address = `${selectedCity}, ${selectedDistrict}, ${selectedWard}, ${detailAddress}`;
+            console.log('add', address);
+
+            //  is not empty
+            if (!name || !email || !password || !confirmPassword || !(e.target as any).companyEmail.value || !phone || !selectedCity || !selectedDistrict || !selectedWard || !detailAddress) {
                 message.warning({
                     content: 'Vui lòng nhập đầy đủ thông tin!'
-                })
-                return
+                });
+                return;
             }
 
-            // check type email
+            // check phone
+            if (!/^\d+$/.test(phone)) {
+                message.error({
+                    content: 'Số điện thoại phải là số!'
+                });
+                return;
+            }
+
+            // check email company format
+            if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test((e.target as any).companyEmail.value)) {
+                message.error({
+                    content: 'Sai định dạng mail!'
+                });
+                return;
+            }
+
+            // check email format
             if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
                 message.error({
                     content: 'Sai định dạng mail!'
@@ -34,59 +123,81 @@ export default function RegisterCompany() {
                 return;
             }
 
-            // check pass
+            // check password
             if (password.length < 6) {
                 message.error({
                     content: 'Mật khẩu ít nhất 6 ký tự!'
-                })
-                return
+                });
+                return;
             }
 
-            // check confirm pass
+            // check confirm password
             if (password != confirmPassword) {
                 message.error({
                     content: 'Mật khẩu không trùng khớp!'
-                })
-                return
+                });
+                return;
             }
-
             const data = {
-                name,
                 email,
                 password
+            };
+
+            await apis.companyApi.register(data)
+            let login = await apis.authenApi.loginCompany(data)            
+            localStorage.setItem("token", login.data.accessToken)
+            localStorage.setItem("refreshToken", login.data.refreshToken)
+
+            const dataCompany = {
+                name,
+                phone,
+                email: (e.target as any).companyEmail.value
             }
 
-            let res = await api.authenApi.registerCompany(data)
-            // Success
-            if (res.status == 200) {
-                Modal.success({
-                    title: "Sign Up successfully",
-                    content: "Please check your email for confirmation ^^",
-                    onOk: () => {
-                        (e.target as any).reset()
-                        navigate('/login-register')
-                    }
-                })
+            let res = await apis.companyApi.createCompany(dataCompany)
+            const dataAddress = {
+                name,
+                address
             }
-        } catch (err: any) {
-            Modal.error({
-                title: "Register failed!",
-                content: err.response.data.message || "Please try again in a few minutes!"
+            
+            let result = await apis.authenApi.refreshToken(String(localStorage.getItem("refreshToken")))
+            console.log('re', result);
+            
+            localStorage.setItem("token", result.data.accessToken)
+            await apis.companyApi.createAddress(res.data.data.id, dataAddress)
+            localStorage.removeItem("token")
+            localStorage.removeItem("refreshToken")
+
+            Modal.success({
+                title: 'Thành công',
+                content: 'Đăng ký thành công tài khoản doanh nghiệp, kiểm tra mail để xác thực tài khoản ^^',
+                onOk: () => {
+                    (e.target as any).reset();
+                    window.location.href = '/login-company'
+                }
             })
+        } catch (err: any) {
+            console.log('errr',err);
+            
+            localStorage.removeItem("token")
+            localStorage.removeItem("refreshToken")
+            Modal.error({
+                title: 'Thấ bại',
+                content: err.response.data.message || 'Hãy thử lại sau ít phút!'
+            });
         }
     }
 
     return (
         <div>
-            <div className='box-logo-rikkei' onClick={() => {
-                window.location.href = "/"
-            }}>
-                <img className='Rikkei_logo' src={pictures.logo_RikkeiEduV2} alt='Rikkei_logo'></img>
+            <div className='box-logo-rikkei' onClick={() => { window.location.href = '/'; }}>
+                <img className='Rikkei_logo' src={pictures.logo_RikkeiEduV2} alt='Rikkei_logo' />
             </div>
             <div className='box-register-company'>
-                <div className='box-content-company'>
-                    <div className='box-register-content-left-company'>
-                        <form action="">
+                <form onSubmit={handleRegisterCompany}>
+                    <div className='box-content-company'>
+                        {/* left */}
+                        <div className='box-register-content-left-company'>
                             <div className='title-rikkei-company'>
                                 <h3>Cùng Rikkei Education tiếp cận nguồn nhân lực chất lượng cao</h3>
                             </div>
@@ -94,82 +205,138 @@ export default function RegisterCompany() {
                                 <h3>Thông tin tài khoản</h3>
                             </div>
                             <div className='box-item-content-company'>
-                                <label htmlFor="email">Email</label><br />
-                                <Input
-                                    className='input-email-company'
-                                    placeholder="Nhập email (vd: abc@gmail.com)"
-                                    autoFocus
-                                />
+                                <label htmlFor='email'>Email</label><br />
+                                <Input name="email" className='input-email-company' placeholder='Nhập email (vd: abc@gmail.com)' autoFocus />
                             </div>
                             <div className='box-item-content-company'>
-                                <label htmlFor="password">Password</label><br />
+                                <label htmlFor='password'>Password</label><br />
                                 <Input.Password
-                                    name = 'password'
+                                    name='password'
                                     className='input-password-company'
-                                    placeholder="Nhập mật khẩu"
+                                    placeholder='Nhập mật khẩu'
                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                 />
                             </div>
                             <div className='box-item-content-company'>
-                                <label htmlFor="password">Confirm password</label><br />
+                                <label htmlFor='password'>Confirm password</label><br />
                                 <Input.Password
+                                    name="confirmPassword"
                                     className='input-confirm-password-company'
-                                    placeholder="Xác nhận mật khẩu"
+                                    placeholder='Xác nhận mật khẩu'
                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                 />
                             </div>
-                        </form>
-                    </div>
-                    <div className='box-content-right-company'>
-                        <form action="">
+                        </div>
 
+                        {/* line */}
+                        <div className='line'></div>
+
+                        {/* right */}
+                        <div className='box-register-content-right-company'>
                             <div className='info-content-company'>
                                 <h3>Thông tin doanh nghiệp</h3>
                             </div>
                             <div className='box-item-content-company'>
-                                <label htmlFor="company">Công ty</label><br />
-                                <Input
-                                    
-                                    type='text'
-                                    className='input-company'
-                                    placeholder="Tên công ty"
-                                />
+                                <label htmlFor='company'>Công ty</label><br />
+                                <Input name="name" type='text' className='input-company' placeholder='Tên công ty' />
                             </div>
-                            <div className='box-item-content-company'>
-                                <label htmlFor="city">Địa điểm làm việc</label><br />
-                                <Select className='select-city' placeholder="Chọn tỉnh/thành phố">
-                                    <Select.Option value="demo">Địa điểm làm việc</Select.Option>
-                                </Select>
 
-                            </div>
+                            {/* Location */}
                             <div className='box-item-content-company'>
-                                <label htmlFor="phonenumber">Số điện thoại liên hệ</label><br />
-                                <Input
-                                    type='text'
-                                    className='input-phonenumber'
-                                    placeholder="012345678"
-                                />
+                                <div className='location-top'>
+                                    {/* Cities */}
+                                    <div className='cities-box'>
+                                        <label htmlFor='city'>Thành phố/Tỉnh</label><br />
+                                        <Select value={selectedCity} onChange={handleCityChange}>
+                                            {!selectedCity && (
+                                                <Select.Option value="" disabled hidden>Chọn thành phố</Select.Option>
+                                            )}
+                                            {provinces.map(province => (
+                                                <Select.Option key={province.Name} value={province.Name}>
+                                                    {province.Name}
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
+                                    </div>
+
+                                    {/* District */}
+                                    <div className='districts-box'>
+                                        <label htmlFor='district'>Quận/Huyện</label><br />
+                                        <Select
+                                            value={selectedDistrict}
+                                            onChange={handleDistrictChange}
+                                            disabled={!selectedCity}
+                                        >
+                                            {!selectedDistrict && (
+                                                <Select.Option value="" disabled hidden>Chọn quận/huyện</Select.Option>
+                                            )}
+                                            {districts.map(district => (
+                                                <Select.Option key={district.Name} value={district.Name}>
+                                                    {district.Name}
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
+                                    </div>
+
+                                    {/* Ward */}
+                                    <div className='wards-box'>
+                                        <label htmlFor='ward'>Phường/Xã</label><br />
+                                        <Select
+                                            value={selectedWard}
+                                            onChange={(value) => setSelectedWard(value)}
+                                            disabled={!selectedDistrict}
+                                        >
+                                            {!selectedWard && (
+                                                <Select.Option value="" disabled hidden>Chọn phường/xã</Select.Option>
+                                            )}
+                                            {wards.map(ward => (
+                                                <Select.Option key={ward.Level} value={ward.Level}>
+                                                    {ward.Name}
+                                                </Select.Option>
+                                            ))}
+                                        </Select>
+                                    </div>
+                                </div>
+
+                                {/* address */}
+                                <div className='location-bottom'>
+                                    <div className='address-box'>
+                                        <label htmlFor='address'>Địa chỉ cụ thể</label><br />
+                                        <Input
+                                            name='detailAddress'
+                                            type='text'
+                                            className='input-address'
+                                            placeholder='Nhập địa chỉ chi tiết ...'
+                                            disabled={!selectedWard}
+                                        />
+                                    </div>
+                                </div>
                             </div>
+
+                            {/* Phone number */}
                             <div className='box-item-content-company'>
-                                <label htmlFor="password">Email công ty</label><br />
-                                <Input
-                                    type='email'
-                                    className='input-email-company'
-                                    placeholder="abc@gmail.com"
-                                />
+                                <label htmlFor='phonenumber'>Số điện thoại liên hệ</label><br />
+                                <Input name='phone' type='text' className='input-phonenumber' placeholder='Nhập số điện thoại doanh nghiệp' />
                             </div>
-                        </form>
+
+                            {/* Email company */}
+                            <div className='box-item-content-company'>
+                                <label htmlFor='password'>Email công ty</label><br />
+                                <Input name='companyEmail' type='text' className='input-email-company' placeholder='Nhập email doanh nghiệp' />
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <div className='box-button-register-company'>
-                <button className='button-register-company'>Đăng ký</button>
-            </div>
-            <div className='box-item-have-account'>
-                <p>Đã có tài khoản?<span onClick={() => {
-                    navigate('/login-company');
-                }}> Đăng nhập ngay</span></p>
+                    {/* button */}
+                    <div className='box-button-register-company'>
+                        <button type='submit' className='button-register-company'>Đăng ký</button>
+                    </div>
+                    <div className='box-item-have-account'>
+                        <p>
+                            Đã có tài khoản?<span onClick={() => { navigate('/login-company'); }}> Đăng nhập ngay</span>
+                        </p>
+                    </div>
+                </form>
             </div>
         </div>
     )

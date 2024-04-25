@@ -106,7 +106,7 @@ export default function AdminJobManager() {
         },
     ]
 
-    
+ 
     const toggleHandler = () => {
         
     };
