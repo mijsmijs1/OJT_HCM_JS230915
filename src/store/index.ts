@@ -25,6 +25,6 @@ store.dispatch(candidateExperienceAction.fetchCandidateExperience())
 store.dispatch(candidateCertificateAction.fetchCandidateCertificates())
 
 // company
-store.dispatch(companyAction.fetchCompany())
+store.dispatch(companyAction.fetchCompanyAccount())
 
 export default store

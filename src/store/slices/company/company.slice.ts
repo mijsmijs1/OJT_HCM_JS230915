@@ -1,18 +1,23 @@
 import api from '@services/apis'
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { Job } from "../job.slice"
+import { Job } from '../job.slice'
 
+
+export type status = "active" | "inactive" | "block"
 // account company
-export type Account_Company ={
+export type Account_Company = {
     id: number
     companies: Company[]
     email: string
     email_status: boolean
     password: string
+    avatar: string
+    displayName: string
+
 }
 
 // address company
-export type Address_Company  ={
+export type Address_Company = {
     id: number
     company_id: number
     company: Company[]
@@ -23,7 +28,7 @@ export type Address_Company  ={
 }
 
 // type company
-export type Type_Company  ={
+export type Type_Company = {
     id: number
     name: string
     created_at: string
@@ -38,6 +43,7 @@ export type Company = {
     account: Account_Company
     name: string
     logo: string
+    status: status
     website: string
     link_fb: string
     link_linkedin: string
@@ -55,26 +61,46 @@ export type Company = {
 
 /* INTERFACE */
 interface InitState {
-    data: Company | null,
+    data: Account_Company | null,
+    companies: Company[] | null,
     loading: boolean,
-    error: string | null
 }
 
 /* INIT */
 let initialState: InitState = {
     data: null,
+    companies: null,
     loading: false,
-    error: null
 }
+// CALL API
 
-// fetch company
-const fetchCompany = createAsyncThunk(
-    'company/checkToken',
+export const fetchCompanies = createAsyncThunk(
+    'company/fetchCompanies',
     async () => {
-        const res = await api.authenApi.checkToken()
-        return res.data.data
+        try {
+            const res = await api.companyApi.findAllCompany()
+            return res.data.data
+        } catch (err) {
+            throw err
+        }
     }
 )
+// fetch company
+export const fetchCompanyAccount = createAsyncThunk(
+    'company/validateToken',
+    async (_, { dispatch, rejectWithValue }) => {
+        try {
+            const res = await api.authenApi.checkToken();
+            if (res.data.data.role === 'company') {
+                return res.data.data;
+            } else {
+                return rejectWithValue(false);
+            }
+        } catch (err: any) {
+            return rejectWithValue(false);
+        }
+    }
+);
 
 const companySlice = createSlice({
     name: "company",
@@ -85,24 +111,27 @@ const companySlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchCompany.pending, (state) => {
+        builder.addCase(fetchCompanyAccount.pending, (state) => {
             state.loading = true;
-            state.error = null
         })
-        builder.addCase(fetchCompany.fulfilled, (state, action) => {
+        builder.addCase(fetchCompanyAccount.fulfilled, (state, action) => {
             state.data = action.payload;
             state.loading = false;
-            state.error = null
         })
-        builder.addCase(fetchCompany.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message ?? 'Unknown error';
+        builder.addCase(fetchCompanies.pending, (state) => {
+            state.loading = true;
+        })
+        builder.addCase(fetchCompanies.fulfilled, (state, action) => {
+            state.companies = action.payload;
+            state.loading = false
         })
     }
 })
 
+
+
 export const companyReducer = companySlice.reducer;
 export const companyAction = {
     ...companySlice.actions,
-    fetchCompany
+    fetchCompanyAccount
 }
