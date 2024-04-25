@@ -29,8 +29,8 @@ export const authenApi = {
     checkToken: async () => {
         return await axios.get(`${SERVER_BASE_URL}/check-token`,)
     },
-    refreshToken: async (refreshToken: any) => {
-        return await axios.get(`${SERVER_BASE_URL}/refresh-token`, { ...refreshToken })
+    refreshToken: async (refreshToken: string) => {
+        return await axios.post(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/refresh-token`, { refreshToken: refreshToken })
     },
     logout: async (refreshToken: any) => {
         return await axios.get(`${SERVER_BASE_URL}/logout`, { ...refreshToken })

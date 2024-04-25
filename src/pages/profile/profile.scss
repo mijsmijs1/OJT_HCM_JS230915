@@ -161,11 +161,14 @@
                     text-align: end;
                     padding-top: 18px;
                     padding-right: 68px;
+
                     span {
                         cursor: pointer;
+
                         svg {
                             transition: all 0.15s ease-in-out;
                         }
+
                         &:hover {
                             svg {
                                 transform: scale(1.2);
@@ -226,8 +229,8 @@
                                     gap: 7px;
                                     margin-top: 10px;
                                 }
-                                p {
-                                }
+
+                                p {}
                             }
 
                             .profile_content_info_des_right {
@@ -275,7 +278,8 @@
                             cursor: pointer;
                             width: 19px;
                             height: 19px;
-                            &:hover{
+
+                            &:hover {
                                 transition: all .3s ease-in-out;
                                 transform: scale(1.1);
                             }
@@ -289,6 +293,7 @@
 
                     .content_info_user_title {
                         margin-top: 22px;
+
                         table {
                             width: 100%;
                             border-collapse: collapse;
@@ -303,23 +308,27 @@
                                 color: #bc2228;
                             }
 
-                            td{
-                                color:#5e6670;
-                                span{
+                            td {
+                                color: #5e6670;
+
+                                span {
                                     margin: 0 5px;
-                                    &:hover{
-                                        svg{
+
+                                    &:hover {
+                                        svg {
                                             transition: all .15s ease-in-out;
                                             transform: scale(1.15);
                                         }
-                                    } 
+                                    }
                                 }
                             }
-                            tr:hover td{
+
+                            tr:hover td {
                                 cursor: pointer;
                                 background-color: #ddd;
                             }
                         }
+
                         p {
                             font-size: 16px;
                             color: #767f8c80;
@@ -369,7 +378,14 @@
         }
     }
 }
-h2{
+
+h2 {
     font-size: 35px;
     margin-top: 10px;
+}
+
+.company {
+
+    height: 175px !important;
+
 }
