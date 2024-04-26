@@ -18,7 +18,6 @@ export default function RegisterUser() {
             const email = (e.target as any).email.value
             const password = (e.target as any).password.value
             const confirmPassword = (e.target as any).confirmPassword.value
-
             //  is not emty
             if (!name || !email || !password || !confirmPassword) {
                 message.warning({
@@ -26,15 +25,13 @@ export default function RegisterUser() {
                 })
                 return
             }
-
             // check type email
             if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
                 message.error({
                     content: 'Sai định dạng mail!'
-                });
-                return;
+                })
+                return
             }
-
             // check pass
             if (password.length < 6) {
                 message.error({
@@ -42,7 +39,6 @@ export default function RegisterUser() {
                 })
                 return
             }
-
             // check confirm pass
             if (password != confirmPassword) {
                 message.error({
@@ -50,27 +46,22 @@ export default function RegisterUser() {
                 })
                 return
             }
-
             // data
             const data = {
                 name,
                 email,
                 password
             }
-
             let res = await api.authenApi.registerCandidate(data)
-
-            // Success
-            if(res.status == 200){
-                Modal.success({
-                    title: "Thành công",
-                    content: "Đăng kí tài khoản ứng viên thành công ^^",
-                    onOk: () => {
-                        (e.target as any).reset()
-                        navigate('/login')
-                    }
-                })
-            }
+            // success
+            Modal.success({
+                title: "Thành công",
+                content: res.data.message,
+                onOk: () => {
+                    (e.target as any).reset()
+                    navigate('/login')
+                }
+            })
         } catch (err: any) {
             Modal.error({
                 title: "Thất bại",
@@ -136,7 +127,7 @@ export default function RegisterUser() {
                             </div>
                             <div className='box-item-create-account'>
                                 <p>Bạn đã có tài khoản?<span onClick={() => {
-                                    window.location.href= '/login'
+                                    window.location.href = '/login'
                                 }}> đăng nhập</span></p>
                             </div>
                         </form>

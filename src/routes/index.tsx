@@ -1,3 +1,5 @@
+// import { useEffect } from 'react';
+// import { useLocation } from "react-router-dom";
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from '@pages/home/Home'
 import JobInfo from '@/pages/jobInfo/JobInfo'
@@ -12,6 +14,21 @@ import AdminJobManager from '@/pages/adminJobManager/AdminJobManager'
 import CvManagement from '@/pages/cvManagement'
 import Profile from "@pages/profile/Profile"
 import { lazyFn } from "@/utils/lazies/Lazy"
+
+// const router = createBrowserRouter({
+//   routes: [
+//     {
+//       path: "/",
+//       element: <Layout />,
+//       children: [
+//         {
+//           path: "",
+//           element: <Main />,
+//         },
+//       ],
+//     },
+//   ],
+// });
 
 export default function RouteSetup() {
   return (
@@ -55,3 +72,11 @@ export default function RouteSetup() {
     </BrowserRouter >
   )
 }
+
+// const location = useLocation()
+// useEffect(() => {
+//   window.scrollTo({
+//     top: 0,
+//     behavior: "smooth",
+//   });
+// }, [location.pathname])

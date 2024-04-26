@@ -7,30 +7,27 @@
     width: 100%;
 
     img {
-        Width: 200px;
-        Height: 67px;
+        width: 200px;
+        height: 67px;
         cursor: pointer;
     }
 }
 
-.box-content-company {
-    max-width: 100%;
+form {
     width: 100%;
-    justify-content: center;
-    // align-items: center;
-    display: flex;
+    margin-bottom: 20px;
+    border-right: 2px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to bottom, #ffffff, #0a033c, #ffffff);
+    padding: 20px 123px;
+    .box-content-company {
+        max-width: 100%;
+        width: 100%;
+        justify-content: space-between;
+        display: flex;
 
-    .box-register-content-left-company {
-        width: 50%;
-
-        form {
-            width: 100%;
-            margin-bottom: 20px;
-            border-right: 2px solid;
-            border-image-slice: 1;
-            border-image-source: linear-gradient(to bottom, #ffffff, #0A033C, #ffffff);
-            padding: 20px 123px;
-
+        .box-register-content-left-company {
+            width: 40%;
             .title-rikkei-company {
                 width: 100%;
 
@@ -45,7 +42,7 @@
                 align-items: center;
                 width: 474px;
                 height: 40px;
-                border-left: 10px solid #BC2228;
+                border-left: 10px solid #bc2228;
 
                 h3 {
                     padding: 5px;
@@ -55,7 +52,6 @@
             }
 
             .box-item-content-company {
-
                 margin-top: 20px;
 
                 label {
@@ -63,43 +59,31 @@
                 }
 
                 .input-name-company {
-                    width: 474px;
                     height: 40px;
-                    // width: 486px;
-                    // height: 65px;
                     width: 100%;
-                    // padding: 10px 10px;
                     margin-top: 15px;
 
                     &::placeholder {
                         font-size: 14px;
                         font-weight: 400;
-                        color: #5D5A6F;
+                        color: #5d5a6f;
                     }
                 }
 
                 .input-email-company {
-                    width: 474px;
                     height: 40px;
-                    // width: 486px;
-                    // height: 65px;
                     width: 100%;
-                    // padding: 10px 10px;
                     margin-top: 15px;
 
                     &::placeholder {
                         font-size: 14px;
                         font-weight: 400;
-                        color: #5D5A6F;
+                        color: #5d5a6f;
                     }
                 }
 
                 .input-password-company {
-                    width: 474px;
                     height: 40px;
-                    // width: 486px;
-                    // height: 65px;
-                    // padding: 10px 10px;
                     cursor: pointer;
                     width: 100%;
                     margin-top: 15px;
@@ -107,16 +91,12 @@
                     &::placeholder {
                         font-size: 14px;
                         font-weight: 400;
-                        color: #5D5A6F;
+                        color: #5d5a6f;
                     }
                 }
 
                 .input-confirm-password-company {
-                    width: 474px;
                     height: 40px;
-                    // width: 486px;
-                    // height: 65px;
-                    // padding: 10px 10px;
                     cursor: pointer;
                     width: 100%;
                     margin-bottom: 20px;
@@ -125,14 +105,14 @@
                     &::placeholder {
                         font-size: 14px;
                         font-weight: 400;
-                        color: #5D5A6F;
+                        color: #5d5a6f;
                     }
                 }
             }
 
             .box-item-forgot {
                 font-size: 14px;
-                color: #5D5A6F;
+                color: #5d5a6f;
                 cursor: pointer;
                 font-weight: 500;
                 width: 100%;
@@ -145,33 +125,30 @@
                 font-weight: 500;
                 font-size: 14px;
                 text-align: center;
-                color: #5D5A6F;
+                color: #5d5a6f;
 
                 span {
                     cursor: pointer;
-                    color: #BC2228;
+                    color: #bc2228;
                 }
             }
-
         }
-    }
 
-    .box-content-right-company {
-        width: 50%;
+        .line {
+            width: 1.45px;
+            height: 641px;
+            background: linear-gradient(180deg, rgba(10, 3, 60, 0) 0%, #0a033c 51.56%, rgba(10, 3, 60, 0) 100%);
+        }
 
-        form {
-
-            width: 100%;
+        .box-register-content-right-company {
             margin-bottom: 20px;
-            border-right: 2px solid;
-            padding: 20px 123px;
+            width: 40%;
 
             .title-rikkei-company {
                 width: 100%;
 
                 h3 {
                     width: 483px;
-                    // height: 106px;
                     font-size: 24px;
                 }
             }
@@ -181,7 +158,7 @@
                 align-items: center;
                 width: 474px;
                 height: 40px;
-                border-left: 10px solid #BC2228;
+                border-left: 10px solid #bc2228;
 
                 h3 {
                     padding: 5px;
@@ -191,61 +168,58 @@
             }
 
             .box-item-content-company {
-
                 margin-top: 20px;
 
                 label {
                     font-size: 16px;
                 }
 
+                .location-top{
+                    display: flex;
+                    justify-content: space-between;
+                    div{
+                        width: 200px;
+                    }
+                }
+                .location-bottom{
+                    margin-top: 10px;
+                }
                 .input-company {
-                    width: 474px;
                     height: 40px;
-                    width: 100%;
-                    // padding: 10px 10px;
                     margin-top: 15px;
 
                     &::placeholder {
                         font-size: 14px;
                         font-weight: 400;
-                        color: #5D5A6F;
+                        color: #5d5a6f;
                     }
-
                 }
 
                 .input-phonenumber {
-                    // width: 486px;
-                    // height: 65px;
                     width: 474px;
                     height: 40px;
                     width: 100%;
-                    // padding: 10px 10px;
                     margin-top: 15px;
 
                     &::placeholder {
                         font-size: 14px;
                         font-weight: 400;
-                        color: #5D5A6F;
+                        color: #5d5a6f;
                     }
                 }
 
                 .input-email-company {
-                    // width: 486px;
                     width: 474px;
                     height: 40px;
-                    // height: 65px;
                     width: 100%;
-                    // padding: 10px 10px;
                     margin-top: 15px;
 
                     &::placeholder {
                         font-size: 14px;
                         font-weight: 400;
-                        color: #5D5A6F;
+                        color: #5d5a6f;
                     }
                 }
-
-
 
                 .select-city {
                     width: 100%;
@@ -255,14 +229,11 @@
                     &::placeholder {
                         font-size: 14px;
                         font-weight: 400;
-                        color: #5D5A6F;
+                        color: #5d5a6f;
                     }
                 }
 
                 .input-confirm-password-company {
-                    // width: 486px;
-                    // height: 65px;
-                    // padding: 10px 10px;
                     cursor: pointer;
                     width: 100%;
                     margin-bottom: 20px;
@@ -271,41 +242,38 @@
                     &::placeholder {
                         font-size: 14px;
                         font-weight: 400;
-                        color: #5D5A6F;
+                        color: #5d5a6f;
                     }
                 }
             }
         }
     }
 
-}
-
-.box-button-register-company {
-    text-align: center;
-    align-items: center;
-
-    .button-register-company {
+    .box-button-register-company {
         text-align: center;
-        cursor: pointer;
-        font-size: 16px;
-        width: 474px;
-        height: 60px;
-        color: #ffffff;
-        border: none;
-        border-radius: 5px;
-        outline: none;
-        background-color: #BC2228;
+        margin-top: 40px;
+        .button-register-company {
+            text-align: center;
+            cursor: pointer;
+            font-size: 16px;
+            width: 474px;
+            height: 60px;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background-color: #bc2228;
+        }
     }
-}
+    .box-item-have-account {
+        margin-bottom: 77px;
+        margin-top: 20px;
+        text-align: center;
+        align-items: center;
 
-.box-item-have-account {
-    margin-bottom: 77px;
-    margin-top: 20px;
-    text-align: center;
-    align-items: center;
-
-    span {
-        cursor: pointer;
-        color: #BC2228;
+        span {
+            cursor: pointer;
+            color: #bc2228;
+        }
     }
 }

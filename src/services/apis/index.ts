@@ -7,5 +7,5 @@ import './axios.instance'
 export default {
     authenApi,
     candidateApi,
-    companyApi
+    companyApi,
 }
