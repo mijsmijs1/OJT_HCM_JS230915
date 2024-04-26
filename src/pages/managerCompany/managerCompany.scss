@@ -3,7 +3,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-
+    margin-top: 30px;
     .content {
         max-width: 1320px;
         width: 100%;
@@ -22,6 +22,8 @@
                 img {
                     width: 96px;
                     height: 96px;
+                    border-radius: 5px;
+                    margin-right: 20px;
                 }
 
                 .company_info {
@@ -146,12 +148,12 @@
         .info {
             width: 100%;
             display: flex;
-
+            justify-content: space-between;
             .info_left {
                 display: flex;
                 flex-direction: column;
-                width: 60%;
-
+                width: 58%;
+                margin-top: 10px;
                 .info_left_content {
                     display: flex;
                     flex-direction: column;
@@ -217,12 +219,15 @@
                     flex-direction: column;
                     border-radius: 8px;
                     border: 2px solid #E7F0FA;
-                    padding: 18px 32px;
-
+                    padding: 25px 32px;
+                    iframe{
+                        border: 2px solid #E7F0FA;
+                        border-radius: 5px;
+                    }
                     .label {
                         display: flex;
                         align-items: center;
-
+                        margin-bottom: 8px !important;
                         svg {
                             margin-right: 8px;
                         }

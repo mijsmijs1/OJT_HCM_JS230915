@@ -4,7 +4,7 @@ import { Store } from '@/store'
 import pictures from '@/pictures'
 import { useEffect, useState } from 'react'
 import UpdateCompanyAccount from '../updateCompanyAccount'
-import { Skeleton } from 'antd'
+import { Modal, Skeleton } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { fetchCompanies } from '@/store/slices/company/company.slice'
 export default function Company_profile() {
@@ -12,19 +12,17 @@ export default function Company_profile() {
     const navigate = useNavigate();
     const [updateCompanyAccountFrom, setUpdateCompanyAccountFrom] = useState(false);
     const companyStore = useSelector((store: Store) => store.companyStore)
-    console.log(companyStore)
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                await dispatch(fetchCompanies() as any);
-            } catch (err) {
-                console.error('Error fetching companies:', err);
-            }
-        };
-
-        fetchData();
-
-    }, [])
+        dispatch(fetchCompanies() as any);
+    }, [dispatch]);
+    useEffect(() => {
+        if (companyStore.errorCompanies) {
+            Modal.error({
+                title: 'Error',
+                content: companyStore.errorCompanies,
+            });
+        }
+    }, [companyStore.errorCompanies]);
     return (
         <div className='profile_container' >
             <div className='content'>
@@ -42,7 +40,7 @@ export default function Company_profile() {
                             <div className='box_profile_content_info'>
                                 <div className='box_profile_content_info_logo company_logo'>
                                     {
-                                        companyStore.loading ? <Skeleton.Image active></Skeleton.Image> : <img style={{ cursor: "pointer" }} src={companyStore.data?.avatar} alt="" />
+                                        companyStore.loadingAccount ? <Skeleton.Image active></Skeleton.Image> : <img style={{ cursor: "pointer" }} src={companyStore.data?.avatar} alt="" />
                                     }
                                 </div>
 
@@ -50,7 +48,7 @@ export default function Company_profile() {
                                     companyStore.data && (
                                         <div className='profile_content_info_user'>
                                             {
-                                                companyStore.loading ? <Skeleton.Input active></Skeleton.Input> : <h2>{companyStore.data?.displayName}</h2>
+                                                companyStore.loadingAccount ? <Skeleton.Input active></Skeleton.Input> : <h2>{companyStore.data?.displayName}</h2>
                                             }
 
                                             {/* <h3>Full-stack Developer</h3> */}
@@ -59,7 +57,7 @@ export default function Company_profile() {
                                                     <div className='profile_content_info_item'>
                                                         <i className="fa-regular fa-envelope"></i>
                                                         {
-                                                            companyStore.loading ? <Skeleton.Input active></Skeleton.Input> : <p>{companyStore.data?.email}</p>
+                                                            companyStore.loadingAccount ? <Skeleton.Input active></Skeleton.Input> : <p>{companyStore.data?.email}</p>
                                                         }
 
                                                     </div>
@@ -85,7 +83,7 @@ export default function Company_profile() {
                                     }} src={pictures.icon_plus} alt="" />
                                 </div>
                                 {
-                                    companyStore.loading ? (<>
+                                    companyStore.loadingCompanies ? (<>
                                         <Skeleton active></Skeleton>
                                     </>) : (<>
                                         {
@@ -101,7 +99,7 @@ export default function Company_profile() {
                                                                             <p>{item.name}</p>
                                                                             <div>
                                                                                 <div className='full_time'>
-                                                                                    <span>{item.type_company.name}</span>
+                                                                                    <span>{item.type_company?.name}</span>
                                                                                 </div>
                                                                                 <div className='featured' style={{ "backgroundColor": !item.status ? "#FFEDED" : "#B7E892" }}>
                                                                                     <span>{item.status ? "Active" : "Inactive"}</span>
