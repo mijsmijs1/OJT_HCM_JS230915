@@ -85,14 +85,14 @@ export default function RegisterCompany() {
             // company
             const name = (e.target as any).name.value;
             const phone = (e.target as any).phone.value;
+            const companyEmail = (e.target as any).companyEmail.value 
 
             // address
             const detailAddress = (e.target as any).detailAddress.value
-            const address = `${selectedCity}, ${selectedDistrict}, ${selectedWard}, ${detailAddress}`;
-            console.log('add', address);
+            const address = `${selectedCity}, ${selectedDistrict}, ${selectedWard}, ${detailAddress}`
 
             //  is not empty
-            if (!name || !email || !password || !confirmPassword || !(e.target as any).companyEmail.value || !phone || !selectedCity || !selectedDistrict || !selectedWard || !detailAddress) {
+            if (!name || !email || !password || !confirmPassword || !companyEmail || !phone || !selectedCity || !selectedDistrict || !selectedWard || !detailAddress) {
                 message.warning({
                     content: 'Vui lòng nhập đầy đủ thông tin!'
                 });
@@ -107,12 +107,14 @@ export default function RegisterCompany() {
                 return;
             }
 
+            console.log('comE', companyEmail);
+            
             // check email company format
-            if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test((e.target as any).companyEmail.value)) {
+            if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(companyEmail)) {
                 message.error({
-                    content: 'Sai định dạng mail!'
-                });
-                return;
+                    content: 'Sai định dạng mail doanh nghiệp!'
+                })
+                return
             }
 
             // check email format
@@ -140,49 +142,27 @@ export default function RegisterCompany() {
             }
             const data = {
                 email,
-                password
-            };
-
-            await apis.companyApi.register(data)
-            let login = await apis.authenApi.loginCompany(data)            
-            localStorage.setItem("token", login.data.accessToken)
-            localStorage.setItem("refreshToken", login.data.refreshToken)
-
-            const dataCompany = {
+                password,
                 name,
                 phone,
-                email: (e.target as any).companyEmail.value
-            }
-
-            let res = await apis.companyApi.createCompany(dataCompany)
-            const dataAddress = {
-                name,
+                companyEmail,
                 address
             }
-            
-            let result = await apis.authenApi.refreshToken(String(localStorage.getItem("refreshToken")))
-            console.log('re', result);
-            
-            localStorage.setItem("token", result.data.accessToken)
-            await apis.companyApi.createAddress(res.data.data.id, dataAddress)
-            localStorage.removeItem("token")
-            localStorage.removeItem("refreshToken")
 
+            let res = await apis.companyApi.register(data)
+            console.log('res',res);
+            
             Modal.success({
                 title: 'Thành công',
-                content: 'Đăng ký thành công tài khoản doanh nghiệp, kiểm tra mail để xác thực tài khoản ^^',
+                content: res.data.message,
                 onOk: () => {
                     (e.target as any).reset();
                     window.location.href = '/login-company'
                 }
             })
         } catch (err: any) {
-            console.log('errr',err);
-            
-            localStorage.removeItem("token")
-            localStorage.removeItem("refreshToken")
             Modal.error({
-                title: 'Thấ bại',
+                title: 'Thất bại',
                 content: err.response.data.message || 'Hãy thử lại sau ít phút!'
             });
         }

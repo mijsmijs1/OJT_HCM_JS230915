@@ -59,18 +59,14 @@ export default function RegisterUser() {
             }
 
             let res = await api.authenApi.registerCandidate(data)
-
-            // Success
-            if(res.status == 200){
-                Modal.success({
-                    title: "Thành công",
-                    content: "Đăng kí tài khoản ứng viên thành công ^^",
-                    onOk: () => {
-                        (e.target as any).reset()
-                        navigate('/login')
-                    }
-                })
-            }
+            Modal.success({
+                title: "Thành công",
+                content: res.data.message,
+                onOk: () => {
+                    (e.target as any).reset()
+                    navigate('/login')
+                }
+            })
         } catch (err: any) {
             Modal.error({
                 title: "Thất bại",
@@ -136,7 +132,7 @@ export default function RegisterUser() {
                             </div>
                             <div className='box-item-create-account'>
                                 <p>Bạn đã có tài khoản?<span onClick={() => {
-                                    window.location.href= '/login'
+                                    window.location.href = '/login'
                                 }}> đăng nhập</span></p>
                             </div>
                         </form>

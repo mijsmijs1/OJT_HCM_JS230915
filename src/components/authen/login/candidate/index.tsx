@@ -1,7 +1,7 @@
 import React from 'react'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Input, Modal, message } from 'antd';
-import api from '@services/apis'
+import apis from '@services/apis'
 import pictures from '@/pictures'
 
 import "./candidate_login.scss"
@@ -34,14 +34,14 @@ export default function LoginUser() {
                 password
             }
 
-            let result = await api.authenApi.loginCandidate(data)
+            let result = await apis.authenApi.loginCandidate(data)
 
             // Success
             if (result.status == 200) {
                 (e.target as any).reset()
                 localStorage.setItem("token", result.data.accessToken)
                 localStorage.setItem("refreshToken", result.data.accessToken)
-                message.success("Ứng viên đăng nhập thành công, điều hướng về trang chủ trong ít giây nữa")
+                message.success(`${result.data.message}`)
 
                 setTimeout(() => {
                     window.location.href = '/'
