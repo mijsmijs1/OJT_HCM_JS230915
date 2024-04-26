@@ -25,6 +25,8 @@ export type Address_Company = {
     map_url: string
     location_id: number
     location: Location
+    created_at: string
+    updated_at: string
 }
 
 // type company
@@ -41,6 +43,8 @@ export type Company = {
     id: number
     account_company_id: number
     account: Account_Company
+    email: string
+    phone: string
     name: string
     logo: string
     status: status
@@ -49,7 +53,7 @@ export type Company = {
     link_linkedin: string
     link_git: string
     follower: number
-    size: number
+    size: string
     description: string
     created_at: string
     updated_at: string
@@ -63,32 +67,72 @@ export type Company = {
 interface InitState {
     data: Account_Company | null,
     companies: Company[] | null,
-    loading: boolean,
+    company: Company | null,
+    typeCompany: Type_Company[] | null,
+    loadingAccount: boolean,
+    loadingCompanies: boolean,
+    loadingCompany: boolean,
+    errorAccount: string | undefined,
+    errorCompanies: string | undefined,
+    errorCompany: string | undefined,
+    errorAddress: string | undefined
 }
 
 /* INIT */
 let initialState: InitState = {
+    //Data
     data: null,
     companies: null,
-    loading: false,
+    company: null,
+    typeCompany: null,
+
+    //Loading
+    loadingAccount: false,
+    loadingCompanies: false,
+    loadingCompany: false,
+
+    //Error
+    errorAccount: undefined,
+    errorCompanies: undefined,
+    errorCompany: undefined,
+    errorAddress: undefined
 }
+
 // CALL API
 
 export const fetchCompanies = createAsyncThunk(
     'company/fetchCompanies',
-    async () => {
+    async (_, { rejectWithValue }) => {
         try {
             const res = await api.companyApi.findAllCompany()
             return res.data.data
-        } catch (err) {
-            throw err
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            return rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
+
+export const fetchCompanyById = createAsyncThunk(
+    'company/fetchCompany',
+    async (CompanyId: number, { rejectWithValue }) => {
+        try {
+            let res = await api.companyApi.findCompanyById(CompanyId)
+            return res.data.data
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            return rejectWithValue({ message: err.response.data.message })
         }
     }
 )
 // fetch company
 export const fetchCompanyAccount = createAsyncThunk(
     'company/validateToken',
-    async (_, { dispatch, rejectWithValue }) => {
+    async (_, { rejectWithValue }) => {
         try {
             const res = await api.authenApi.checkToken();
             if (res.data.data.role === 'company') {
@@ -97,11 +141,59 @@ export const fetchCompanyAccount = createAsyncThunk(
                 return rejectWithValue(false);
             }
         } catch (err: any) {
-            return rejectWithValue(false);
+            if (!err.response) {
+                throw err
+            }
+            return rejectWithValue({ message: err.response.data.message })
         }
     }
 );
 
+export const updateAddress = createAsyncThunk(
+    'company/updateAddress',
+    async ({ companyId, addressId, updateData }: { companyId: number, addressId: number, updateData: any }, { rejectWithValue }) => {
+        try {
+            let res = await api.companyApi.updateAddess(companyId, addressId, updateData)
+            console.log({ data: res.data.data, message: res.data.message })
+            return { data: res.data.data, message: res.data.message }
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            return rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
+
+export const updateCompany = createAsyncThunk(
+    'company/updateCompany',
+    async ({ companyId, updateCompanyData }: { companyId: number, updateCompanyData: any }, { rejectWithValue }) => {
+        try {
+            let res = await api.companyApi.update(companyId, updateCompanyData)
+            return { data: res.data.data, message: res.data.message }
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            return rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
+
+export const fetchTypeCompany = createAsyncThunk(
+    'company/fetchTypeCompany',
+    async (_, { rejectWithValue }) => {
+        try {
+            let res = await api.companyApi.getTypeCompany()
+            return { message: res.data.message, data: res.data.data }
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            return rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
 const companySlice = createSlice({
     name: "company",
     initialState,
@@ -111,19 +203,65 @@ const companySlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+        // Fetch Account Data
         builder.addCase(fetchCompanyAccount.pending, (state) => {
-            state.loading = true;
+            state.loadingAccount = true;
         })
         builder.addCase(fetchCompanyAccount.fulfilled, (state, action) => {
             state.data = action.payload;
-            state.loading = false;
+            state.loadingAccount = false;
         })
+        //Fetch companies data for account page
         builder.addCase(fetchCompanies.pending, (state) => {
-            state.loading = true;
+            state.loadingCompanies = true;
         })
         builder.addCase(fetchCompanies.fulfilled, (state, action) => {
             state.companies = action.payload;
-            state.loading = false
+            state.loadingCompanies = false
+        })
+        builder.addCase(fetchCompanies.rejected, (state, action) => {
+            state.loadingCompanies = false
+            state.errorCompanies = action.payload ? String(action.payload) : action.error.message ? String(action.error.message) : 'Unknown error';
+        })
+        //Fetch company data for comapay Info page
+        builder.addCase(fetchCompanyById.pending, (state) => {
+            state.loadingCompany = true
+        })
+        builder.addCase(fetchCompanyById.fulfilled, (state, action) => {
+            state.company = action.payload;
+            state.loadingCompany = false
+        })
+        builder.addCase(fetchCompanyById.rejected, (state, action) => {
+            state.errorCompany = action.payload ? String(action.payload) : action.error.message ? String(action.error.message) : 'Unknown error';
+            state.loadingCompany = false
+        })
+
+        //Fetch Type Company
+        builder.addCase(fetchTypeCompany.fulfilled, (state, action) => {
+            state.typeCompany = action.payload.data
+        })
+
+        //Update Address
+        builder.addCase(updateAddress.fulfilled, (state, action) => {
+            if (state.company && state.company.address_companies) {
+                state.company.address_companies = state.company.address_companies.map(item => {
+                    if (item.id == action.payload.data.id) {
+                        return action.payload.data
+                    }
+                    return item
+                })
+            }
+        })
+        builder.addCase(updateAddress.rejected, (state, action) => {
+            state.errorAddress = action.payload ? String(action.payload) : 'Unknown error';
+        })
+
+        //Update Company
+        builder.addCase(updateCompany.fulfilled, (state, action) => {
+            state.company = action.payload?.data
+        })
+        builder.addCase(updateCompany.rejected, (state, action) => {
+            state.errorCompany = action.payload ? String(action.payload) : 'Unknown error';
         })
     }
 })
