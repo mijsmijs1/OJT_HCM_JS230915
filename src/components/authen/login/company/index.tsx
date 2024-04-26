@@ -14,13 +14,11 @@ export default function LoginCompany() {
         try {
             const email = (e.target as any).email.value
             const password = (e.target as any).password.value
-
             // check emty
             if (!email || !password) {
                 message.warning("Vui lòng nhập đầy đủ thông tin!")
                 return
             }
-
             // check type email
             if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
                 message.error({
@@ -28,28 +26,20 @@ export default function LoginCompany() {
                 });
                 return;
             }
-
             // data
             let data = {
                 email,
                 password
             }
-
             let result = await apis.authenApi.loginCompany(data)
-
-            console.log('a', result);
-
-            // Success
-            if (result.status == 200) {
-                (e.target as any).reset()
-                localStorage.setItem("token", result.data.accessToken)
-                localStorage.setItem("refreshToken", result.data.accessToken)
-                message.success(`${result.data.message}`)
-
-                setTimeout(() => {
-                    window.location.href = '/'
-                }, 1000)
-            }
+            // success
+            localStorage.setItem("token", result.data.accessToken)
+            localStorage.setItem("refreshToken", result.data.accessToken)
+            message.success(`${result.data.message}`)
+            // back to homepage
+            setTimeout(() => {
+                window.location.href = '/'
+            }, 1000)
         } catch (err: any) {
             Modal.error({
                 title: "Thất bại!",

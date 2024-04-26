@@ -13,41 +13,33 @@ export default function LoginUser() {
         try {
             const email = (e.target as any).email.value
             const password = (e.target as any).password.value
-
             // check emty
             if (!email || !password) {
                 message.warning("Vui lòng nhập đầy đủ thông tin!")
                 return
             }
-
             // check type email
             if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
                 message.error({
                     content: 'Không đúng định dạng mail!'
-                });
-                return;
+                })
+                return
             }
-
             // data
             let data = {
                 email,
                 password
             }
-
             let result = await apis.authenApi.loginCandidate(data)
-
             // Success
-            if (result.status == 200) {
-                (e.target as any).reset()
-                localStorage.setItem("token", result.data.accessToken)
-                localStorage.setItem("refreshToken", result.data.accessToken)
-                message.success(`${result.data.message}`)
-
-                setTimeout(() => {
-                    window.location.href = '/'
-                }, 1000)
-            }
-        } catch (err: any) {            
+            localStorage.setItem("token", result.data.accessToken)
+            localStorage.setItem("refreshToken", result.data.accessToken)
+            message.success(`${result.data.message}`)
+            // back to homepage
+            setTimeout(() => {
+                window.location.href = '/'
+            }, 1000)
+        } catch (err: any) {
             Modal.error({
                 title: "Thất bại!",
                 content: err.response.data.message || 'Vui lòng thử lại sau ít phút',
@@ -94,7 +86,7 @@ export default function LoginUser() {
                             </div>
                             <div className='box-item-create-account'>
                                 <p>Bạn không có tài khoản?<span onClick={() => {
-                                    window.location.href= '/register'
+                                    window.location.href = '/register'
                                 }}> Tạo 1 tài khoản</span></p>
                             </div>
                         </form>
@@ -104,9 +96,7 @@ export default function LoginUser() {
                             <img className='Rikkei_logo' src={pictures.img_content} alt='img_content'></img>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </div>
     )

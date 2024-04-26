@@ -81,34 +81,27 @@ export default function RegisterCompany() {
             let email = (e.target as any).email.value;
             const password = (e.target as any).password.value;
             const confirmPassword = (e.target as any).confirmPassword.value;
-
             // company
             const name = (e.target as any).name.value;
             const phone = (e.target as any).phone.value;
-            const companyEmail = (e.target as any).companyEmail.value 
-
+            const companyEmail = (e.target as any).companyEmail.value
             // address
             const detailAddress = (e.target as any).detailAddress.value
             const address = `${selectedCity}, ${selectedDistrict}, ${selectedWard}, ${detailAddress}`
-
             //  is not empty
             if (!name || !email || !password || !confirmPassword || !companyEmail || !phone || !selectedCity || !selectedDistrict || !selectedWard || !detailAddress) {
                 message.warning({
                     content: 'Vui lòng nhập đầy đủ thông tin!'
-                });
-                return;
+                })
+                return
             }
-
             // check phone
             if (!/^\d+$/.test(phone)) {
                 message.error({
                     content: 'Số điện thoại phải là số!'
-                });
-                return;
+                })
+                return
             }
-
-            console.log('comE', companyEmail);
-            
             // check email company format
             if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(companyEmail)) {
                 message.error({
@@ -116,30 +109,28 @@ export default function RegisterCompany() {
                 })
                 return
             }
-
             // check email format
             if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
                 message.error({
                     content: 'Sai định dạng mail!'
-                });
-                return;
+                })
+                return
             }
-
             // check password
             if (password.length < 6) {
                 message.error({
                     content: 'Mật khẩu ít nhất 6 ký tự!'
-                });
-                return;
+                })
+                return
             }
-
             // check confirm password
             if (password != confirmPassword) {
                 message.error({
                     content: 'Mật khẩu không trùng khớp!'
                 });
-                return;
+                return
             }
+            // data
             const data = {
                 email,
                 password,
@@ -148,15 +139,13 @@ export default function RegisterCompany() {
                 companyEmail,
                 address
             }
-
             let res = await apis.companyApi.register(data)
-            console.log('res',res);
-            
+            //success  
             Modal.success({
                 title: 'Thành công',
                 content: res.data.message,
                 onOk: () => {
-                    (e.target as any).reset();
+                    (e.target as any).reset()
                     window.location.href = '/login-company'
                 }
             })
@@ -164,10 +153,9 @@ export default function RegisterCompany() {
             Modal.error({
                 title: 'Thất bại',
                 content: err.response.data.message || 'Hãy thử lại sau ít phút!'
-            });
+            })
         }
     }
-
     return (
         <div>
             <div className='box-logo-rikkei' onClick={() => { window.location.href = '/'; }}>
