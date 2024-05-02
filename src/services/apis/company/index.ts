@@ -15,7 +15,7 @@ export const companyApi = {
         return await axios.post(`${SERVER_BASE_URL}/register`, data);
     },
     update: async (companyId: number, data: any) => {
-        return await axios.patch(`${SERVER_BASE_URL}/${companyId}`, data)
+        return await axios.patch(`${SERVER_BASE_URL}/update-company/${companyId}`, data)
     },
     updateAddess: async (companyId: number, addressId: number, updateAdressData: any) => {
         return await axios.patch(`${SERVER_BASE_URL}/update-address?companyId=${companyId}&addressId=${addressId}`, updateAdressData)
@@ -28,4 +28,8 @@ export const companyApi = {
     },
     createAddress: async (companyId: number, data: any) => {
         return await axios.post(`${SERVER_BASE_URL}/create-address/${companyId}`, data)
-    }
+    },
+    deleteAddress: async (companyId: number, addressId: number) => {
+        return await axios.delete(`${SERVER_BASE_URL}/delete-address?companyId=${companyId}&addressId=${addressId}`)
+    },
+}

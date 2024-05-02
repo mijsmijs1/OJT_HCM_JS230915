@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     margin-top: 30px;
+
     .content {
         max-width: 1320px;
         width: 100%;
@@ -16,15 +17,47 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             .header_left {
                 display: flex;
 
-                img {
-                    width: 96px;
-                    height: 96px;
-                    border-radius: 5px;
+                .logo {
+                    position: relative;
+                    cursor: pointer;
                     margin-right: 20px;
+                    z-index: 0 !important;
+
+                    &:hover {
+                        span {
+                            visibility: visible;
+                        }
+                    }
+
+                    span {
+                        position: absolute;
+                        bottom: 5px;
+                        left: 25%;
+                        background-color: rgba($color: #c4cfc6, $alpha: 0.9);
+                        color: #ffffff;
+                        padding: 1px 8px;
+                        font-weight: 600;
+                        border-radius: 8px;
+                        visibility: hidden;
+
+                        &:hover {
+                            background-color: rgba($color: #d3f1d8, $alpha: 0.9);
+                        }
+                    }
+
+                    img {
+                        width: 96px;
+                        height: 96px;
+                        border-radius: 5px;
+
+                    }
                 }
+
+
 
                 .company_info {
                     display: flex;
@@ -34,7 +67,7 @@
                         font-weight: 500;
                         font-size: 24px;
                         line-height: 32px;
-                        
+
                     }
 
                     div {
@@ -96,11 +129,13 @@
                             }
                         }
                     }
-                    .emplyees{
-                        svg{
+
+                    .emplyees {
+                        svg {
                             margin-right: 5px;
                         }
-                        span{
+
+                        span {
                             margin-right: 20px;
                         }
                     }
@@ -149,11 +184,13 @@
             width: 100%;
             display: flex;
             justify-content: space-between;
+
             .info_left {
                 display: flex;
                 flex-direction: column;
                 width: 58%;
                 margin-top: 10px;
+
                 .info_left_content {
                     display: flex;
                     flex-direction: column;
@@ -220,14 +257,40 @@
                     border-radius: 8px;
                     border: 2px solid #E7F0FA;
                     padding: 25px 32px;
-                    iframe{
+
+                    iframe {
                         border: 2px solid #E7F0FA;
                         border-radius: 5px;
                     }
+
                     .label {
                         display: flex;
                         align-items: center;
                         margin-bottom: 8px !important;
+
+                        .full_time {
+                            padding: 4px 12px;
+                            border-radius: 20px;
+                            background-color: #0BA02C;
+                            height: 28px;
+                            margin-right: 8px;
+                            width: 125px;
+                            margin-left: 20px;
+                            cursor: pointer;
+
+                            &:hover {
+                                background-color: #0ad135;
+                            }
+
+                            span {
+                                margin: 0;
+                                font-weight: 600;
+                                font-size: 14px;
+                                line-height: 20px;
+                                color: $whiteColor;
+                            }
+                        }
+
                         svg {
                             margin-right: 8px;
                         }
@@ -245,6 +308,15 @@
                         font-size: 16px;
                         line-height: 24px;
                         color: #767F8C;
+
+                        .delete_address {
+                            background-color: #f83535;
+                            padding: 4px 8px;
+                            color: #d6d6d6;
+                            border: none;
+                            border-radius: 20px;
+                            cursor: pointer;
+                        }
                     }
 
                     .candidate_contact {

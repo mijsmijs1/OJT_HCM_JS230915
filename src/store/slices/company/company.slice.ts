@@ -20,7 +20,6 @@ export type Account_Company = {
 export type Address_Company = {
     id: number
     company_id: number
-    company: Company[]
     address: string
     map_url: string
     location_id: number
@@ -179,7 +178,35 @@ export const updateCompany = createAsyncThunk(
         }
     }
 )
-
+export const createAddress = createAsyncThunk(
+    'company/createAddress',
+    async ({ companyId, createData }: { companyId: number, createData: any }, { rejectWithValue }) => {
+        try {
+            let res = await api.companyApi.createAddress(companyId, createData)
+            console.log({ data: res.data.data, message: res.data.message })
+            return { data: res.data.data, message: res.data.message }
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
+export const deleteAddress = createAsyncThunk(
+    'company/deleteAddress',
+    async ({ companyId, addressId }: { companyId: number, addressId: number }, { rejectWithValue }) => {
+        try {
+            let res = await api.companyApi.deleteAddress(companyId, addressId)
+            return { addressId, message: res.data.message }
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
 export const fetchTypeCompany = createAsyncThunk(
     'company/fetchTypeCompany',
     async (_, { rejectWithValue }) => {
@@ -241,6 +268,18 @@ const companySlice = createSlice({
             state.typeCompany = action.payload.data
         })
 
+        //CreateAddress
+        builder.addCase(createAddress.pending, (state) => {
+            state.loadingCompany = true
+        })
+        builder.addCase(createAddress.fulfilled, (state, action) => {
+            state.company?.address_companies?.push(action.payload?.data)
+            state.loadingCompany = false
+        })
+        builder.addCase(createAddress.rejected, (state) => {
+            state.loadingCompany = false
+        })
+
         //Update Address
         builder.addCase(updateAddress.fulfilled, (state, action) => {
             if (state.company && state.company.address_companies) {
@@ -255,6 +294,14 @@ const companySlice = createSlice({
         builder.addCase(updateAddress.rejected, (state, action) => {
             state.errorAddress = action.payload ? String(action.payload) : 'Unknown error';
         })
+
+        //Delele Address
+        builder.addCase(deleteAddress.fulfilled, (state, action) => {
+            if (state.company && state.company.address_companies) {
+                state.company.address_companies = state.company?.address_companies?.filter(item => item.id != action.payload?.addressId)
+            }
+        })
+
 
         //Update Company
         builder.addCase(updateCompany.fulfilled, (state, action) => {
