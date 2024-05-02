@@ -265,7 +265,7 @@ export default function EditCompanyForm({ setDisplayEditForm }: {
                             <p>Địa chỉ công ty</p>
                             <Select value={selectedAddress} onChange={handleSelectedAddress}>
                                 <Select.Option value="" disabled hidden>Chọn địa chỉ muốn thay đổi</Select.Option>
-                                {companyStore.company?.address_companies.map(address => (
+                                {companyStore.company?.address_companies?.map(address => (
                                     <Select.Option key={address.address} value={address.address}>
                                         {address.address}
                                     </Select.Option>
@@ -339,7 +339,7 @@ export default function EditCompanyForm({ setDisplayEditForm }: {
                                                 type='text'
                                                 className='input-address'
                                                 placeholder='Nhập địa chỉ chi tiết ...'
-                                                defaultValue={companyStore.company?.address_companies[0]?.address?.split(', ').reverse()[3]}
+                                                value={selectedAddress.split(', ')[0]}
                                                 disabled={!selectedWard}
                                             />
                                         </div>
@@ -352,7 +352,7 @@ export default function EditCompanyForm({ setDisplayEditForm }: {
                                                 type='text'
                                                 className='input-address'
                                                 placeholder='Nhập Map embed URL ...'
-                                                defaultValue={companyStore.company?.address_companies[0]?.map_url || "updating"}
+                                                value={companyStore.company?.address_companies.find(item => item.address == selectedAddress)?.map_url || "updating"}
                                                 disabled={!selectedWard}
                                             />
                                         </div>

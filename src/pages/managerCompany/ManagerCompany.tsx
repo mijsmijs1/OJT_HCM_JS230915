@@ -6,31 +6,71 @@ import react, { useEffect, useState } from 'react'
 import EditCompanyForm from './components/editCompanyForm/EditCompanyForm'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchCompanyById } from '@/store/slices/company/company.slice'
+import { deleteAddress, fetchCompanyById } from '@/store/slices/company/company.slice'
 import store, { Store } from '@/store'
-import { Skeleton, message } from 'antd'
+import { Modal, Skeleton, message } from 'antd'
 import { coppySuccessfull } from '@/utils/common/coppyFunction'
+import AddAddressForm from './components/addAddressForm/AddAddressForm'
+import { unwrapResult } from '@reduxjs/toolkit'
+import EditCompanyLogo from './components/editCompanyLogo/EditCompanyLogo'
 
 export default function ManagerCompany() {
     const dispatch = useDispatch()
-    let [displayEditForm, setDisplayEditForm] = useState(false)
+    const [displayEditForm, setDisplayEditForm] = useState(false)
+    const [displayAddAddressForm, setDisplayAddAddressForm] = useState(false)
+    const [showAvatar, setShowAvatar] = useState(false)
     let { companyId } = useParams();
     let companyIdAsNumber = companyId ? +companyId : undefined;
     const companyStore = useSelector((store: Store) => store.companyStore)
-    console.log(companyStore.company)
     useEffect(() => {
         dispatch(fetchCompanyById(companyIdAsNumber || 0) as any)
     }, [dispatch])
+    const handleDeleteAddress = async (address: any) => {
+        try {
+            Modal.confirm({
+                title: 'Xác nhận',
+                content: `Bạn có chắc muốn xóa địa chỉ: ${address.address}`,
+                onOk: async () => {
+                    let result = await dispatch(deleteAddress({ companyId: companyStore.company?.id || 0, addressId: address.id || 0 }) as any)
+                    let { message: ApiMessage } = unwrapResult(result)
+                    message.success(`${ApiMessage}`)
+                },
+                onCancel: () => { }
+            })
+            return
+        } catch (err: any) {
+            if (err.message) {
+                Modal.error({
+                    title: 'Thất bại!',
+                    content: `${err.message}`,
+                    onOk: () => { }
+                })
+                return
+            }
+            Modal.error({
+                title: 'Thất bại!',
+                content: `Lỗi hệ thống, vui lòng thử lại sau!`,
+                onOk: () => { }
+            })
+            return
+        }
+    }
 
     return (
         <div className='company_manager_container'>
             {
                 displayEditForm && <EditCompanyForm setDisplayEditForm={setDisplayEditForm} />
             }
+            {
+                displayAddAddressForm && <AddAddressForm setDisplayAddAddressForm={setDisplayAddAddressForm} />
+            }
+            {
+                showAvatar && <EditCompanyLogo setShowAvatar={setShowAvatar} />
+            }
             <div className='content'>
                 <div className='header'>
                     <div className='header_left'>
-                        {companyStore.loadingCompany ? <Skeleton.Image active></Skeleton.Image> : <img src={companyStore.company?.logo} alt='logo' />}
+                        {companyStore.loadingCompany ? <Skeleton.Image active></Skeleton.Image> : <div className='logo'><img src={companyStore.company?.logo} alt='logo' /><span onClick={() => { setShowAvatar(true) }}>Edit</span></div>}
                         <div className='company_info'>
                             {companyStore.loadingCompany ? <Skeleton.Input active></Skeleton.Input> : <p>{companyStore.company?.name}</p>}
                             <div className='emplyees'>
@@ -106,13 +146,16 @@ export default function ManagerCompany() {
                                     </defs>
                                 </svg>
                                 <span>Địa chỉ công ty</span>
+                                <div className='full_time' onClick={() => { setDisplayAddAddressForm(true) }}>
+                                    <span>Thêm địa chỉ +</span>
+                                </div>
                             </div>
                             {companyStore.loadingCompany ? <Skeleton active></Skeleton> :
                                 (
                                     <>
                                         {
                                             companyStore.company?.address_companies?.map(item => {
-                                                return <p>* {item.address}</p>
+                                                return <p>* {item.address} <span className='delete_address' onClick={() => { handleDeleteAddress(item) }}>ー</span></p>
                                             })
                                         }
                                     </>
