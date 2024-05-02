@@ -186,6 +186,7 @@ export const createAddress = createAsyncThunk(
             console.log({ data: res.data.data, message: res.data.message })
             return { data: res.data.data, message: res.data.message }
         } catch (err: any) {
+            console.log(err)
             if (!err.response) {
                 throw err
             }
@@ -199,6 +200,20 @@ export const deleteAddress = createAsyncThunk(
         try {
             let res = await api.companyApi.deleteAddress(companyId, addressId)
             return { addressId, message: res.data.message }
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
+export const createCompany = createAsyncThunk(
+    'company/createCompany',
+    async ({ createData }: { createData: any }, { rejectWithValue }) => {
+        try {
+            let res = await api.companyApi.createCompany(createData)
+            return { data: res.data.data, message: res.data.message }
         } catch (err: any) {
             if (!err.response) {
                 throw err
@@ -302,6 +317,10 @@ const companySlice = createSlice({
             }
         })
 
+        //Create Company
+        builder.addCase(createCompany.fulfilled, (state, action) => {
+            state.companies?.push(action.payload?.data)
+        })
 
         //Update Company
         builder.addCase(updateCompany.fulfilled, (state, action) => {

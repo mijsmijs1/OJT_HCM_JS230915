@@ -7,10 +7,12 @@ import UpdateCompanyAccount from '../updateCompanyAccount'
 import { Modal, Skeleton } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { fetchCompanies } from '@/store/slices/company/company.slice'
+import AddCompanyForm from '../addCompanyForm/AddCompanyForm'
 export default function Company_profile() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [updateCompanyAccountFrom, setUpdateCompanyAccountFrom] = useState(false);
+    const [displayAddCompanyForm, setDisplayAddCompanyForm] = useState(false);
     const companyStore = useSelector((store: Store) => store.companyStore)
     useEffect(() => {
         dispatch(fetchCompanies() as any);
@@ -25,6 +27,9 @@ export default function Company_profile() {
     }, [companyStore.errorCompanies]);
     return (
         <div className='profile_container' >
+            {
+                displayAddCompanyForm && <AddCompanyForm setDisplayAddCompanyForm={setDisplayAddCompanyForm} />
+            }
             <div className='content'>
                 <div className='profile_content'>
                     <div className='profile_content_right'>
@@ -79,7 +84,7 @@ export default function Company_profile() {
                                 <div className='content_info_user_header'>
                                     <h3>Công ty:</h3>
                                     <img style={{ cursor: "pointer" }} onClick={() => {
-
+                                        setDisplayAddCompanyForm(true)
                                     }} src={pictures.icon_plus} alt="" />
                                 </div>
                                 {

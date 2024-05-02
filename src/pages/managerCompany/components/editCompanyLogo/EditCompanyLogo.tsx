@@ -94,7 +94,7 @@ export default function EditCompanyLogo({ setShowAvatar }: {
                 <p onClick={() => {
                     setShowAvatar(false)
                 }}>✕</p>
-                <h5>Thay đổi ảnh đại diện của bạn!</h5>
+                <h5>Thay đổi logo đại diện cho công ty của bạn!</h5>
                 <input type='file' ref={inputRef} className='img_input' style={{ display: "none" }} onChange={(e) => { handleFileChange(e) }} />
                 <img src={selectedImg ? selectedImg : companyStore.company?.logo} alt="Selected Image"></img>
                 <i className={selectedFile ? `fa-solid fa-check` : "fa-solid fa-image"} style={selectedFile ? { color: "#49CC90" } : { color: "black" }}></i>
