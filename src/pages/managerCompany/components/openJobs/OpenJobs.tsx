@@ -2,7 +2,7 @@ import pictures from '@/pictures'
 import './openJobs.scss'
 import { useNavigate } from 'react-router-dom'
 
-export default function OpenJobs() {
+export default function OpenJobs({ companyId }: { companyId: number }) {
     let results = [
         {
             workName: "Techical Support Specialist",
@@ -51,7 +51,7 @@ export default function OpenJobs() {
             <div className='title'>
                 <p>Việc làm công ty đang mở</p>
                 <div className='add' onClick={() => {
-                    navigate('/addJobs')
+                    navigate(`/add-job/${companyId}`)
                 }}>
                     <span>Thêm việc làm mới</span>
                 </div>

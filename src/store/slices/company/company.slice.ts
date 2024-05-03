@@ -1,6 +1,6 @@
 import api from '@services/apis'
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { Job } from '../job.slice'
+import { Job } from '../job/job.slice'
 
 
 export type status = "active" | "inactive" | "block"
@@ -68,6 +68,7 @@ interface InitState {
     companies: Company[] | null,
     company: Company | null,
     typeCompany: Type_Company[] | null,
+    addressByCompanyId: Address_Company[] | null,
     loadingAccount: boolean,
     loadingCompanies: boolean,
     loadingCompany: boolean,
@@ -84,7 +85,7 @@ let initialState: InitState = {
     companies: null,
     company: null,
     typeCompany: null,
-
+    addressByCompanyId: null,
     //Loading
     loadingAccount: false,
     loadingCompanies: false,
@@ -236,6 +237,20 @@ export const fetchTypeCompany = createAsyncThunk(
         }
     }
 )
+export const fetchAddressByCompanyId = createAsyncThunk(
+    'company/fetchAddressByCompanyId',
+    async ({ companyId }: { companyId: number }, { rejectWithValue }) => {
+        try {
+            let res = await api.companyApi.getAddressById(companyId)
+            return { message: res.data.message, data: res.data.data }
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            return rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
 const companySlice = createSlice({
     name: "company",
     initialState,
@@ -277,7 +292,10 @@ const companySlice = createSlice({
             state.errorCompany = action.payload ? String(action.payload) : action.error.message ? String(action.error.message) : 'Unknown error';
             state.loadingCompany = false
         })
-
+        //Fetch Address By ID for Add Job page
+        builder.addCase(fetchAddressByCompanyId.fulfilled, (state, action) => {
+            state.addressByCompanyId = action.payload.data;
+        })
         //Fetch Type Company
         builder.addCase(fetchTypeCompany.fulfilled, (state, action) => {
             state.typeCompany = action.payload.data

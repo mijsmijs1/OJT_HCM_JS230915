@@ -1,13 +1,13 @@
-import pictures from '@/pictures'
+
 import './managerCompany.scss'
 import OpenJobs from './components/openJobs/OpenJobs'
 import GoodCandidate from '../home/components/goodCandidate/GoodCandidate'
-import react, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import EditCompanyForm from './components/editCompanyForm/EditCompanyForm'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteAddress, fetchCompanyById } from '@/store/slices/company/company.slice'
-import store, { Store } from '@/store'
+import { Store } from '@/store'
 import { Modal, Skeleton, message } from 'antd'
 import { coppySuccessfull } from '@/utils/common/coppyFunction'
 import AddAddressForm from './components/addAddressForm/AddAddressForm'
@@ -130,7 +130,7 @@ export default function ManagerCompany() {
                                 {companyStore.loadingCompany ? <Skeleton active></Skeleton> : <span>{companyStore.company?.description}</span>}
                             </div>
                         </div>
-                        <OpenJobs />
+                        <OpenJobs companyId={companyStore.company?.id || 0} />
                     </div>
                     <div className='info_right'>
                         <div className='info_right_top'>

@@ -4,6 +4,7 @@ import { candidateEducationAction, candidateEducationReducer } from "./slices/ca
 import { candidateExperienceAction, candidateExperienceReducer } from "./slices/candidate/experience.slice"
 import { candidateCertificateAction, candidateCertificateReducer } from "./slices/candidate/certificate.slice";
 import { companyAction, companyReducer } from "./slices/company/company.slice"
+import { fetchJobLevel, fetchTypeJob, jobReducer } from "./slices/job/job.slice";
 
 const RootReducer = combineReducers({
     candidateStore: candidateReducer,
@@ -11,6 +12,7 @@ const RootReducer = combineReducers({
     experienceStore: candidateExperienceReducer,
     certificateStore: candidateCertificateReducer,
     companyStore: companyReducer,
+    jobStore: jobReducer
 })
 
 export type Store = ReturnType<typeof RootReducer>
@@ -23,7 +25,8 @@ store.dispatch(candidateAction.fetchCandidate())
 store.dispatch(candidateEducationAction.fetchCandidateEducation())
 store.dispatch(candidateExperienceAction.fetchCandidateExperience())
 store.dispatch(candidateCertificateAction.fetchCandidateCertificates())
-
+store.dispatch(fetchTypeJob())
+store.dispatch(fetchJobLevel())
 // company
 store.dispatch(companyAction.fetchCompanyAccount())
 
