@@ -1,6 +1,6 @@
 import api from '@services/apis'
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { Job } from "../job.slice.ts"
+import { Job } from "../job/job.slice.ts"
 import { EducationCandidate } from './education.slice.ts'
 import { ExperienceCandidate } from './experience.slice.ts'
 import { CertificateCandidate } from './certificate.slice.ts'

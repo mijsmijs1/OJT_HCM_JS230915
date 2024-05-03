@@ -23,6 +23,9 @@ export const companyApi = {
     getTypeCompany: async () => {
         return await axios.get(`${SERVER_BASE_URL}/get-type-company`)
     },
+    getAddressById: async (companyId: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/get-address-by-id/${companyId}`)
+    },
     createCompany: async (data: any) => {
         return await axios.post(`${SERVER_BASE_URL}/create-company`, data)
     },

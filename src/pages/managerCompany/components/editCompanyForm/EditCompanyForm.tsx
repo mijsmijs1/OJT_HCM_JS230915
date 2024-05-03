@@ -35,7 +35,7 @@ export default function EditCompanyForm({ setDisplayEditForm }: {
     const [provinces, setProvinces] = useState<Province[]>([])
     const [selectedAddress, setSelectedAddress] = useState("")
     const [size, setSize] = useState(companyStore.company?.size)
-    const [type, setType] = useState(companyStore.company?.type_company.name)
+    const [type, setType] = useState(companyStore.company?.type_company?.name)
     // call api get location
     const fetchProvinces = async () => {
         try {
@@ -112,7 +112,7 @@ export default function EditCompanyForm({ setDisplayEditForm }: {
             size != companyStore.company?.size && (updateData.size = size)
             selectedTypeCompany?.id != companyStore.company?.type_company_id && (updateData.type_company_id = selectedTypeCompany?.id)
             website != companyStore.company?.website && (updateData.website = website)
-            link_fb != companyStore.company?.website && (updateData.website = link_fb)
+            link_fb != companyStore.company?.link_fb && (updateData.link_fb = link_fb)
             link_linkedin != companyStore.company?.link_linkedin && (updateData.link_linkedin = link_linkedin)
             description != companyStore.company?.description && (updateData.description = description)
             if (!selectedAddress && Object.keys(updateData).length == 0) {
@@ -121,8 +121,8 @@ export default function EditCompanyForm({ setDisplayEditForm }: {
             }
             if (selectedAddress) {
                 console.log(selectedAddress)
-                const detailAddress = (e.target as any).detailAddress.value
-                const map_url = (e.target as any).map_url.value
+                const detailAddress = detailAddressInputValue
+                const map_url = mapUrlInputValue
                 if (!detailAddress || !map_url) {
                     message.error('Phải nhập đầy đủ thông tin của các trường!')
                     return
@@ -191,6 +191,14 @@ export default function EditCompanyForm({ setDisplayEditForm }: {
             }
         }
     }, [provinces, selectedAddress])
+    const [detailAddressInputValue, setDetailAddressInputValue] = useState('');
+    useEffect(() => {
+        setDetailAddressInputValue(selectedAddress.split(', ')[0]);
+    }, [selectedAddress]);
+    const [mapUrlInputValue, setMapUrlInputValue] = useState('');
+    useEffect(() => {
+        setMapUrlInputValue(companyStore.company?.address_companies.find(item => item.address == selectedAddress)?.map_url || "updating");
+    }, [selectedAddress]);
     return (
         <div className='company_edit_form_container'>
             <form onSubmit={(e) => {
@@ -339,7 +347,8 @@ export default function EditCompanyForm({ setDisplayEditForm }: {
                                                 type='text'
                                                 className='input-address'
                                                 placeholder='Nhập địa chỉ chi tiết ...'
-                                                value={selectedAddress.split(', ')[0]}
+                                                value={detailAddressInputValue}
+                                                onChange={e => setDetailAddressInputValue(e.target.value)}
                                                 disabled={!selectedWard}
                                             />
                                         </div>
@@ -352,7 +361,8 @@ export default function EditCompanyForm({ setDisplayEditForm }: {
                                                 type='text'
                                                 className='input-address'
                                                 placeholder='Nhập Map embed URL ...'
-                                                value={companyStore.company?.address_companies.find(item => item.address == selectedAddress)?.map_url || "updating"}
+                                                value={mapUrlInputValue}
+                                                onChange={e => setMapUrlInputValue(e.target.value)}
                                                 disabled={!selectedWard}
                                             />
                                         </div>
