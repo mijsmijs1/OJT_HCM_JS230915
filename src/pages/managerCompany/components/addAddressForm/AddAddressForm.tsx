@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Input, Modal, Select, message } from 'antd';
 import { createAddress } from '@/store/slices/company/company.slice';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { refreshToken } from '@/utils/common/refreshTokenFunction';
 
 
 interface Province {
@@ -94,6 +95,7 @@ export default function AddAddressForm({ setDisplayAddAddressForm }: {
                 title: "Thành công!",
                 content: `${resMessage}`,
                 onOk: () => {
+                    refreshToken()
                     setDisplayAddAddressForm(false)
                 }
             })

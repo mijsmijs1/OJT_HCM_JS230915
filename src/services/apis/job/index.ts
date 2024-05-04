@@ -5,14 +5,23 @@ const version = "v1";
 const SERVER_BASE_URL = `${import.meta.env.VITE_SERVER}/api/${version}/${prefix}`
 
 export const jobApi = {
+    checkJob: async (jobId: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/check-job/${jobId}`)
+    },
     getTypeJob: async () => {
         return await axios.get(`${SERVER_BASE_URL}/type-job`)
     },
     getLevelJob: async () => {
         return await axios.get(`${SERVER_BASE_URL}/level-job`)
     },
-    update: async (companyId: number, data: any) => {
-        return await axios.patch(`${SERVER_BASE_URL}/update-company/${companyId}`, data)
+    getJobByCompanyId: async (companyId: number, page: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/get-job-by-companyId/${companyId}/info?page=${page}`)
+    },
+    getJob: async (jobId: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/${jobId}`)
+    },
+    update: async (jobId: number, data: any) => {
+        return await axios.patch(`${SERVER_BASE_URL}/update-job/${jobId}`, data)
     },
     createJob: async (data: any) => {
         return await axios.post(`${SERVER_BASE_URL}/create-job`, data)

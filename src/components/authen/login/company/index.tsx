@@ -34,7 +34,7 @@ export default function LoginCompany() {
             let result = await apis.authenApi.loginCompany(data)
             // success
             localStorage.setItem("token", result.data.accessToken)
-            localStorage.setItem("refreshToken", result.data.accessToken)
+            localStorage.setItem("refreshToken", result.data.refreshToken)
             message.success(`${result.data.message}`)
             // back to homepage
             setTimeout(() => {

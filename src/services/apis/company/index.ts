@@ -5,6 +5,9 @@ const version = "v1";
 const SERVER_BASE_URL = `${import.meta.env.VITE_SERVER}/api/${version}/${prefix}`
 
 export const companyApi = {
+    checkCompany: async (companyId: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/check-company/${companyId}`)
+    },
     findCompanyById: async (id: number) => {
         return await axios.get(`${SERVER_BASE_URL}/${id}`)
     },

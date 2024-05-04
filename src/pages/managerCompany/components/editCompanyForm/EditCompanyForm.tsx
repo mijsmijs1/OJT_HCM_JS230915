@@ -7,6 +7,7 @@ import { fetchTypeCompany, updateAddress, updateCompany } from '@/store/slices/c
 import { unwrapResult } from '@reduxjs/toolkit';
 import { isValidEmail, isValidPhone, isValidUrl } from '@/utils/common/validate_form';
 import { COMPANY_SIZES } from '@/constants/constants';
+import { refreshToken } from '@/utils/common/refreshTokenFunction';
 
 interface Province {
     Name: string;
@@ -146,6 +147,7 @@ export default function EditCompanyForm({ setDisplayEditForm }: {
                     title: "Thành công!",
                     content: `${resMessage}`,
                     onOk: () => {
+                        refreshToken()
                         setDisplayEditForm(false)
                     }
                 })
@@ -155,6 +157,7 @@ export default function EditCompanyForm({ setDisplayEditForm }: {
                 title: "Thành công!",
                 content: `Cập nhật công ty thành công!`,
                 onOk: () => {
+                    refreshToken()
                     setDisplayEditForm(false)
                 }
             })

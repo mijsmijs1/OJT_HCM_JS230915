@@ -11,6 +11,7 @@
     align-items: center;
     /* Canh giữa theo chiều dọc */
 
+    z-index: 10;
 
     form {
         width: 40%;
@@ -35,6 +36,7 @@
             overflow-y: scroll;
             height: 700px;
             margin-bottom: 30px;
+
             .input_group {
                 width: 90%;
                 margin-bottom: 30px;
@@ -47,6 +49,10 @@
                     color: #6F7482;
                 }
 
+                .ant-select {
+                    width: 40%;
+                }
+
                 .input_container {
                     width: 100%;
                     height: 48px;
@@ -54,6 +60,10 @@
                     border-radius: 4px;
                     display: flex;
                     align-items: center;
+
+                    input[type='date'] {
+                        width: 15%;
+                    }
 
                     input {
                         border: none;
@@ -101,13 +111,41 @@
 
             }
 
+            .location {
+                .ant-select {
+                    width: 100%;
+                }
+            }
+
+            .start {
+                display: flex;
+                flex-direction: row;
+
+                .item {
+                    width: 90%;
+                    margin-right: 20px;
+
+                    .input_container {
+                        width: 100%;
+
+                        input {
+                            width: 30%;
+                        }
+                    }
+                }
+
+                .end {
+                    margin-right: 0;
+                }
+            }
+
             .modal-body-item-v2 {
                 width: 90%;
                 height: 172px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                
+
                 p {
                     color: #6F7482;
                     font-size: 16px;

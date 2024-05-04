@@ -11,20 +11,12 @@ import { unwrapResult } from '@reduxjs/toolkit'
 
 
 export default function AddJob() {
-    const options = [];
-    for (let i = 10; i < 36; i++) {
-        options.push({
-            label: i.toString(36) + i,
-            value: i.toString(36) + i,
-        });
-    }
-    const navigate = useNavigate()
     const dispatch = useDispatch()
     const companyStore = useSelector((store: Store) => store.companyStore)
     const jobStore = useSelector((store: Store) => store.jobStore)
     const [location, setLocation] = useState('');
     const [levelJob, setLevelJob] = useState<number | null>(null);
-    const [selectedTypeValues, setSelectedTypeValues] = useState<string[] | []>([]);
+    const [selectedTypeValues, setSelectedTypeValues] = useState<number[] | []>([]);
     const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
     let { companyId } = useParams()
     useEffect(() => {
