@@ -1,5 +1,4 @@
 import { MAX_IMAGE_SIZE, MIN_IMAGE_HEIGHT, MIN_IMAGE_WIDTH } from '@/constants/constants';
-import apis from '@/services/apis';
 import { Store } from '@/store';
 import { Modal, message } from 'antd';
 import { useRef, useState } from 'react';

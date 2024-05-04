@@ -116,7 +116,7 @@ export default function Company_profile() {
                                                                     </div>
                                                                     <div className='header_right'>
                                                                         <div className='edit' onClick={() => {
-                                                                            navigate(`/manager-company/${item.id}`)
+                                                                            navigate(`/manager-company/${item.id}/info?job-page=1`)
                                                                         }}>
                                                                             <span>
                                                                                 Xem chi tiết

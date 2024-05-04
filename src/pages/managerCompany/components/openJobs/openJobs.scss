@@ -38,7 +38,7 @@
 
 
 
-    .search_result {
+    .job_show {
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -46,40 +46,60 @@
 
         .item {
             width: 100%;
-            padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
+            align-items: start;
             border-radius: 8px;
             border: 1px solid #E4E5E8;
             box-shadow: 0px 0px 10px rgba($color: #18191C, $alpha: 0.03);
             margin-bottom: 24px;
             margin-right: 24px;
             padding: 24px;
+            height: 200px;
+            position: relative;
 
             .delete {
-                width: 100%;
+                position: absolute;
+                top: 20px;
+                right: 20px;
                 display: flex;
                 justify-content: flex-end;
+                cursor: pointer;
             }
 
             .edit {
-                width: 100%;
+                width: 20%;
                 display: flex;
-                justify-content: flex-end;
+                justify-content: center;
+                height: 30px;
+
+                span {
+                    margin: 0;
+                }
+
+                &:hover {
+                    background-color: #ee6464;
+                }
             }
 
             .work {
-                margin-bottom: 20px;
                 width: 100%;
 
                 p {
-                    font-weight: 500;
+                    font-weight: 550;
                     font-size: 18px;
                     line-height: 28px;
                     margin-bottom: 6px;
                     color: $fontColor;
+
+                    span {
+                        font-weight: 400;
+                        font-size: 12px;
+                        line-height: 18px;
+                        color: #808892;
+                        margin-left: 10px;
+                    }
                 }
 
                 div {
@@ -114,14 +134,15 @@
 
             }
 
-            .company {
+            .company_info {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 width: 100%;
+                margin: 10px 0;
 
                 .info {
-
+                    justify-content: start;
 
                     img {
                         width: 48px;
@@ -162,5 +183,29 @@
         }
     }
 
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        span {
+            cursor: pointer;
+            margin: 0 5px;
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+
+            &:hover {
+                background-color: #eee;
+            }
+
+            &.current {
+                // font-weight: bold;
+                background-color: #ddd;
+            }
+        }
+    }
 
 }

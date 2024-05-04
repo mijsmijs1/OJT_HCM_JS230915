@@ -160,6 +160,9 @@ export const updateAddress = createAsyncThunk(
             if (!err.response) {
                 throw err
             }
+            if (err.response.data.statusCode == 422) {
+                return rejectWithValue({ message: err.response.data.errors.join(' ') })
+            }
             return rejectWithValue({ message: err.response.data.message })
         }
     }
@@ -174,6 +177,9 @@ export const updateCompany = createAsyncThunk(
         } catch (err: any) {
             if (!err.response) {
                 throw err
+            }
+            if (err.response.data.statusCode == 422) {
+                return rejectWithValue({ message: err.response.data.errors.join(' ') })
             }
             return rejectWithValue({ message: err.response.data.message })
         }
@@ -191,7 +197,10 @@ export const createAddress = createAsyncThunk(
             if (!err.response) {
                 throw err
             }
-            rejectWithValue({ message: err.response.data.message })
+            if (err.response.data.statusCode == 422) {
+                return rejectWithValue({ message: err.response.data.errors.join(' ') })
+            }
+            return rejectWithValue({ message: err.response.data.message })
         }
     }
 )
@@ -205,7 +214,10 @@ export const deleteAddress = createAsyncThunk(
             if (!err.response) {
                 throw err
             }
-            rejectWithValue({ message: err.response.data.message })
+            if (err.response.data.statusCode == 422) {
+                return rejectWithValue({ message: err.response.data.errors.join(' ') })
+            }
+            return rejectWithValue({ message: err.response.data.message })
         }
     }
 )
@@ -219,7 +231,10 @@ export const createCompany = createAsyncThunk(
             if (!err.response) {
                 throw err
             }
-            rejectWithValue({ message: err.response.data.message })
+            if (err.response.data.statusCode == 422) {
+                return rejectWithValue({ message: err.response.data.errors.join(' ') })
+            }
+            return rejectWithValue({ message: err.response.data.message })
         }
     }
 )

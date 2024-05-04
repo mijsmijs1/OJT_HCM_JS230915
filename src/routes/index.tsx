@@ -14,6 +14,7 @@ import AdminJobManager from '@/pages/adminJobManager/AdminJobManager'
 import CvManagement from '@/pages/cvManagement'
 import Profile from "@pages/profile/Profile"
 import { lazyFn } from "@/utils/lazies/Lazy"
+import apis from '@/services/apis'
 
 export default function RouteSetup() {
   return (
@@ -26,7 +27,7 @@ export default function RouteSetup() {
           <Route path='search-candidate' element={<SearchCandidate />}></Route>
           <Route path='candidate-info' element={<CandidateInfo />}></Route>
           <Route path='company-info' element={<CompanyInfo />}></Route>
-          <Route path='manager-company/:companyId' element={lazyFn(() => import('@/pages/managerCompany/ManagerCompany'), localStorage.getItem("token") != null, "/")}></Route>
+          <Route path='manager-company/:companyId/info' element={lazyFn(() => import('@/pages/managerCompany/ManagerCompany'), (localStorage.getItem("token") != null), "/")}></Route>
           <Route path='add-job/:companyId' element={<AddJob />}></Route>
           <Route path='manager-job/:jobId' element={<ManagerJob />}></Route>
           <Route path='admin-manager-job' element={<AdminJobManager />}></Route>
