@@ -2,16 +2,20 @@
     height: 794px;
     background-color: rgba(241, 242, 244, 0.6);
     font-family: $mainFont;
+
     .info-main-content {
         display: flex;
         justify-content: space-between;
+
         .info-left {
             margin-top: 48.32px;
             margin-left: 89.5px;
+
             .info-title {
                 display: flex;
                 flex-direction: column;
                 gap: 24px;
+
                 h2 {
                     width: 652px;
                     height: 192px;
@@ -20,6 +24,7 @@
                     font-weight: 500;
                     margin: 0;
                 }
+
                 p {
                     width: 536px;
                     height: 56px;
@@ -29,10 +34,12 @@
                     color: rgba(94, 102, 112, 1);
                 }
             }
+
             .info-search {
                 width: 679px;
                 height: 124px;
                 margin-top: 32px;
+
                 .search-box {
                     display: flex;
                     justify-content: space-between;
@@ -41,28 +48,43 @@
                     border-radius: 8px;
                     background-color: #fff;
                     padding: 12px;
+
                     .search-title,
                     .search-location {
                         display: flex;
                         align-items: center;
+
                         svg {
                             width: 24px;
                             height: 24px;
                         }
+
                         input {
                             margin-left: 12px;
                             outline: none;
                             border: none;
                             background: unset;
                         }
+
+                        .ant-select {
+                            width: 100%;
+                            margin-left: 12px;
+                            outline: none;
+                            border: none;
+                            background: unset;
+                        }
+                    }
+                    .search-location {
+                        width: 30%;
                     }
                     .line {
                         width: 32px;
                         border: 1px solid rgba(228, 229, 232, 1);
                         transform: rotate(-90deg);
                     }
+
                     button {
-                        width: 131px;
+
                         height: 56px;
                         border: none;
                         border-radius: 4px;
@@ -72,22 +94,30 @@
                         background-color: rgba(188, 34, 40, 1);
                         color: #fff;
                         cursor: pointer;
+                        &:hover {
+                            background-color: rgb(221, 35, 41);
+                        }
                     }
                 }
+
                 .sugestion-box {
                     margin-top: 24px;
+
                     small {
                         color: rgba(145, 153, 163, 1);
                         font-size: $m;
                     }
+
                     span {
                         font-size: $m;
                         color: rgba(71, 76, 84, 1);
                         line-height: 20px;
                         font-weight: 400;
+
                         &.program {
                             color: rgba(188, 34, 40, 1);
                         }
+
                         &.digistal {
                             font-weight: 500;
                         }
@@ -95,6 +125,7 @@
                 }
             }
         }
+
         .info-right {
             margin-top: 88.32px;
         }
@@ -107,6 +138,7 @@
         margin: 0 60px;
         margin-top: 105.68px;
         gap: 10px;
+
         .info-item-box {
             width: 312px;
             height: 112px;
@@ -115,27 +147,32 @@
             gap: 20px;
             border-radius: 8px;
             padding: 20px;
+
             .info-box-left {
                 display: flex;
                 align-items: center;
                 justify-content: center;
+
                 img {
                     width: 72px;
                     height: 72px;
                     border-radius: 4px;
                 }
             }
+
             .info-box-right {
                 display: flex;
                 flex-direction: column;
                 align-items: start;
                 justify-content: center;
+
                 h2 {
                     font-size: 24px;
                     line-height: 32px;
                     margin: 0;
                     color: rgba(24, 25, 28, 1);
                 }
+
                 p {
                     font-size: 16px;
                     line-height: 24px;

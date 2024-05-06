@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { fetchJobForDetail } from '@/store/slices/job/job.slice';
 import { Skeleton } from 'antd';
 import convertToVNDateFormat from '@/utils/common/convert_date_function';
+import ApplyForm from './components/applyForm/ApplyForm';
 
 export default function JobInfo() {
   let { jobId } = useParams();
@@ -15,31 +16,23 @@ export default function JobInfo() {
   const dispatch = useDispatch();
   const jobStore = useSelector((store: Store) => store.jobStore)
   const companyStore = useSelector((store: Store) => store.companyStore)
-  const [company, setCompany] = useState<Company | null>(null);
+  const [displayApplyForm, setDisplayApplyForm] = useState(false);
   useEffect(() => {
     dispatch(fetchJobForDetail({ jobId: jobIdAsNumber || 0 }) as any)
   }, [])
-  useEffect(() => {
-    if (jobStore.job) {
-      dispatch(fetchCompanies() as any)
-    }
-  }, [jobStore.job])
-  useEffect(() => {
-    if (companyStore.companies) {
-      let company = companyStore.companies.find(item => item.id == jobStore.job?.company_id)
-      setCompany(company || null)
-    }
-  }, [companyStore.companies])
   return (
     <div className='job_info_container'>
+      {
+        displayApplyForm && <ApplyForm setDisplayApplyForm={setDisplayApplyForm}></ApplyForm>
+      }
       <div className='content'>
         <div className='header'>
           <div className='header_left'>
-            {companyStore.loadingCompanies ? <Skeleton.Image active></Skeleton.Image> : <img src={company?.logo} alt='logo' onClick={() => { window.location.href = `/manager-company/${company?.id}/info` }} />}
+            {companyStore.loadingCompanies ? <Skeleton.Image active></Skeleton.Image> : <img src={jobStore.job?.company?.logo} alt='logo' onClick={() => { window.location.href = `/manager-company/${jobStore.job?.company?.id}/info` }} />}
             <div className='company_info'>
               {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input> : <p>{jobStore.job?.title}</p>}
               <div>
-                {companyStore.loadingCompanies ? <Skeleton.Input active></Skeleton.Input> : <span>{`at ${company?.name}`}</span>}
+                {companyStore.loadingCompanies ? <Skeleton.Input active></Skeleton.Input> : <span>{`at ${jobStore.job?.company?.name}`}</span>}
                 {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input> : <div className='full_time'>
                   <span>{jobStore.job?.levelJob?.name.toUpperCase()}</span>
                 </div>}
@@ -65,7 +58,9 @@ export default function JobInfo() {
               </svg>
 
             </div>
-            <div className='apply'>
+            <div className='apply' onClick={() => {
+              setDisplayApplyForm(true)
+            }}>
               <span>
                 Ứng tuyển Ngay
               </span>

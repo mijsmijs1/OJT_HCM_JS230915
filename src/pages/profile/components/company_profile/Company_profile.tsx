@@ -104,7 +104,7 @@ export default function Company_profile() {
                                                                             <p>{item.name}</p>
                                                                             <div>
                                                                                 <div className='full_time'>
-                                                                                    <span>{item.type_company?.name}</span>
+                                                                                    <span>{item.type_company?.name ? item.type_company?.name : 'updating'}</span>
                                                                                 </div>
                                                                                 <div className='featured' style={{ "backgroundColor": !item.status ? "#FFEDED" : "#B7E892" }}>
                                                                                     <span>{item.status ? "Active" : "Inactive"}</span>

@@ -4,6 +4,8 @@ export const MIN_IMAGE_WIDTH = 50;
 export const MIN_IMAGE_HEIGHT = 50;
 export const MAX_IMAGE_WIDTH = 50;
 export const MAX_IMAGE_HEIGHT = 50;
+export const VALID_CV_TYPES = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+export const MAX_CV_SIZE = 5 * 1024 * 1024; // 5MB
 export const OptionLocation = [
     "Hà Nội",
     "Hồ Chí Minh",

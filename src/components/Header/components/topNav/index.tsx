@@ -13,10 +13,6 @@ export default function TopNav() {
             isActive: 'active'
         },
         {
-            title: 'CV của bạn',
-            isActive: ''
-        },
-        {
             title: 'Customer Supports',
             isActive: ''
         }]

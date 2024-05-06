@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { fetchAddressByCompanyId } from '@/store/slices/company/company.slice'
 import { createJob } from '@/store/slices/job/job.slice'
 import { unwrapResult } from '@reduxjs/toolkit'
+import { refreshToken } from '@/utils/common/refreshTokenFunction'
 
 
 export default function AddJob() {
@@ -30,7 +31,7 @@ export default function AddJob() {
             let levelJob_id = levelJob;
             let typeJobs = selectedTypeValues;
             let company_id = Number(companyId);
-            let created_at = startDate;
+            let created_at = (e.target as any).startDate.value;
             let expire_at = (e.target as any).expire_at.value;
             let salary = (e.target as any).salary.value;
             let description = (e.target as any).desc.value;
@@ -89,21 +90,23 @@ export default function AddJob() {
                 salary,
                 description,
             }
+            console.log(createData)
             let result = await dispatch(createJob({ createData }) as any)
-            let { message: apiMessage, data } = unwrapResult(result)
-            Modal.confirm({
-                title: "Thành công!",
-                content: `${apiMessage}`,
-                okText: 'Chuyển sang trang Job',
-                cancelText: 'Tiếp tục tạo Job',
-                onOk: () => {
-                    window.location.href = `/manager-job/${data.id}`
-                },
-                onCancel: () => {
-                    window.location.reload();
-                }
-            })
-            return
+            // let { message: apiMessage, data } = unwrapResult(result)
+            // Modal.confirm({
+            //     title: "Thành công!",
+            //     content: `${apiMessage}`,
+            //     okText: 'Chuyển sang trang Job',
+            //     cancelText: 'Tiếp tục tạo Job',
+            //     onOk: () => {
+            //         refreshToken()
+            //         window.location.href = `/manager-job/${data.id}`
+            //     },
+            //     onCancel: () => {
+            //         window.location.reload();
+            //     }
+            // })
+            // return
         } catch (err: any) {
             console.log(err)
             if (err.message) {
@@ -196,7 +199,7 @@ export default function AddJob() {
                             <div className='input_group start'>
                                 <p>Thời hạn bắt đầu ứng tuyển</p>
                                 <div className='input_container'>
-                                    <input type='date' min={new Date().toISOString().split('T')[0]} onChange={(event) => {
+                                    <input type='date' name='startDate' min={new Date().toISOString().split('T')[0]} onChange={(event) => {
                                         const selectedDate = new Date(event.target.value);
                                         selectedDate.setDate(selectedDate.getDate() + 1);
                                         setStartDate(selectedDate.toISOString().split('T')[0]);

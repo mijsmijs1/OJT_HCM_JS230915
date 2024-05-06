@@ -44,7 +44,7 @@ export default function RelativeCompanys() {
                                     }
                                 </span>
                                 <div className='more' onClick={() => { window.location.href = `/company-info/${item.id}` }}>
-                                    <span>Open Position ({item.jobs.length})</span>
+                                    <span>Open Jobs ({item.jobs.length})</span>
                                 </div>
                             </div>
                         )

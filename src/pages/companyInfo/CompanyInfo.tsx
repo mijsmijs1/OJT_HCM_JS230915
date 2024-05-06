@@ -51,7 +51,7 @@ export default function CompanyInfo() {
               </div>
               <div>
                 <div className='full_time'>
-                  {companyStore.loadingCompany ? <Skeleton.Input active></Skeleton.Input> : <span>{companyStore.company?.type_company?.name}</span>}
+                  {companyStore.loadingCompany ? <Skeleton.Input active></Skeleton.Input> : <span>{companyStore.company?.type_company?.name ? companyStore.company?.type_company?.name : 'updating'}</span>}
                 </div>
                 <div className='featured'>
                   {companyStore.loadingCompany ? <Skeleton.Input active></Skeleton.Input> : <span>{companyStore.company?.status}</span>}

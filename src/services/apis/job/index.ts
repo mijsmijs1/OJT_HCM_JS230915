@@ -23,6 +23,9 @@ export const jobApi = {
     getJobForHome: async () => {
         return await axios.get(`${SERVER_BASE_URL}/get-job-home`)
     },
+    getJobForSearch: async (page: number, pageSize: number, keyword: string, address: string, typeJobId: number, levelJobId: number, time: string) => {
+        return await axios.get(`${SERVER_BASE_URL}/search?page=${page}&pageSize=${pageSize}&keyword=${keyword}&address=${address}&typeJobId=${typeJobId}&levelJobId=${levelJobId}&time=${time}`)
+    },
     getRelativeJobs: async (TypeJobIdArray: number[]) => {
         return await axios.get(`${SERVER_BASE_URL}/get-job-by-type-job?type_job_id=${TypeJobIdArray.join(',')}`)
     },

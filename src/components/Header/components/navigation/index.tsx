@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Store } from '@/store'
 import apis from '@services/apis'
 import { candidateAction } from '@/store/slices/candidate/candidate.slice'
-import { Modal } from 'antd'
+import { Modal, Select } from 'antd'
 
 import './navigation.scss'
+import { useState } from 'react'
+import { OptionLocation } from '@/constants/constants'
 
 export default function Navigation() {
     const candidateStore = useSelector((store: Store) => store.candidateStore)
@@ -31,16 +33,23 @@ export default function Navigation() {
                 dispatch(candidateAction.setData(null))
                 Modal.success({
                     title: 'Successful',
-                    content: "Logout successfully",
+                    content: "Đăng xuát thành công!",
                     onOk: () => window.location.href = '/login',
                     cancelText: null
                 });
             },
         });
     }
-    console.log('store', candidateStore?.data);
 
+    const [selectedCity, setSelectedCity] = useState('')
+    const handleNavigateJob = (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            window.location.href = `/search-job?page=1&keyword=${(e.target as any).title.value ? String((e.target as any).title.value) : 'all'}&address=${selectedCity ? selectedCity : 'all'}&level=0&type=0&time=created_at`
+        } catch (err) {
+        }
 
+    }
     return (
         <div className='nav-container'>
             <div className="nav-box">
@@ -53,19 +62,31 @@ export default function Navigation() {
                 {/* END LOGO */}
 
                 {/* SEARCH */}
-                <div className='search-box'>
-                    <select>
-                        <option>Hà Nội</option>
-                    </select>
-                    <div className='line'></div>
-                    <div className='search-content'>
-                        <svg viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M11.3549 19.3242C15.7732 19.3242 19.3549 15.7425 19.3549 11.3242C19.3549 6.90594 15.7732 3.32422 11.3549 3.32422C6.93661 3.32422 3.35489 6.90594 3.35489 11.3242C3.35489 15.7425 6.93661 19.3242 11.3549 19.3242Z" stroke="#BC2228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M21.3549 21.3241L17.0049 16.9741" stroke="#BC2228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                        <input type='text' placeholder='Job title, keyword, company' />
+                <form
+                    onSubmit={(e) => { handleNavigateJob(e) }}
+                >
+                    <div className='search-box'>
+                        <div className='left'>
+                            <Select value={selectedCity || ''} onChange={setSelectedCity}>
+                                <Select.Option value="" disabled hidden>Chọn nơi làm việc</Select.Option>
+                                {OptionLocation.map(province => (
+                                    <Select.Option key={province} value={province}>
+                                        {province}
+                                    </Select.Option>
+                                ))}
+                            </Select>
+                            <div className='line'></div>
+                            <div className='search-content'>
+                                <svg viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M11.3549 19.3242C15.7732 19.3242 19.3549 15.7425 19.3549 11.3242C19.3549 6.90594 15.7732 3.32422 11.3549 3.32422C6.93661 3.32422 3.35489 6.90594 3.35489 11.3242C3.35489 15.7425 6.93661 19.3242 11.3549 19.3242Z" stroke="#BC2228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M21.3549 21.3241L17.0049 16.9741" stroke="#BC2228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                <input type='text' placeholder='Job title, keyword...' id='title' />
+                            </div>
+                        </div>
+                        <button type='submit'>Find Job</button>
                     </div>
-                </div>
+                </form>
                 {/* END SEARCH */}
 
                 {/* BUTTON GROUP */}

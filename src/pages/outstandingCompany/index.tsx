@@ -118,7 +118,7 @@ export default function OutstandingCompany() {
                                             </div>
                                         </div>
                                         <div className='more'>
-                                            <span>Open Position ({item.openPosition})</span>
+                                            <span>Open Jobs ({item.openPosition})</span>
                                         </div>
                                     </div>
                                 )

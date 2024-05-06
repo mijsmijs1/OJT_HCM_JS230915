@@ -152,7 +152,6 @@ export const searchCompany = createAsyncThunk(
     async ({ page, pageSize, keyword, address }: { page: number, pageSize: number, keyword: string, address: string }, { rejectWithValue }) => {
         try {
             let res = await api.companyApi.search(page, pageSize, keyword, address)
-            console.log(res.data.data)
             return res.data.data
         } catch (err: any) {
             if (!err.response) {
@@ -339,6 +338,8 @@ const companySlice = createSlice({
         })
         builder.addCase(searchCompany.rejected, (state) => {
             state.loadingCompanies = false
+            state.companies = null;
+            state.companyCount = 0;
         })
         //Fetch companies by Type
         builder.addCase(fetchCompanyByType.pending, (state) => {

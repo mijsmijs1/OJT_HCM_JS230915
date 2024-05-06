@@ -13,6 +13,7 @@ import AdminJobManager from '@/pages/adminJobManager/AdminJobManager'
 import CvManagement from '@/pages/cvManagement'
 import Profile from "@pages/profile/Profile"
 import { lazyFn } from "@/utils/lazies/Lazy"
+import SearchJob from '@/pages/profile/components/searchJob/SearchJob'
 
 
 export default function RouteSetup() {
@@ -23,6 +24,7 @@ export default function RouteSetup() {
           <Route index element={<Home />}></Route>
           <Route path='job-info/:jobId' element={<JobInfo />}></Route>
           <Route path='search-company' element={<SearchCompany />}></Route>
+          <Route path='search-job' element={<SearchJob />}></Route>
           <Route path='search-candidate' element={<SearchCandidate />}></Route>
           <Route path='candidate-info' element={<CandidateInfo />}></Route>
           <Route path='company-info/:companyId' element={<CompanyInfo />}></Route>

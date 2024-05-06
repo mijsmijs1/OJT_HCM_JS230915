@@ -1,4 +1,4 @@
-import pictures from '@/pictures'
+
 import './search.scss'
 import { Select } from 'antd'
 import { useEffect, useState } from 'react'
@@ -13,9 +13,9 @@ export default function SearchCompany() {
     const companyStore = useSelector((store: Store) => store.companyStore)
     const navigate = useNavigate()
     const searchParams = new URLSearchParams(location.search);
-    let page = Number(searchParams.get('page'));
-    let keyword = String(searchParams.get('keyword'))
-    let address = String(searchParams.get('address'))
+    let page = Number(searchParams.get('page') || 1);
+    let keyword = String(searchParams.get('keyword') || 'all')
+    let address = String(searchParams.get('address') || 'all')
     const [currentPage, setCurrentPage] = useState(page || 1);
     const [totalPages, setTotalPages] = useState(0);
     useEffect(() => {
@@ -74,17 +74,31 @@ export default function SearchCompany() {
         ));
     };
 
-    const [selectedCity, setSelectedCity] = useState('')
+    const [selectedCity, setSelectedCity] = useState(address != 'all' ? address : '')
     useEffect(() => {
-        if (page) {
-            dispatch(searchCompany({ page, pageSize: 9, keyword, address }) as any)
-        }
-
-    }, [page])
+        console.log(page, keyword, address)
+        dispatch(searchCompany({ page, pageSize: 9, keyword, address }) as any)
+    }, [page, keyword, address])
     const handleSearch = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            dispatch(searchCompany({ page: 1, pageSize: 9, keyword: String((e.target as any).keyword.value) || 'all', address: selectedCity || 'all' }) as any)
+            navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}?page=${1}`)
+            if (!window.location.href.includes('keyword')) {
+                if (!window.location.href.includes('search-company?')) {
+                    navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}?keyword=${(e.target as any).keyword.value || 'all'}`)
+                }
+                navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}&keyword=${(e.target as any).keyword.value || 'all'}`)
+            } else {
+                navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '').replace(/(keyword=)[^\&]+/, `$1${(e.target as any).keyword.value || 'all'}`)}`)
+            }
+            if (!window.location.href.includes('address')) {
+                if (!window.location.href.includes('search-company?')) {
+                    navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}?address=${selectedCity || 'all'}`)
+                }
+                navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}&address=${selectedCity || 'all'}`)
+            } else {
+                navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '').replace(/(address=)[^\&]+/, `$1${selectedCity || 'all'}`)}`)
+            }
         } catch (err) {
 
         }
@@ -104,7 +118,7 @@ export default function SearchCompany() {
                                     <path d="M20.9999 20.9999L16.6499 16.6499" stroke="#BC2228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
 
-                                <input type='text' id="keyword" placeholder='Search by: Company Name...'>
+                                <input type='text' id="keyword" placeholder='Search by: Company Name...' defaultValue={keyword != 'all' ? keyword : undefined}>
 
                                 </input>
                             </div>
@@ -131,36 +145,47 @@ export default function SearchCompany() {
                         </form>
                     </div>
                     <div className='search_result'>
+                        <div className='label'>
+                            <p>Kết quả tìm kiếm</p>
+                        </div>
                         {
-                            companyStore.companies?.map(item => {
-                                return (
-                                    <div key={Date.now() * Math.random()} className='item'>
-                                        <div className='info'>
-                                            <img src={item.logo} alt='logo'></img>
+                            companyStore.companies ? (
+                                <>
+                                    {
+                                        companyStore.companies?.map(item => {
+                                            return (
+                                                <div key={Date.now() * Math.random()} className='item'>
+                                                    <div className='info'>
+                                                        <img src={item.logo} alt='logo'></img>
 
-                                            <div className='name'>
-                                                <p>{item.name}</p>
-                                                <div className='featured'>
-                                                    <span>{item.type_company?.name}</span>
+                                                        <div className='name'>
+                                                            <p>{item.name}</p>
+                                                            <div className='featured'>
+                                                                <span>{item.type_company?.name}</span>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <span className='address'>
+                                                        <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M9.5 9.5625C10.7426 9.5625 11.75 8.55514 11.75 7.3125C11.75 6.06986 10.7426 5.0625 9.5 5.0625C8.25736 5.0625 7.25 6.06986 7.25 7.3125C7.25 8.55514 8.25736 9.5625 9.5 9.5625Z" stroke="#767F8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                            <path d="M15.125 7.3125C15.125 12.375 9.5 16.3125 9.5 16.3125C9.5 16.3125 3.875 12.375 3.875 7.3125C3.875 5.82066 4.46763 4.38992 5.52252 3.33502C6.57742 2.28013 8.00816 1.6875 9.5 1.6875C10.9918 1.6875 12.4226 2.28013 13.4775 3.33502C14.5324 4.38992 15.125 5.82066 15.125 7.3125V7.3125Z" stroke="#767F8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg>
+                                                        {
+                                                            item.address_companies[0].address
+                                                        }
+                                                    </span>
+                                                    <div className='more' onClick={() => { window.location.href = `/company-info/${item.id}` }}>
+                                                        <span>Open Jobs ({item.jobs.length})</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-
-                                        </div>
-                                        <span className='address'>
-                                            <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M9.5 9.5625C10.7426 9.5625 11.75 8.55514 11.75 7.3125C11.75 6.06986 10.7426 5.0625 9.5 5.0625C8.25736 5.0625 7.25 6.06986 7.25 7.3125C7.25 8.55514 8.25736 9.5625 9.5 9.5625Z" stroke="#767F8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                <path d="M15.125 7.3125C15.125 12.375 9.5 16.3125 9.5 16.3125C9.5 16.3125 3.875 12.375 3.875 7.3125C3.875 5.82066 4.46763 4.38992 5.52252 3.33502C6.57742 2.28013 8.00816 1.6875 9.5 1.6875C10.9918 1.6875 12.4226 2.28013 13.4775 3.33502C14.5324 4.38992 15.125 5.82066 15.125 7.3125V7.3125Z" stroke="#767F8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                            {
-                                                item.address_companies[0].address
-                                            }
-                                        </span>
-                                        <div className='more' onClick={() => { window.location.href = `/company-info/${item.id}` }}>
-                                            <span>Open Position ({item.jobs.length})</span>
-                                        </div>
-                                    </div>
-                                )
-                            })
+                                            )
+                                        })
+                                    }
+                                </>
+                            ) : <img
+                                style={{ width: 800, height: 600 }}
+                                src='https://cdn.dribbble.com/users/2382015/screenshots/6065978/no_result.gif'></img>
                         }
                     </div>
                     {/* Phan trang */}
