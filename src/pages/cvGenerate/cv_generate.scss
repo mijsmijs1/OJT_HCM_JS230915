@@ -1,0 +1,517 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+
+.cv_generate_header {
+    font-family: $mainFont;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 65px;
+    background: linear-gradient(269.85deg, #54151c 0%, #121212 54.89%);
+    color: #fff;
+    position: sticky;
+    top: 0;
+    .header_container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 32px;
+    }
+    .back_to_profile {
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    .header-content {
+        font-size: 22px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        img {
+            width: 80px;
+        }
+    }
+    button {
+        padding: 12px 30px;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+        background-color: #a6a6a6;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        transition: all 0.15s ease-in;
+        &:hover {
+            background-color: #ed1b2f;
+            transform: scale(1.05);
+        }
+    }
+    .cv_langauge {
+        font-size: 14px;
+    }
+}
+
+.cv_body_container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    .cv_body_left {
+        width: 40%;
+        height: 100%;
+        background-color: #414042;
+        .cv_preview_box {
+            display: flex;
+            align-items: center;
+            .cv_preview_item {
+                margin: auto;
+                margin-top: 25%;
+                position: relative;
+                cursor: pointer;
+                img {
+                    width: 400px;
+                    height: 500px;
+                }
+                i {
+                    display: none;
+                }
+                &.select {
+                    img {
+                        box-shadow: 0 0 0 4px #0ab305;
+                    }
+                    i {
+                        display: block;
+                        position: absolute;
+                        top: 50%;
+                        right: 45%;
+                        color: #0ab305;
+                        font-size: 50px;
+                    }
+                }
+                &:hover {
+                    img {
+                        box-shadow: 0 0 0 4px #0ab305;
+                    }
+                    i {
+                        display: block;
+                        position: absolute;
+                        top: 50%;
+                        right: 45%;
+                        color: #0ab305;
+                        font-size: 50px;
+                    }
+                }
+            }
+        }
+    }
+    .cv_body_right {
+        flex: 1;
+        font-family: "Montserrat", sans-serif;
+        .cv_template_container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 50px;
+            background-color: #a6a6a6;
+            .cv_template_header {
+                width: 100%;
+                height: 213px;
+                background-color: #383d44;
+                .cv_template_header-box {
+                    display: flex;
+                    padding: 32px 32px 24px 32px;
+                    .cv_template_img {
+                        img {
+                            width: 100px;
+                            height: 100px;
+                        }
+                    }
+                    .cv_template_contact {
+                        margin-left: 16px;
+                        color: #fff;
+                        .candidate_position {
+                            .candidate-name {
+                                font-size: 24px;
+                                font-weight: 700;
+                            }
+                            .candidate-subtitle {
+                                letter-spacing: 2px;
+                                font-size: 16px;
+                                font-weight: 400;
+                            }
+                        }
+                        .candidate_info {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-top: 18px;
+                            width: 612px;
+                            .left-items,
+                            .right-items {
+                                .item {
+                                    margin-top: 8px;
+                                    .item_box {
+                                        display: flex;
+                                        align-items: center;
+                                        i {
+                                            margin-right: 8px;
+                                        }
+                                        span {
+                                            font-size: 14px;
+                                            font-weight: 500;
+                                            line-height: 1.5;
+                                        }
+                                    }
+                                }
+                            }
+                            .left-items {
+                                width: 50%;
+                                min-width: 50%;
+                            }
+                            .right-items {
+                                width: 47%;
+                            }
+                        }
+                    }
+                }
+            }
+            .cv_template_content {
+                padding: 0 32px 0 32px;
+                background-color: #fff;
+                height: 100vh;
+                .cv-cards {
+                    color: #121212;
+                    .cv-card-item {
+                        display: flex;
+                        padding: 20px 0;
+                        border-top: 1px solid #dedede;
+
+                        &:first-child {
+                            border-top: none;
+                        }
+                        .cv-card-title {
+                            width: 120px;
+                            font-size: 16px;
+                            font-weight: 700;
+                            margin-right: 18px;
+                        }
+                        .cv-card-content {
+                            width: 612px;
+                            line-height: 1.8;
+                            font-weight: 400;
+                            font-size: 12px;
+                            .trix-content {
+                                .school {
+                                    font-size: 14px;
+                                    font-weight: 700;
+                                    text-transform: uppercase;
+                                }
+                                .dateAndMajor {
+                                    display: flex;
+                                    gap: 10px;
+                                    .date {
+                                    }
+                                    span {
+                                    }
+                                    .major {
+                                        font-weight: 500;
+                                    }
+                                }
+                                .skill-container {
+                                    display: flex;
+                                    gap: 50px;
+                                    .skill-box-left {
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 15px;
+                                        font-weight: 700;
+                                    }
+                                    .skill-box-right {
+                                        display: flex;
+                                        flex-direction: column;
+                                        gap: 15px;
+                                        .skill-name {
+                                            display: flex;
+                                            gap: 10px;
+                                            .skill-item {
+                                                background-color: #f7f7f7;
+                                                padding: 0 10px;
+                                                border-radius: 5px;
+                                            }
+                                        }
+                                    }
+                                }
+                                .exp-container {
+                                    .exp-date {
+                                        font-size: 12px;
+                                        font-weight: 600;
+                                    }
+                                    .exp-company-pos {
+                                        display: flex;
+                                        gap: 15px;
+                                        font-size: 14px;
+                                        font-weight: 700;
+                                        .exp_pos {
+                                        }
+                                        .line {
+                                            font-weight: 400;
+                                        }
+                                        .exp_comp {
+                                            font-weight: 500;
+                                        }
+                                    }
+                                    .exp-content ul li {
+                                        margin-left: 20px;
+                                        list-style-type: circle;
+                                    }
+                                }
+                                .project_container{
+                                    .project_header{
+                                        display: flex;
+                                        gap: 5px;
+                                        .project-name{
+                                            font-weight: 700;
+                                        }
+                                        .line{
+                                        } 
+                                        .project-date{
+
+                                        }     
+                                    }
+                                    .project_body{
+                                        .project_ul{
+                                            margin-left: 20px;
+                                            li{
+                                                font-weight: 600;
+                                                ul li{
+                                                    font-weight: 400;
+                                                    margin-left: 15px;
+                                                }
+                                                span{
+                                                    margin-left: 8px;
+                                                    font-weight: 400;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// print
+@media print {
+    .header_container {
+        display: none;
+    }
+
+    .cv_body_left {
+        display: none;
+    }
+
+    .cv_body_right {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .cv_template_container {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        padding: 30px 50px;
+        background-color: #a6a6a6;
+        .cv_template_header {
+            width: 100%;
+            height: 213px;
+            background-color: #383d44;
+            .cv_template_header-box {
+                display: flex;
+                padding: 32px 32px 24px 32px;
+                .cv_template_img {
+                    img {
+                        width: 100px;
+                        height: 100px;
+                    }
+                }
+                .cv_template_contact {
+                    margin-left: 16px;
+                    color: #fff;
+                    .candidate_position {
+                        .candidate-name {
+                            font-size: 24px;
+                            font-weight: 700;
+                        }
+                        .candidate-subtitle {
+                            letter-spacing: 2px;
+                            font-size: 16px;
+                            font-weight: 400;
+                        }
+                    }
+                    .candidate_info {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: 18px;
+                        width: 612px;
+                        .left-items,
+                        .right-items {
+                            .item {
+                                margin-top: 8px;
+                                .item_box {
+                                    display: flex;
+                                    align-items: center;
+                                    i {
+                                        margin-right: 8px;
+                                    }
+                                    span {
+                                        font-size: 14px;
+                                        white-space: wrap;
+                                        font-weight: 500;
+                                    }
+                                }
+                            }
+                        }
+                        .left-items {
+                            width: 50%;
+                            min-width: 50%;
+                        }
+                        .right-items {
+                            width: 47%;
+                        }
+                    }
+                }
+            }
+        }
+        .cv_template_content {
+            padding: 0 32px 0 32px;
+            background-color: #fff;
+            height: 100vh;
+            .cv-cards {
+                color: #121212;
+                .cv-card-item {
+                    display: flex;
+                    padding: 20px 0;
+                    border-top: 1px solid #dedede;
+
+                    &:first-child {
+                        border-top: none;
+                    }
+                    .cv-card-title {
+                        width: 120px;
+                        font-size: 16px;
+                        font-weight: 700;
+                        margin-right: 18px;
+                    }
+                    .cv-card-content {
+                        width: 612px;
+                        line-height: 1.8;
+                        font-weight: 400;
+                        font-size: 12px;
+                        .trix-content {
+                            .school {
+                                font-size: 14px;
+                                font-weight: 700;
+                                text-transform: uppercase;
+                            }
+                            .dateAndMajor {
+                                display: flex;
+                                gap: 10px;
+                                .date {
+                                }
+                                span {
+                                }
+                                .major {
+                                    font-weight: 500;
+                                }
+                            }
+                            .skill-container {
+                                display: flex;
+                                gap: 50px;
+                                .skill-box-left {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 15px;
+                                    font-weight: 700;
+                                }
+                                .skill-box-right {
+                                    display: flex;
+                                    flex-direction: column;
+                                    gap: 15px;
+                                    .skill-name {
+                                        display: flex;
+                                        gap: 10px;
+                                        .skill-item {
+                                            background-color: #f7f7f7;
+                                            padding: 0 10px;
+                                            border-radius: 5px;
+                                        }
+                                    }
+                                }
+                            }
+                            .exp-container {
+                                .exp-date {
+                                    font-size: 12px;
+                                    font-weight: 600;
+                                }
+                                .exp-company-pos {
+                                    display: flex;
+                                    gap: 15px;
+                                    font-size: 14px;
+                                    font-weight: 700;
+                                    .exp_pos {
+                                    }
+                                    .line {
+                                        font-weight: 400;
+                                    }
+                                    .exp_comp {
+                                        font-weight: 500;
+                                    }
+                                }
+                                .exp-content ul li {
+                                    margin-left: 20px;
+                                    list-style-type: circle;
+                                }
+                            }
+                            .project_container{
+                                .project_header{
+                                    display: flex;
+                                    gap: 5px;
+                                    .project-name{
+                                        font-weight: 700;
+                                    }
+                                    .line{
+                                    } 
+                                    .project-date{
+
+                                    }     
+                                }
+                                .project_body{
+                                    .project_ul{
+                                        margin-left: 20px;
+                                        li{
+                                            font-weight: 600;
+                                            ul li{
+                                                font-weight: 400;
+                                                margin-left: 15px;
+                                            }
+                                            span{
+                                                margin-left: 8px;
+                                                font-weight: 400;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

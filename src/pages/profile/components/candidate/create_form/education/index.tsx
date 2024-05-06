@@ -47,7 +47,7 @@ export default function EducationForm(props: { setOpenEducationForm: any }) {
             dispatch(candidateEducationAction.fetchCandidateEducation())
 
             Modal.success({
-                title: 'Successfully',
+                title: 'Thành côngly',
                 content: res.data.message,
                 onOk: handleCloseModal,
                 cancelText: null,

@@ -25,11 +25,22 @@ const initialState: CertificateState = {
 
 export const fetchCandidateCertificates = createAsyncThunk(
   'candidate/fetchCertificates',
-  async () => {
-    const res = await apis.candidateApi.getCertificate();
-    return res.data.data;
+  async (_, { rejectWithValue }) => {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      throw new Error('Token not found');
+    }
+    try {
+      const res = await apis.candidateApi.getCertificate();      
+      if (res.status < 200 || res.status >= 300) {
+        throw new Error('Failed to fetch data'); 
+      }
+      return res.data.data as CertificateCandidate[]; 
+    } catch (err: any) {      
+      return rejectWithValue(err.message);
+    }
   }
-);
+)
 
 const candidateCertificateSlice = createSlice({
   name: 'candidate_certificate',
@@ -61,4 +72,4 @@ export const candidateCertificateReducer = candidateCertificateSlice.reducer;
 export const candidateCertificateAction: any = {
   ...candidateCertificateSlice.actions,
   fetchCandidateCertificates,
-};
+}

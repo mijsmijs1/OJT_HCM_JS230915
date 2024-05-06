@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from '@pages/home/Home'
 import JobInfo from '@/pages/jobInfo/JobInfo'
@@ -13,7 +12,7 @@ import AdminJobManager from '@/pages/adminJobManager/AdminJobManager'
 import CvManagement from '@/pages/cvManagement'
 import Profile from "@pages/profile/Profile"
 import { lazyFn } from "@/utils/lazies/Lazy"
-
+import CvGenerate from '@/pages/cvGenerate'
 
 export default function RouteSetup() {
   return (
@@ -34,10 +33,16 @@ export default function RouteSetup() {
           <Route path='profile' element={<Profile />} >
           </Route>
         </Route>
+        {/* cv */}
+        <Route path='cv-generate' element={<CvGenerate />}></Route>
 
         {/* AUTHEN */}
         {/* user */}
         <Route path='/login' element={lazyFn(() => import('@/components/authen/login/candidate'), localStorage.getItem("token") == null, "/")} >
+        </Route>
+        <Route path='/reset-password' element={lazyFn(() => import('@/components/authen/login/candidate/forgot-password'), localStorage.getItem("token") == null, "/")} >
+        </Route>
+        <Route path='/change-password' element={lazyFn(() => import('@/components/authen/login/candidate/change-password'), localStorage.getItem("token") != null, "/")} >
         </Route>
         <Route path='/register' element={lazyFn(() => import('@/components/authen/register/candidate'), localStorage.getItem("token") == null, "/")} >
         </Route>
@@ -57,11 +62,3 @@ export default function RouteSetup() {
     </BrowserRouter >
   )
 }
-
-// const location = useLocation()
-// useEffect(() => {
-//   window.scrollTo({
-//     top: 0,
-//     behavior: "smooth",
-//   });
-// }, [location.pathname])
