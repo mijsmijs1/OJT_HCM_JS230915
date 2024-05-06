@@ -44,6 +44,9 @@ export const candidateApi = {
     updateEducation: async (candidateId: number, data: any) => {
         return await axios.patch(`${SERVER_BASE_URL}/update-education/${candidateId}`, data)
     },
+    deleteEducation:  async (candidateId: number) => {
+        return await axios.delete(`${SERVER_BASE_URL}/delete-education/${candidateId}`)
+    },
     updateExperience: async (candidateId: number, data: any) => {
         return await axios.patch(`${SERVER_BASE_URL}/update-experience/${candidateId}`, data)
     },

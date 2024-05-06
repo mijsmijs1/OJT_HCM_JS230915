@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@/store';
 import apis from '@/services/apis';
 import { candidateAction } from '@/store/slices/candidate/candidate.slice';
-import convertStringToDateValue from '@/components/convert_string_to_date'
+import convertStringToDateValue from '@utils/common/convert_to_string'
 import isValidUrl from '@/components/validateURL'
 
 import "./information.scss"
@@ -45,7 +45,7 @@ export default function InfoForm(props: { setOpenModalUI: any }) {
                 localStorage.setItem('refreshToken', updatedData.data.refreshToken)
                 dispatch(candidateAction.updateData(updatedData.data.data))
                 Modal.success({
-                    title: "Successful",
+                    title: "Thành công",
                     content: updatedData.data.message,
                     onOk: () => {
                         handleCloseModal()

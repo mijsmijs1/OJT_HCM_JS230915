@@ -13,7 +13,7 @@
     }
 }
 
-.box-content {
+.box-content-change-pass {
     max-width: 100%;
     width: 100%;
     justify-content: center;
@@ -33,22 +33,25 @@
 
             .title-rikkei {
                 width: 100%;
+                height: 30px;
 
                 h3 {
                     width: 470px;
-                    height: 106px;
+                    height: 80px;
                     font-size: 30px;
                 }
             }
 
-            .box-item-content {
-                margin-top: 50px;
-
+            .box-item-content-change-pass {
+                margin-top: 30px;
+                &:first-child{
+                    margin-top: 0;
+                }
                 label {
                     font-size: 16px;
                 }
 
-                .input-email {
+                .input-pass {
                     width: 486px;
                     height: 50px;
                     width: 100%;
@@ -75,7 +78,7 @@
                 }
             }
 
-            .box-item-forgot {
+            .box-item-change-pass {
                 font-size: 14px;
                 color: #5d5a6f;
                 cursor: pointer;
@@ -93,27 +96,9 @@
                 }
             }
 
-            .box-item-create-account {
-                font-weight: 500;
-                font-size: 14px;
-                text-align: center;
-                color: #5d5a6f;
-
-                span {
-                    margin-left: 5px;
-                    cursor: pointer;
-                    color: #bc2228;
-                }
-                &:hover{
-                    span{
-                        text-decoration: underline;
-                    }
-                }
-            }
-
-            .box-button-login {
-                margin-top: 20px;
-                .button-login {
+            .box-button-change-pass {
+                margin-top: 50px;
+                .button-change-pass {
                     cursor: pointer;
                     font-size: 16px;
                     width: 486px;
@@ -122,7 +107,7 @@
                     border-radius: 5px;
                     border: none;
                     outline: none;
-                    padding: 10px 10px;
+                    padding: 20px;
                     background-color: #bc2228;
                 }
             }

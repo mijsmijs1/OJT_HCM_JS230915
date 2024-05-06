@@ -13,7 +13,7 @@ export default defineConfig({
       "@components": `${path.resolve(__dirname, "./src/components/")}`,
       "@pages": `${path.resolve(__dirname, "./src/pages/")}`,
       "@routes": `${path.resolve(__dirname, "./src/routes/")}`,
-      "@ultils": `${path.resolve(__dirname, "./src/ultils/")}`,
+      "@utils": `${path.resolve(__dirname, "./src/utils/")}`,
       "@services": `${path.resolve(__dirname, "./src/services/")}`,
       "@slices": `${path.resolve(__dirname, "./src/store/slices/")}`,
     },

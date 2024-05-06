@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Input, Modal, message } from 'antd';
-import api from '@services/apis'
+import apis from '@services/apis'
 import pictures from '@/pictures'
 import { useNavigate } from 'react-router-dom';
+import { Bounce, toast } from 'react-toastify';
+import BtnLoading from '@/components/BtnLoading';
+import { isValidEmail } from "@/utils/common/validate_form";
 
 import "./register_candidate.scss"
 
-export default function RegisterUser() {
+export default function RegisterCandidate() {
     const navigate = useNavigate()
+    const [load, setLoad] = useState<boolean>(false)
 
     const handleRegisterCandidate = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -26,22 +30,22 @@ export default function RegisterUser() {
                 return
             }
             // check type email
-            if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
-                message.error({
+            if (!isValidEmail(email)) {
+                message.warning({
                     content: 'Sai định dạng mail!'
                 })
                 return
             }
             // check pass
             if (password.length < 6) {
-                message.error({
+                message.warning({
                     content: 'Mật khẩu ít nhất 6 ký tự!'
                 })
                 return
             }
             // check confirm pass
             if (password != confirmPassword) {
-                message.error({
+                message.warning({
                     content: 'Mật khẩu không trùng khớp!'
                 })
                 return
@@ -52,24 +56,33 @@ export default function RegisterUser() {
                 email,
                 password
             }
-            let res = await api.authenApi.registerCandidate(data)
+            setLoad(true)
+            let res = await apis.authenApi.registerCandidate(data)
             // success
-            Modal.success({
-                title: "Thành công",
-                content: res.data.message,
-                onOk: () => {
-                    (e.target as any).reset()
-                    navigate('/login')
+            toast.success(`${res.data.message}`, {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                onClose: () => {
+                    navigate('/login');
                 }
             })
         } catch (err: any) {
+            console.log('err', err);
+            
+            setLoad(false)
             Modal.error({
                 title: "Thất bại",
                 content: err.response.data.message || "Vui lòng thử lại sau ít phút!"
             })
         }
     }
-
     return (
         <div>
             <div className='box-logo-rikkei' onClick={() => {
@@ -77,6 +90,7 @@ export default function RegisterUser() {
             }}>
                 <img className='Rikkei_logo' src={pictures.logo_RikkeiEduV2} alt='Rikkei_logo'></img>
             </div>
+            {load && <BtnLoading />}
             <div className='box-login'>
                 <div className='box-content'>
                     <div className='box-content-left'>
@@ -85,7 +99,7 @@ export default function RegisterUser() {
                                 <h3>Cùng Rikkei Education xây dựng hồ sơ nổi bật và nhận được các cơ hội sự nghiệp lý tưởng</h3>
                             </div>
                             <div className='box-item-content'>
-                                <label htmlFor="name">Họ tên</label><br />
+                                <label htmlFor="name">Họ tên</label>
                                 <Input
                                     autoFocus
                                     name='name'
@@ -94,7 +108,7 @@ export default function RegisterUser() {
                                 />
                             </div>
                             <div className='box-item-content'>
-                                <label htmlFor="emails">Email</label><br />
+                                <label htmlFor="emails">Email</label>
                                 <Input
                                     name='email'
                                     className='input-emails'
@@ -102,7 +116,7 @@ export default function RegisterUser() {
                                 />
                             </div>
                             <div className='box-item-content'>
-                                <label htmlFor="passwords">Password</label><br />
+                                <label htmlFor="passwords">Password</label>
                                 <Input.Password
                                     name='password'
                                     className='input-passwords'
@@ -111,7 +125,7 @@ export default function RegisterUser() {
                                 />
                             </div>
                             <div className='box-item-content'>
-                                <label htmlFor="confirm-password">Confirm password</label><br />
+                                <label htmlFor="confirm-password">Confirm password</label>
                                 <Input.Password
                                     name='confirmPassword'
                                     className='input-confirm-password'
@@ -122,13 +136,15 @@ export default function RegisterUser() {
                             <div className='box-button-login'>
                                 <button className='button-login' type='submit'>Đăng ký</button>
                             </div>
-                            <div className='box-item-forgot'>
-                                <p>Quên mật khẩu?</p>
-                            </div>
+
                             <div className='box-item-create-account'>
-                                <p>Bạn đã có tài khoản?<span onClick={() => {
-                                    window.location.href = '/login'
-                                }}> đăng nhập</span></p>
+                                <p>Bạn đã có tài khoản?
+                                    <span onClick={() => {
+                                        window.location.href = '/login'
+                                    }}>
+                                        Đăng nhập ngay
+                                    </span>
+                                </p>
                             </div>
                         </form>
                     </div>

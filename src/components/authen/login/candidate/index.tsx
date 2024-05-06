@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import { Input, Modal, message } from 'antd';
 import apis from '@services/apis'
 import pictures from '@/pictures'
+import { Bounce, toast } from 'react-toastify';
+import BtnLoading from '@/components/BtnLoading';
+import { isValidEmail } from "@/utils/common/validate_form";
+import { useNavigate } from 'react-router-dom';
 
 import "./candidate_login.scss"
 
-export default function LoginUser() {
+export default function LoginCandidate() {
+    const [load, setLoad] = useState<boolean>(false)
+    const navigate = useNavigate()
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -19,8 +25,8 @@ export default function LoginUser() {
                 return
             }
             // check type email
-            if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)) {
-                message.error({
+            if (!isValidEmail(email)) {
+                message.warning({
                     content: 'Không đúng định dạng mail!'
                 })
                 return
@@ -30,22 +36,34 @@ export default function LoginUser() {
                 email,
                 password
             }
+            setLoad(true)
             let result = await apis.authenApi.loginCandidate(data)
             // Success
             localStorage.setItem("token", result.data.accessToken)
             localStorage.setItem("refreshToken", result.data.accessToken)
-            message.success(`${result.data.message}`)
-            // back to homepage
-            setTimeout(() => {
-                window.location.href = '/'
-            }, 1000)
+            toast.success(`${result.data.message}`, {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+                onClose: () => {
+                    window.location.href = '/';
+                }
+            })
         } catch (err: any) {
+            setLoad(false)
             Modal.error({
                 title: "Thất bại!",
                 content: err.response.data.message || 'Vui lòng thử lại sau ít phút',
             })
         }
     }
+
     return (
         <div>
             <div className='box-logo-rikkei' onClick={() => {
@@ -53,6 +71,7 @@ export default function LoginUser() {
             }}>
                 <img className='Rikkei_logo' src={pictures.logo_RikkeiEduV2} alt='Rikkei_logo'></img>
             </div>
+            {load && <BtnLoading />}
             <div className='box-login'>
                 <div className='box-content'>
                     <div className='box-content-left'>
@@ -61,7 +80,7 @@ export default function LoginUser() {
                                 <h3>Cùng Rikkei Education xây dựng hồ sơ nổi bật và nhận được các cơ hội sự nghiệp lý tưởng</h3>
                             </div>
                             <div className='box-item-content'>
-                                <label htmlFor="email">Email</label><br />
+                                <label htmlFor="email">Email</label>
                                 <Input
                                     name='email'
                                     className='input-email'
@@ -70,7 +89,7 @@ export default function LoginUser() {
                                 />
                             </div>
                             <div className='box-item-content'>
-                                <label htmlFor="password">Password</label><br />
+                                <label htmlFor="password">Password</label>
                                 <Input.Password
                                     name='password'
                                     className='input-password'
@@ -81,19 +100,25 @@ export default function LoginUser() {
                             <div className='box-button-login'>
                                 <button className='button-login' type='submit'>Đăng nhập</button>
                             </div>
-                            <div className='box-item-forgot'>
+                            <div className='box-item-forgot' onClick={() => {
+                                navigate('/reset-password')
+                            }}>
                                 <p>Quên mật khẩu?</p>
                             </div>
                             <div className='box-item-create-account'>
-                                <p>Bạn không có tài khoản?<span onClick={() => {
-                                    window.location.href = '/register'
-                                }}> Tạo 1 tài khoản</span></p>
+                                <p>Bạn không có tài khoản?
+                                    <span onClick={() => {
+                                        window.location.href = '/register'
+                                    }}>
+                                        Tạo 1 tài khoản
+                                    </span>
+                                </p>
                             </div>
                         </form>
                     </div>
                     <div className='box-content-right'>
                         <div className='box-img-content'>
-                            <img className='Rikkei_logo' src={pictures.img_content} alt='img_content'></img>
+                            <img className='Rikkei_logo' src={pictures.img_content} alt='img_content' />
                         </div>
                     </div>
                 </div>

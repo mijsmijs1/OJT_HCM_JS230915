@@ -33,7 +33,7 @@
     padding: 0;
     border: 1px solid #888;
     width: 701px;
-    height: 1080px;
+    height: 1150px;
     box-shadow:
         0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -94,13 +94,19 @@
         display: flex;
 
         .edit {
+            cursor: pointer;
             align-items: center;
             gap: 7px;
             display: flex;
             font-size: 16px;
-        }
+            background-color: unset;
+            p{
+                color: #000;
+            }
+        }   
 
         .delete {
+            cursor: pointer;
             align-items: center;
             gap: 7px;
             font-size: 16px;
@@ -112,15 +118,6 @@
 .modal-body-UI {
     padding-left: 30px;
     padding-right: 30px;
-    // padding-top: 30px;
-    // padding-left: 30px;
-    // padding-right: 30px;
-
-    // p {
-    //     width: 641px;
-    //     height: 23px;
-    //     color: #6F7482;
-    // }
     .modal-body-item {
         width: 100%;
         margin-top: 30px;
@@ -253,4 +250,14 @@
         width: 104px;
         height: 48px;
     }
+}
+.location-top{
+    display: flex;
+    justify-content: space-between;
+    div{
+        width: 200px;
+    }
+}
+.location-bottom{
+    margin-top: 10px;
 }

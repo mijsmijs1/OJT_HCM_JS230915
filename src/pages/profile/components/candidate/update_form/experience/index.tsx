@@ -9,9 +9,6 @@ import "./update_experience.scss";
 export default function UpdateExperienceForm(props: { setOpenEditExperienceForm: any, experienceData: any }) {
     const dispatch = useDispatch();
     const { TextArea } = Input;
-
-    console.log('prop', props.experienceData)
-
     const handleCloseModal = () => {
         props.setOpenEditExperienceForm(false);
     };
@@ -41,11 +38,12 @@ export default function UpdateExperienceForm(props: { setOpenEditExperienceForm:
                 end_at,
                 info
             }
+            
             let res = await apis.candidateApi.updateExperience(props.experienceData.id, data);
             dispatch(candidateExperienceAction.fetchCandidateExperience())
 
             Modal.success({
-                title: 'Successful',
+                title: 'Thành công',
                 content: res.data.message,
                 onOk: handleCloseModal,
                 cancelText: null,

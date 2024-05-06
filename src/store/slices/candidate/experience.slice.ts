@@ -24,11 +24,22 @@ interface CandidateState {
   
   export const fetchCandidateExperience = createAsyncThunk(
     'candidate/fetchExperience',
-    async () => {
-      const res = await apis.candidateApi.getExperience();
-      return res.data.data;
+    async (_, { rejectWithValue }) => {
+      const token = localStorage.getItem('token')
+      if (!token) {
+        throw new Error('Token not found')
+      }
+      try {
+        const res = await apis.candidateApi.getExperience();      
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error('Failed to fetch data'); 
+        }
+        return res.data.data as ExperienceCandidate[]; 
+      } catch (err: any) {      
+        return rejectWithValue(err.message);
+      }
     }
-  );
+  )
   
   const candidateExperienceSlice = createSlice({
     name: 'candidate_experience',

@@ -1,4 +1,4 @@
-import api from '@services/apis'
+import apis from '@services/apis'
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Job } from "../job/job.slice.ts"
 import { EducationCandidate } from './education.slice.ts'
@@ -61,13 +61,28 @@ let initialState: InitState = {
 
 // fetch candidate
 const fetchCandidate = createAsyncThunk(
-    'candidate/checkToken',
-    async () => {
-        const res = await api.authenApi.checkToken()
-        if (res.data.data.role === 'candidate') {
-            return res.data.data;
-        } else {
-            return false;
+    'candidate/fetchData',
+    async (_, { rejectWithValue }) => {
+        const token = localStorage.getItem('token')
+        if (!token) {
+            throw new Error('Token not found')
+        }
+        try {
+            const res = await apis.authenApi.checkToken()
+
+            if (res.status < 200 || res.status >= 300) {
+                throw new Error('Failed to fetch data');
+            }
+            if (res.data.data.role == 'candidate') {
+                return res.data.data
+            } else {
+                return null
+            }
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            return rejectWithValue({ message: err.response.data.message })
         }
     }
 )

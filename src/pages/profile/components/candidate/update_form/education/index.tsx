@@ -46,7 +46,7 @@ export default function UpdateEducationForm(props: { setOpenEditEducationForm: a
             dispatch(candidateEducationAction.fetchCandidateEducation())
 
             Modal.success({
-                title: 'Successful',
+                title: 'Thành công',
                 content: res.data.message,
                 onOk: handleCloseModal,
                 cancelText: null,
