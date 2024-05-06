@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { Modal, message } from 'antd'
 import { candidateEducationAction } from '@/store/slices/candidate/education.slice';
 import apis from '@/services/apis';
+import { refreshToken } from '@/utils/common/refreshTokenFunction';
 
 export default function Candidate_profile() {
     const [viewMore, setViewMore] = useState<boolean>(false)
@@ -58,6 +59,7 @@ export default function Candidate_profile() {
     const handleDeleteEducation = async (candidateId: number) => {
         try {
             let result = await apis.candidateApi.deleteEducation(candidateId)
+            refreshToken()
             message.success(`${result.data.message}`)
             dispatch(candidateEducationAction.fetchCandidateEducation())
         } catch (err: any) {

@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Input, Modal, message } from 'antd'
 import apis from '@services/apis'
 import { candidateEducationAction } from '@/store/slices/candidate/education.slice';
 import { useDispatch } from 'react-redux';
+import { refreshToken } from '@/utils/common/refreshTokenFunction';
 
 import "./education.scss"
 
 export default function EducationForm(props: { setOpenEducationForm: any }) {
     const dispatch = useDispatch()
+    const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
     const { TextArea } = Input
     const handleCloseModal = () => {
         props.setOpenEducationForm(false)
@@ -21,19 +23,11 @@ export default function EducationForm(props: { setOpenEducationForm: any }) {
             const started_at = (e.target as any).startDate.value
             const end_at = (e.target as any).endDate.value
             const info = (e.target as any).info.value
-            const startDate = new Date(started_at);
-            const endDate = new Date(end_at)
 
             // Check if any field is empty
             if (!name_education || !major || !started_at || !end_at || !info) {
                 message.warning("Vui lòng điền đầy đủ thông tin")
                 return
-            }
-            // Check valid time
-            if (endDate <= startDate) {
-                message.warning("Thời gian không hợp lệ");
-                (e.target as any).endDate.value = ''
-                return;
             }
             // data
             let data = {
@@ -44,10 +38,11 @@ export default function EducationForm(props: { setOpenEducationForm: any }) {
                 info
             }
             let res = await apis.candidateApi.createEducation(data)
+            refreshToken()
             dispatch(candidateEducationAction.fetchCandidateEducation())
 
             Modal.success({
-                title: 'Thành côngly',
+                title: 'Thành công',
                 content: res.data.message,
                 onOk: handleCloseModal,
                 cancelText: null,
@@ -110,6 +105,11 @@ export default function EducationForm(props: { setOpenEducationForm: any }) {
                                         <Input
                                             name='startDate'
                                             type='date'
+                                            min={new Date().toISOString().split('T')[0]} onChange={(event) => {
+                                                const selectedDate = new Date(event.target.value);
+                                                selectedDate.setDate(selectedDate.getDate() + 1);
+                                                setStartDate(selectedDate.toISOString().split('T')[0]);
+                                            }}
                                             className='input-start-date'
                                         />
                                     </div>
@@ -120,6 +120,7 @@ export default function EducationForm(props: { setOpenEducationForm: any }) {
                                         <Input
                                             name='endDate'
                                             type='date'
+                                            min={startDate}
                                             className='input-end-date'
                                         />
                                     </div>

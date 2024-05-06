@@ -1,4 +1,5 @@
 import { Input, Modal, message } from 'antd'
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import apis from '@/services/apis'
 import { useState } from 'react'
 import pictures from '@/pictures'
@@ -12,20 +13,35 @@ export default function ChangePassword() {
     const handleChangePassword = async (e: React.FormEvent) => {
         e.preventDefault()
         try {
-            const email = (e.target as any).email.value
-            if (!email) {
-                message.warning("Vui lòng nhập email để khôi phục mật khẩu!")
+            const oldPassword = (e.target as any).oldPassword.value
+            const newPassword = (e.target as any).newPassword.value
+            const confirmNewPassword = (e.target as any).confirmNewPassword.value
+            if (!oldPassword || !newPassword || !confirmNewPassword) {
+                message.warning("Vui lòng nhập đầy đủ các trường!")
                 return
             }
-            let data={
-                email
+            if(newPassword == oldPassword){
+                message.warning("Mật khẩu mới không được trùng với mật khẩu cũ!")
+                return
             }
-            let result = await apis.authenApi.resetPassword(data)     
+            if(newPassword != confirmNewPassword){
+                message.warning('Mật khẩu mới không trùng khớp')
+                return
+            }
+            let data = {
+                oldPassword,
+                newPassword
+            }
+            let result = await apis.authenApi.changePassword(data)     
+            console.log('res',result);
+            
+            localStorage.removeItem("token")
+            localStorage.removeItem("refreshToken")
             // Success
             Modal.success({
                 title: 'Thành công',
                 content: result.data.message,
-                onOk: () => window.location.href='./',
+                onOk: () => window.location.href='./login',
                 cancelText: null
             })
         } catch (err: any) {
@@ -52,27 +68,30 @@ export default function ChangePassword() {
                             </div>
                             <div className='box-item-content-change-pass'>
                                 <label htmlFor="old-pass">Mật khẩu cũ</label>
-                                <Input
+                                <Input.Password
                                     name='oldPassword'
                                     className='input-pass'
                                     placeholder="Nhập mật khẩu cũ"
+                                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                     autoFocus
                                 />
                             </div>
                             <div className='box-item-content-change-pass'>
                                 <label htmlFor="new-pass">Mật khẩu mới</label>
-                                <Input
+                                <Input.Password
                                     name='newPassword'
                                     className='input-pass'
                                     placeholder="Nhập mật khẩu mới"
+                                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                 />
                             </div>
                             <div className='box-item-content-change-pass'>
                                 <label htmlFor="new-pass">Xác nhận mật khẩu mới</label>
-                                <Input
+                                <Input.Password
                                     name='confirmNewPassword'
                                     className='input-pass'
                                     placeholder="Xác nhận mật khẩu mới"
+                                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                                 />
                             </div>
                             <div className='box-button-change-pass'>

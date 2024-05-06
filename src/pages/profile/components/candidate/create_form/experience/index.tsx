@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Input, Modal, message } from 'antd'
 import apis from '@services/apis'
 import { candidateExperienceAction } from '@/store/slices/candidate/experience.slice'
 import { useDispatch } from 'react-redux'
+import { refreshToken } from '@/utils/common/refreshTokenFunction';
 
 import "./experienceModal.scss"
 
 export default function ExperienceForm(props: { setOpenExperienceForm: any }) {
+    const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
     const dispatch = useDispatch()
     const { TextArea } = Input
     const handleCloseModal = () => {
@@ -21,19 +23,11 @@ export default function ExperienceForm(props: { setOpenExperienceForm: any }) {
             const started_at = (e.target as any).startDate.value
             const end_at = (e.target as any).endDate.value
             const info = (e.target as any).detail.value
-            const startDate = new Date(started_at);
-            const endDate = new Date(end_at)
 
             // Check if any field is empty
             if (!position || !company || !started_at || !end_at || !info) {
                 message.warning("Please fill in all fields")
                 return
-            }
-            // Check valid time
-            if (endDate <= startDate) {
-                message.warning("Thời gian không hợp lệ");
-                (e.target as any).endDate.value = ''
-                return;
             }
             // data
             let data = {
@@ -46,6 +40,7 @@ export default function ExperienceForm(props: { setOpenExperienceForm: any }) {
             console.log(data);
 
             let result = await apis.candidateApi.createExperience(data)
+            refreshToken()
             dispatch(candidateExperienceAction.fetchCandidateExperience())
 
             Modal.success({
@@ -94,6 +89,11 @@ export default function ExperienceForm(props: { setOpenExperienceForm: any }) {
                                         <label htmlFor="start-date">Start Date</label><br />
                                         <Input
                                             name='startDate'
+                                            min={new Date().toISOString().split('T')[0]} onChange={(event) => {
+                                                const selectedDate = new Date(event.target.value);
+                                                selectedDate.setDate(selectedDate.getDate() + 1);
+                                                setStartDate(selectedDate.toISOString().split('T')[0]);
+                                            }}
                                             className='input-start-date'
                                             type='date'
                                         />
@@ -103,6 +103,7 @@ export default function ExperienceForm(props: { setOpenExperienceForm: any }) {
                                         <label htmlFor="end-date">End Date</label><br />
                                         <Input
                                             name='endDate'
+                                            min={startDate}
                                             className='input-end-date'
                                             type='date'
                                         />

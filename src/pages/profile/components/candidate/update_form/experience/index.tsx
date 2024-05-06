@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input, Modal, message } from 'antd';
 import apis from '@services/apis';
 import { useDispatch } from 'react-redux';
 import { candidateExperienceAction } from '@/store/slices/candidate/experience.slice';
+import { refreshToken } from '@/utils/common/refreshTokenFunction';
 
 import "./update_experience.scss";
 
 export default function UpdateExperienceForm(props: { setOpenEditExperienceForm: any, experienceData: any }) {
+    const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
     const dispatch = useDispatch();
     const { TextArea } = Input;
     const handleCloseModal = () => {
@@ -21,15 +23,6 @@ export default function UpdateExperienceForm(props: { setOpenEditExperienceForm:
             const started_at = (e.target as any).startDate.value
             const end_at = (e.target as any).endDate.value
             const info = (e.target as any).info.value
-            const startDate = new Date(started_at);
-            const endDate = new Date(end_at)
-
-            // Check valid time
-            if (endDate <= startDate) {
-                message.warning("Thời gian không hợp lệ");
-                (e.target as any).endDate.value = ''
-                return;
-            }
             // data
             let data = {
                 position,
@@ -40,6 +33,7 @@ export default function UpdateExperienceForm(props: { setOpenEditExperienceForm:
             }
             
             let res = await apis.candidateApi.updateExperience(props.experienceData.id, data);
+            refreshToken()
             dispatch(candidateExperienceAction.fetchCandidateExperience())
 
             Modal.success({
@@ -101,6 +95,11 @@ export default function UpdateExperienceForm(props: { setOpenEditExperienceForm:
                                         <Input
                                             name={`startDate`}
                                             type='date'
+                                            min={new Date().toISOString().split('T')[0]} onChange={(event) => {
+                                                const selectedDate = new Date(event.target.value);
+                                                selectedDate.setDate(selectedDate.getDate() + 1);
+                                                setStartDate(selectedDate.toISOString().split('T')[0]);
+                                            }}
                                             className='input-start-date'
                                             defaultValue={props.experienceData.started_at.slice(0, 10)}
                                         />
@@ -111,6 +110,7 @@ export default function UpdateExperienceForm(props: { setOpenEditExperienceForm:
                                         <Input
                                             name={`endDate`}
                                             type='date'
+                                            min={startDate}
                                             className='input-end-date'
                                             defaultValue={props.experienceData.end_at.slice(0, 10)}
                                         />

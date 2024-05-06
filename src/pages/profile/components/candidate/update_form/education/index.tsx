@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input, Modal, message } from 'antd';
 import apis from '@services/apis';
 import { useDispatch } from 'react-redux';
 import { candidateEducationAction } from '@/store/slices/candidate/education.slice';
+import { refreshToken } from '@/utils/common/refreshTokenFunction';
 
 import "./update-education.scss";
 
 export default function UpdateEducationForm(props: { setOpenEditEducationForm: any, educationData: any }) {
+    const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
     const dispatch = useDispatch();
     const { TextArea } = Input;
 
@@ -24,15 +26,6 @@ export default function UpdateEducationForm(props: { setOpenEditEducationForm: a
             const started_at = (e.target as any).startDate.value
             const end_at = (e.target as any).endDate.value
             const info = (e.target as any).info.value
-            const startDate = new Date(started_at);
-            const endDate = new Date(end_at)
-
-            // Check valid time
-            if (endDate <= startDate) {
-                message.warning("Thời gian không hợp lệ");
-                (e.target as any).endDate.value = ''
-                return;
-            }
             
             // data
             let data = {
@@ -43,6 +36,7 @@ export default function UpdateEducationForm(props: { setOpenEditEducationForm: a
                 info
             }
             let res = await apis.candidateApi.updateEducation(props.educationData.id, data);
+            refreshToken()
             dispatch(candidateEducationAction.fetchCandidateEducation())
 
             Modal.success({
@@ -103,8 +97,13 @@ export default function UpdateEducationForm(props: { setOpenEditEducationForm: a
                                         <Input
                                             name={`startDate`}
                                             type='date'
-                                            className='input-start-date'
+                                            min={new Date().toISOString().split('T')[0]} onChange={(event) => {
+                                                const selectedDate = new Date(event.target.value);
+                                                selectedDate.setDate(selectedDate.getDate() + 1);
+                                                setStartDate(selectedDate.toISOString().split('T')[0]);
+                                            }}
                                             defaultValue={props.educationData.started_at.slice(0, 10)}
+                                            className='input-start-date'
                                         />
                                     </div>
                                     <p>to</p>
@@ -113,8 +112,9 @@ export default function UpdateEducationForm(props: { setOpenEditEducationForm: a
                                         <Input
                                             name={`endDate`}
                                             type='date'
-                                            className='input-end-date'
+                                            min={startDate}
                                             defaultValue={props.educationData.end_at.slice(0, 10)}
+                                            className='input-end-date'
                                         />
                                     </div>
                                 </div>

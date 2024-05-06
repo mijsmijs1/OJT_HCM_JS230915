@@ -103,7 +103,9 @@ export default function Navigation() {
                                 {/* dropdown */}
                                 <div className='dropdown_user-menu'>
                                     {/* change pass */}
-                                    <div className='change_pass'>Đổi mật khẩu</div>
+                                    <div className='change_pass' onClick={()=>{
+                                        navigate('/change-password')
+                                    }}>Đổi mật khẩu</div>
                                     {/* logout */}
                                     <div className='logout' onClick={handleLogout}>Đăng xuất</div>
                                 </div>
