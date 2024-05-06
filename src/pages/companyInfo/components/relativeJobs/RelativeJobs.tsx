@@ -52,6 +52,7 @@ export default function RelativeJobs() {
     return (
         <div className='relavetiveJobs_container'>
             <p>Related Jobs</p>
+            
             <div className='content'>
                 {
                     relavetiveJobs?.map(item => {

@@ -26,6 +26,7 @@
                     margin-right: 20px;
                     border-radius: 10px;
                     margin-bottom: 30px;
+                    cursor: pointer;
                 }
 
                 .company_info {
@@ -70,7 +71,7 @@
                         .featured {
                             padding: 4px 12px;
                             border-radius: 52px;
-                            width: 83px;
+
                             height: 28px;
                             background-color: #FFEDED;
                             margin-right: 8px;
@@ -307,12 +308,12 @@
 
                                 .item_container {
                                     display: flex;
-                                    
+                                    width: 250%;
 
                                     .featured {
                                         padding: 4px 12px;
                                         border-radius: 52px;
-                                        width: 83px;
+                                        width: auto;
                                         height: 28px;
                                         background-color: #FFEDED;
                                         margin-right: 8px;

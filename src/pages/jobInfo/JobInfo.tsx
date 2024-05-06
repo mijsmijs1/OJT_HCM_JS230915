@@ -1,24 +1,60 @@
-import pictures from '@/pictures'
 import './jobInfo.scss'
 import RelativeJobs from './components/relativeJobs/RelativeJobs'
+import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Store } from '@/store';
+import { Company, fetchCompanies } from '@/store/slices/company/company.slice';
+import { useEffect, useState } from 'react';
+import { fetchJobForDetail } from '@/store/slices/job/job.slice';
+import { Skeleton } from 'antd';
+import convertToVNDateFormat from '@/utils/common/convert_date_function';
 
 export default function JobInfo() {
+  let { jobId } = useParams();
+  let jobIdAsNumber = jobId ? +jobId : undefined;
+  const dispatch = useDispatch();
+  const jobStore = useSelector((store: Store) => store.jobStore)
+  const companyStore = useSelector((store: Store) => store.companyStore)
+  const [company, setCompany] = useState<Company | null>(null);
+  useEffect(() => {
+    dispatch(fetchJobForDetail({ jobId: jobIdAsNumber || 0 }) as any)
+  }, [])
+  useEffect(() => {
+    if (jobStore.job) {
+      dispatch(fetchCompanies() as any)
+    }
+  }, [jobStore.job])
+  useEffect(() => {
+    if (companyStore.companies) {
+      let company = companyStore.companies.find(item => item.id == jobStore.job?.company_id)
+      setCompany(company || null)
+    }
+  }, [companyStore.companies])
   return (
     <div className='job_info_container'>
       <div className='content'>
         <div className='header'>
           <div className='header_left'>
-            <img src={pictures.logo_FPT} alt='logo' />
+            {companyStore.loadingCompanies ? <Skeleton.Image active></Skeleton.Image> : <img src={company?.logo} alt='logo' onClick={() => { window.location.href = `/manager-company/${company?.id}/info` }} />}
             <div className='company_info'>
-              <p>Senior UX Designer</p>
+              {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input> : <p>{jobStore.job?.title}</p>}
               <div>
-                <span>at FPT Software</span>
-                <div className='full_time'>
-                  <span>FULL-TIME</span>
-                </div>
-                <div className='featured'>
-                  <span>Featured</span>
-                </div>
+                {companyStore.loadingCompanies ? <Skeleton.Input active></Skeleton.Input> : <span>{`at ${company?.name}`}</span>}
+                {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input> : <div className='full_time'>
+                  <span>{jobStore.job?.levelJob?.name.toUpperCase()}</span>
+                </div>}
+                {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input> : <>
+                  {
+                    jobStore.job?.typeJobs?.map(item => {
+                      return (<div className='featured'>
+                        <span>{item.name}</span>
+                      </div>)
+                    })
+                  }
+
+                </>
+                }
+
               </div>
             </div>
           </div>
@@ -45,48 +81,9 @@ export default function JobInfo() {
           <div className='info_left'>
             <div className='info_left_content'>
               <h3>Job Description</h3>
-              <div className='description'>
-                <span>
-                  Velstar is a Shopify Plus agency, and we partner with brands to help them grow, we also do the same with our people!
-                </span>
-                <span>
-                  Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.
-                </span>
-                <span>
-                  The role will involve translating project specifications into clean, test-driven, easily maintainable code. You will work with the Project and Development teams as well as with the Technical Director, adhering closely to project plans and delivering work that meets functional & non-functional requirements. You will have the opportunity to create new, innovative, secure and scalable features for our clients on the Shopify platform
-                </span>
-                <span>Want to work with us? You're in good company!</span>
+              <div className='description' style={{ whiteSpace: 'pre-wrap' }}>
+                {jobStore.loadingJob ? <Skeleton active></Skeleton> : <p>{jobStore.job?.description}</p>}
               </div>
-              <p>Requirements:</p>
-              <ul>
-                <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-              </ul>
-              <p>Desirable:</p>
-              <ul>
-                <li>Working knowledge of eCommerce platforms, ideally Shopify but also others e.g. Magento, WooCommerce, Visualsoft to enable seamless migrations.</li>
-                <li>Working knowledge of payment gateways</li>
-                <li>Working knowledge of payment gateways</li>
-              </ul>
-              <p>Benefits</p>
-              <ul>
-                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-              </ul>
             </div>
 
           </div>
@@ -94,13 +91,13 @@ export default function JobInfo() {
             <div className='info_right_top'>
               <div className='salary'>
                 <span className='title'>
-                  Salary (USD)
+                  Salary
                 </span>
-                <span className='value'>
-                  $100,000 - $120,000
-                </span>
+                {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input > : <span className='value'>
+                  {jobStore.job?.salary}
+                </span>}
                 <span className='for'>
-                  Yearly salary
+                  Monthly salary
                 </span>
               </div>
               <div className='location'>
@@ -112,9 +109,9 @@ export default function JobInfo() {
                 <span className='title'>
                   Job Location
                 </span>
-                <span className='content'>
-                  Dhaka, Bangladesh
-                </span>
+                {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input > : <span className='content'>
+                  {jobStore.job?.location?.name}
+                </span>}
               </div>
             </div>
             <div className='info_right_bottom'>
@@ -131,9 +128,9 @@ export default function JobInfo() {
                     <span className='label'>
                       Job Posted:
                     </span>
-                    <span className='info'>
-                      14 Jun, 2021
-                    </span>
+                    {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input > : <span className='info'>
+                      {convertToVNDateFormat(jobStore.job?.created_at || '')}
+                    </span>}
                   </div>
 
 
@@ -147,9 +144,9 @@ export default function JobInfo() {
                     <span className='label'>
                       Job expire in:
                     </span>
-                    <span className='info'>
-                      14 Aug, 2021
-                    </span>
+                    {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input > : <span className='info'>
+                      {convertToVNDateFormat(jobStore.job?.expire_at || '')}
+                    </span>}
                   </div>
 
 
@@ -164,12 +161,10 @@ export default function JobInfo() {
                     <span className='label'>
                       Job Level:
                     </span>
-                    <span className='info'>
-                      Entry Level
-                    </span>
+                    {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input > : <span className='info'>
+                      {jobStore.job?.levelJob?.name}
+                    </span>}
                   </div>
-
-
 
                   <div className='item experience'>
                     <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -178,14 +173,12 @@ export default function JobInfo() {
                     </svg>
 
                     <span className='label'>
-                      Experience
+                      Salary
                     </span>
-                    <span className='info'>
-                      $50k-80k/month
-                    </span>
+                    {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input > : <span className='info'>
+                      {jobStore.job?.salary}
+                    </span>}
                   </div>
-
-
 
                   <div className='item education'>
                     <svg width="32" height="33" viewBox="0 0 32 33" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -205,11 +198,22 @@ export default function JobInfo() {
 
 
                     <span className='label'>
-                      Education
+                      Technologies
                     </span>
-                    <span className='info'>
-                      Graduation
-                    </span>
+                    <div className='item_container'>
+                      {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input> : <>
+                        {
+                          jobStore.job?.typeJobs?.map(item => {
+                            return (
+                              <div className='featured'>
+                                <span>{item.name}</span>
+                              </div>)
+                          })
+                        }
+
+                      </>
+                      }
+                    </div>
                   </div>
                 </div>
               </div>
@@ -276,7 +280,7 @@ export default function JobInfo() {
             </div>
           </div>
         </div>
-        <RelativeJobs />
+        <RelativeJobs type_job_id={jobStore.job?.typeJobs?.map(item => item.id)} />
       </div>
 
     </div>

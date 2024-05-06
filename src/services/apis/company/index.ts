@@ -14,6 +14,12 @@ export const companyApi = {
     findAllCompany: async () => {
         return await axios.get(`${SERVER_BASE_URL}/get-all`)
     },
+    search: async (page: number, pageSize: number = 10, keyword: string = 'all', address: string = 'all') => {
+        return await axios.get(`${SERVER_BASE_URL}/search?page=${page}&pageSize=${pageSize}&keyword=${keyword}&address=${address}`)
+    },
+    findCompanyByType: async (typeId: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/get-company-by-type/${typeId}`)
+    },
     register: async (data: any) => {
         return await axios.post(`${SERVER_BASE_URL}/register`, data);
     },

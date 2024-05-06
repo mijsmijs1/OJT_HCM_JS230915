@@ -57,6 +57,7 @@ export type Job = {
     levelJob: LevelJob
     candidates: Candidate[]
 }
+
 /* INTERFACE */
 interface InitState {
     jobs: Job[] | null,
@@ -146,6 +147,38 @@ export const fetchJobForCompanyPage = createAsyncThunk(
         }
     }
 )
+export const fetchJobForHomePage = createAsyncThunk(
+    'job/fetchJobForHomePage',
+    async (_, { rejectWithValue }) => {
+        try {
+            let res = await apis.jobApi.getJobForHome()
+            return { data: res.data.data, message: res.data.message }
+        } catch (err: any) {
+            console.log(err)
+            if (!err.response) {
+                throw err
+            }
+
+            return rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
+export const fetchRelativeJobs = createAsyncThunk(
+    'job/fetchRelativeJobs',
+    async ({ typeJobIdArray }: { typeJobIdArray: number[] }, { rejectWithValue }) => {
+        try {
+            let res = await apis.jobApi.getRelativeJobs(typeJobIdArray)
+            return { data: res.data.data, message: res.data.message }
+        } catch (err: any) {
+            console.log(err)
+            if (!err.response) {
+                throw err
+            }
+
+            return rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
 export const fetchJobForDetail = createAsyncThunk(
     'job/fetchJobForDetail',
     async ({ jobId }: { jobId: number }, { rejectWithValue }) => {
@@ -217,7 +250,28 @@ const jobSlice = createSlice({
         builder.addCase(fetchJobForDetail.rejected, (state) => {
             state.loadingJob = false
         })
-
+        //Fetch Job for Home
+        builder.addCase(fetchJobForHomePage.pending, (state) => {
+            state.loadingJobs = true;
+        })
+        builder.addCase(fetchJobForHomePage.fulfilled, (state, action) => {
+            state.jobs = action.payload.data;
+            state.loadingJobs = false
+        })
+        builder.addCase(fetchJobForHomePage.rejected, (state) => {
+            state.loadingJobs = false
+        })
+        //Fetch Relative Job
+        builder.addCase(fetchRelativeJobs.pending, (state) => {
+            state.loadingJobs = true;
+        })
+        builder.addCase(fetchRelativeJobs.fulfilled, (state, action) => {
+            state.jobs = action.payload.data;
+            state.loadingJobs = false
+        })
+        builder.addCase(fetchRelativeJobs.rejected, (state) => {
+            state.loadingJobs = false
+        })
         //Update job
         builder.addCase(updateJob.fulfilled, (state, action) => {
 

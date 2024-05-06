@@ -1,10 +1,9 @@
-// import { useEffect } from 'react';
-// import { useLocation } from "react-router-dom";
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from '@pages/home/Home'
 import JobInfo from '@/pages/jobInfo/JobInfo'
 import Layout from '@/pages/layout/Layout'
-import Search from '@/pages/search/Search'
+import SearchCompany from '@/pages/search/SearchCompany'
 import SearchCandidate from '@/pages/searchCandidate/SearchCandidate'
 import CandidateInfo from '@/pages/candidateInfo/CandidateInfo'
 import CompanyInfo from '@/pages/companyInfo/CompanyInfo'
@@ -14,7 +13,7 @@ import AdminJobManager from '@/pages/adminJobManager/AdminJobManager'
 import CvManagement from '@/pages/cvManagement'
 import Profile from "@pages/profile/Profile"
 import { lazyFn } from "@/utils/lazies/Lazy"
-import apis from '@/services/apis'
+
 
 export default function RouteSetup() {
   return (
@@ -22,11 +21,11 @@ export default function RouteSetup() {
       <Routes>
         <Route path='/' element={<Layout />} >
           <Route index element={<Home />}></Route>
-          <Route path='job-info' element={<JobInfo />}></Route>
-          <Route path='search' element={<Search />}></Route>
+          <Route path='job-info/:jobId' element={<JobInfo />}></Route>
+          <Route path='search-company' element={<SearchCompany />}></Route>
           <Route path='search-candidate' element={<SearchCandidate />}></Route>
           <Route path='candidate-info' element={<CandidateInfo />}></Route>
-          <Route path='company-info' element={<CompanyInfo />}></Route>
+          <Route path='company-info/:companyId' element={<CompanyInfo />}></Route>
           <Route path='manager-company/:companyId/info' element={lazyFn(() => import('@/pages/managerCompany/ManagerCompany'), (localStorage.getItem("token") != null), "/")}></Route>
           <Route path='add-job/:companyId' element={<AddJob />}></Route>
           <Route path='manager-job/:jobId' element={<ManagerJob />}></Route>

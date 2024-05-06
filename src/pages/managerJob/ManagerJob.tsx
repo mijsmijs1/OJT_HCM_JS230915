@@ -72,7 +72,7 @@ export default function ManagerJob() {
                         <div className='content'>
                             <div className='header'>
                                 <div className='header_left'>
-                                    {companyStore.loadingCompanies ? <Skeleton.Image active></Skeleton.Image> : <img src={company?.logo} alt='logo' />}
+                                    {companyStore.loadingCompanies ? <Skeleton.Image active></Skeleton.Image> : <img src={company?.logo} alt='logo' onClick={() => { window.location.href = `/manager-company/${company?.id}/info` }} />}
                                     <div className='company_info'>
                                         {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input> : <p>{jobStore.job?.title}</p>}
                                         <div>

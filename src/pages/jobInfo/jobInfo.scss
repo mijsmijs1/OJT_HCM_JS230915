@@ -23,6 +23,10 @@
                 img {
                     width: 96px;
                     height: 96px;
+                    margin-right: 20px;
+                    border-radius: 10px;
+                    margin-bottom: 30px;
+                    cursor: pointer;
                 }
 
                 .company_info {
@@ -50,7 +54,7 @@
                             padding: 4px 12px;
                             border-radius: 3px;
                             background-color: #0BA02C;
-                            width: 98px;
+                            // width: 98px;
                             height: 28px;
                             margin-right: 8px;
 
@@ -67,7 +71,7 @@
                         .featured {
                             padding: 4px 12px;
                             border-radius: 52px;
-                            width: 83px;
+
                             height: 28px;
                             background-color: #FFEDED;
                             margin-right: 8px;
@@ -235,6 +239,7 @@
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
+                        margin: 0 5px;
 
                         svg {
                             margin-bottom: 8px;
@@ -301,6 +306,32 @@
                                     color: #767F8C;
                                 }
 
+                                .item_container {
+                                    display: flex;
+                                    width: 250%;
+
+                                    .featured {
+                                        padding: 4px 12px;
+                                        border-radius: 52px;
+                                        width: auto;
+                                        height: 28px;
+                                        background-color: #FFEDED;
+                                        margin-right: 8px;
+                                        display: flex;
+                                        justify-content: center;
+
+                                        span {
+                                            margin: 0;
+                                            font-size: 14px;
+                                            font-weight: 400;
+                                            line-height: 20px;
+                                            color: #E05151;
+                                        }
+                                    }
+                                }
+
+
+
                                 .info {
                                     font-weight: 500;
                                     font-size: 14px;
@@ -308,6 +339,8 @@
                                     color: $fontColor;
                                 }
                             }
+
+                            .education {}
                         }
                     }
 

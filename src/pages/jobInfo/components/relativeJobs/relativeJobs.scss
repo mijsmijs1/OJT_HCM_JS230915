@@ -1,127 +1,223 @@
-.relavetiveJobs_container {
+.good_job_container {
+    max-width: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
-    height: 662px;
-    flex-direction: column;
-    font-family: $mainFont;
-
-    p {
-        font-weight: 500;
-        font-size:40px;
-        line-height: 48px;
-        margin-bottom: 50px;
-        color: $fontColor;
-    }
+    margin-top: 100px;
+    margin-bottom: 270px;
 
     .content {
+        max-width: 1320px;
         width: 100%;
         display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
+        flex-direction: column;
+        font-family: $mainFont;
 
-        .item {
-            width: 30%;
-            height: 170px;
-            padding: 24px;
+        .label {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-radius: 8px;
-            border: 1px solid #E4E5E8;
-            box-shadow: 0px 0px 10px rgba($color: #18191C, $alpha: 0.03);
-            margin-bottom: 24px;
-            margin-right: 24px;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 50px;
 
-            .work {
-                margin-bottom: 20px;
-                width: 100%;
+            p {
+                font-weight: 500;
+                font-size: 40px;
+                line-height: 48px;
+            }
+
+            .more {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
 
                 p {
-                    font-weight: 500;
-                    font-size: 18px;
-                    line-height: 28px;
-                    margin-bottom: 6px;
-                    color: $fontColor;
+                    font-weight: 600;
+                    font-size: 16px;
+                    line-height: 24px;
+                    color: #BC2228;
+                    margin-right: 12px;
+                }
+            }
+        }
+
+        .jobs {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+
+            .item {
+                width: 31.5%;
+                cursor: pointer;
+                padding: 24px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                border-radius: 8px;
+                border: 1px solid #E4E5E8;
+                box-shadow: 0px 0px 10px rgba($color: #18191C, $alpha: 0.03);
+                margin-bottom: 24px;
+                margin-right: 24px;
+
+                &:hover {
+                    border: 1px solid #bfc1c5;
+                    box-shadow: 2px 2px 25px rgba($color: #18191C, $alpha: 0.03);
+                    background-color: #fcfcfc;
                 }
 
-                div {
-                    display: flex;
+                .work {
+                    margin-bottom: 20px;
+                    width: 100%;
+                    margin-bottom: 4px;
 
-                    .type {
-                        height: 20px;
-                        background-color: #E7F6EA;
-                        padding: 4px 8px;
-                        border-radius: 3px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        margin-right: 8px;
-
-                        span {
-                            font-weight: 600;
-                            font-size: 12px;
-                            line-height: 12px;
-                            color: #0BA02C;
-
+                    &:hover {
+                        .title {
+                            .title_content {
+                                p {
+                                    text-decoration: underline;
+                                }
+                            }
                         }
                     }
 
-                    span {
-                        font-weight: 400;
-                        font-size: 14px;
-                        line-height: 20px;
-                        color: #767F8C;
-                    }
-                }
-
-            }
-
-            .company {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-
-                .info {
-
-
-                    img {
-                        width: 48px;
-                        height: 48px;
-                        margin-right: 12px;
-                    }
-
-                    div {
+                    .title {
                         display: flex;
                         flex-direction: column;
+                        margin-bottom: 8px;
+
+                        .title_content {
+                            display: flex;
+                            align-items: center;
+
+                            p {
+                                margin-right: 10px;
+                            }
+                        }
+
+                        .featured {
+                            padding: 0px 8px;
+                            border-radius: 52px;
+
+                            background-color: #FFEDED;
+                            margin-right: 8px;
+                            display: flex;
+                            justify-content: center;
+
+                            span {
+                                margin: 0;
+                                font-size: 11px;
+                                font-weight: 400;
+                                color: #E05151;
+                            }
+                        }
 
                         p {
                             font-weight: 500;
-                            font-size: 16px;
-                            line-height: 24px;
-                            margin-bottom: 4px;
+                            font-size: 18px;
+                            line-height: 28px;
                             color: $fontColor;
+                            margin-bottom: 4px;
+                        }
+                    }
+
+
+                    div {
+                        display: flex;
+
+                        .type {
+                            height: 20px;
+                            background-color: #E7F6EA;
+                            padding: 4px 8px;
+                            border-radius: 3px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            margin-right: 8px;
+
+                            span {
+                                font-weight: 600;
+                                font-size: 12px;
+                                line-height: 12px;
+                                color: #0BA02C;
+
+                            }
                         }
 
                         span {
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-
-                            svg {
-                                margin-right: 4px;
-                            }
-
                             font-weight: 400;
                             font-size: 14px;
                             line-height: 20px;
                             color: #767F8C;
                         }
                     }
+
                 }
 
+
+                .company_info {
+                    display: flex;
+                    justify-content: space-between;
+
+                    width: 100%;
+                    z-index: 0;
+
+                    svg {
+                        margin-top: 20px;
+                    }
+
+                    .info {
+                        display: flex;
+                        align-items: center;
+
+                        &:hover {
+                            div {
+                                p {
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+
+                        img {
+                            width: 48px;
+                            height: 48px;
+                            margin-right: 12px;
+                        }
+
+                        div {
+                            display: flex;
+                            flex-direction: column;
+
+                            p {
+                                font-weight: 550;
+                                font-size: 16px;
+                                line-height: 24px;
+                                margin-bottom: 4px;
+                                color: $fontColor;
+                            }
+
+                            span {
+                                display: flex;
+
+                                justify-content: center;
+
+                                svg {
+                                    margin-right: 4px;
+                                    margin-top: 0px;
+                                }
+
+                                font-weight: 400;
+                                font-size: 14px;
+                                line-height: 20px;
+                                color: #767F8C;
+                            }
+                        }
+                    }
+
+                }
             }
         }
 

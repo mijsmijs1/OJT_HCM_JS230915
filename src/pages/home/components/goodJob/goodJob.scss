@@ -63,17 +63,67 @@
                 margin-bottom: 24px;
                 margin-right: 24px;
 
+                &:hover {
+                    border: 1px solid #bfc1c5;
+                    box-shadow: 2px 2px 25px rgba($color: #18191C, $alpha: 0.03);
+                    background-color: #fcfcfc;
+                }
+
                 .work {
                     margin-bottom: 20px;
                     width: 100%;
+                    margin-bottom: 4px;
 
-                    p {
-                        font-weight: 500;
-                        font-size: 18px;
-                        line-height: 28px;
-                        margin-bottom: 6px;
-                        color: $fontColor;
+                    &:hover {
+                        .title {
+                            .title_content {
+                                p {
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
                     }
+
+                    .title {
+                        display: flex;
+                        flex-direction: column;
+                        margin-bottom: 8px;
+
+                        .title_content {
+                            display: flex;
+                            align-items: center;
+
+                            p {
+                                margin-right: 10px;
+                            }
+                        }
+
+                        .featured {
+                            padding: 0px 8px;
+                            border-radius: 52px;
+
+                            background-color: #FFEDED;
+                            margin-right: 8px;
+                            display: flex;
+                            justify-content: center;
+
+                            span {
+                                margin: 0;
+                                font-size: 11px;
+                                font-weight: 400;
+                                color: #E05151;
+                            }
+                        }
+
+                        p {
+                            font-weight: 500;
+                            font-size: 18px;
+                            line-height: 28px;
+                            color: $fontColor;
+                            margin-bottom: 4px;
+                        }
+                    }
+
 
                     div {
                         display: flex;
@@ -107,14 +157,29 @@
 
                 }
 
-                .company {
+
+                .company_info {
                     display: flex;
                     justify-content: space-between;
-                    align-items: center;
+
                     width: 100%;
+                    z-index: 0;
+
+                    svg {
+                        margin-top: 20px;
+                    }
 
                     .info {
                         display: flex;
+                        align-items: center;
+
+                        &:hover {
+                            div {
+                                p {
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
 
                         img {
                             width: 48px;
@@ -127,7 +192,7 @@
                             flex-direction: column;
 
                             p {
-                                font-weight: 500;
+                                font-weight: 550;
                                 font-size: 16px;
                                 line-height: 24px;
                                 margin-bottom: 4px;
@@ -136,11 +201,12 @@
 
                             span {
                                 display: flex;
-                                align-items: center;
+
                                 justify-content: center;
 
                                 svg {
                                     margin-right: 4px;
+                                    margin-top: 0px;
                                 }
 
                                 font-weight: 400;

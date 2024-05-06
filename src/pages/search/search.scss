@@ -11,6 +11,7 @@
         flex-direction: column;
         font-family: $mainFont;
         margin-top: 38px;
+        margin-bottom: 300px;
 
         .search_input {
             display: flex;
@@ -19,10 +20,10 @@
 
             form {
                 display: flex;
-                justify-content: center;
+                justify-content: space-around;
                 align-items: center;
                 height: 72px;
-                width: 100%;
+                width: 90%;
                 padding: 0 12px;
                 border-radius: 8px;
                 border: 1px solid #E4E5E8;
@@ -63,6 +64,11 @@
                     display: flex;
                     align-items: center;
                     margin-left: 24px;
+
+                    .ant-select {
+                        width: 100%;
+                        border: none;
+                    }
 
                     svg {
                         margin-right: 12px;
@@ -117,6 +123,7 @@
                     line-height: 24px;
                     border-radius: 4px;
                     cursor: pointer;
+                    margin-left: 20px;
                 }
             }
         }
@@ -129,10 +136,10 @@
             justify-content: center;
             align-items: center;
             margin-top: 50px;
-            margin-bottom: 300px;
+            margin-bottom: 20px;
+
             .item {
-                width: 30%;
-                height: 170px;
+                width: 31.5%;
                 padding: 24px;
                 display: flex;
                 flex-direction: column;
@@ -140,12 +147,12 @@
                 border: 1px solid #E4E5E8;
                 box-shadow: 0px 0px 10px rgba($color: #18191C, $alpha: 0.03);
                 margin: 12px;
+
                 .info {
                     display: flex;
-                    flex-wrap: wrap;
                     flex-direction: row;
-                    margin-bottom: 20px;
-                    align-items: center;
+                    margin-bottom: 8px;
+
 
                     img {
                         width: 56px;
@@ -153,60 +160,60 @@
                         margin-right: 16px;
                     }
 
-                    div {
+
+
+                    .name {
                         display: flex;
                         flex-direction: column;
+                        margin-bottom: 6px;
+                        align-items: flex-start;
 
-                        .name {
-                            display: flex;
-                            flex-wrap: wrap;
-                            flex-direction: row;
-                            align-items: center;
-                            margin-bottom: 6px;
-
-                            p {
-                                font-weight: 500;
-                                font-size: 18px;
-                                line-height: 28px;
-
-                                color: $fontColor;
-                                margin-right: 8px;
-                            }
-
-                            .featured {
-                                padding: 4px 12px;
-                                border-radius: 52px;
-                                width: 83px;
-                                height: 28px;
-                                background-color: #FFEDED;
-                                margin-right: 8px;
-
-                                span {
-                                    margin: 0;
-                                    font-size: 14px;
-                                    font-weight: 400;
-                                    line-height: 20px;
-                                    color: #E05151;
-                                }
-                            }
+                        p {
+                            font-weight: 500;
+                            font-size: 18px;
+                            line-height: 28px;
+                            color: $fontColor;
+                            margin-right: 8px;
                         }
 
+                        .featured {
+                            padding: 4px 12px;
+                            border-radius: 52px;
+                            // width: 83px;
+                            height: 28px;
+                            background-color: #FFEDED;
+                            margin-right: 8px;
 
-                        span {
-                            display: flex;
-                            align-items: center;
-
-
-                            svg {
-                                margin-right: 4px;
+                            span {
+                                margin: 0;
+                                font-size: 14px;
+                                font-weight: 400;
+                                line-height: 20px;
+                                color: #E05151;
                             }
-
-                            font-weight: 400;
-                            font-size: 14px;
-                            line-height: 20px;
-                            color: #767F8C;
                         }
                     }
+
+
+                    span {
+                        display: flex;
+                        align-items: center;
+
+
+                        svg {
+                            margin-right: 4px;
+                        }
+
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 20px;
+                        color: #767F8C;
+                    }
+
+                }
+
+                .address {
+                    margin-bottom: 8px;
                 }
 
                 .more {
@@ -221,6 +228,7 @@
                     border-radius: 3px;
                     padding: 12px 24px;
                     cursor: pointer;
+
                     span {
                         font-weight: 600;
                         font-size: 16px;
@@ -229,6 +237,31 @@
                     }
                 }
             }
+        }
+    }
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    span {
+        cursor: pointer;
+        margin: 0 5px;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+
+        &:hover {
+            background-color: #eee;
+        }
+
+        &.current {
+            // font-weight: bold;
+            background-color: #ddd;
         }
     }
 }
