@@ -66,6 +66,7 @@ export type Company = {
 interface InitState {
     data: Account_Company | null,
     companies: Company[] | null,
+    companyCount: number,
     company: Company | null,
     typeCompany: Type_Company[] | null,
     addressByCompanyId: Address_Company[] | null,
@@ -84,6 +85,7 @@ let initialState: InitState = {
     data: null,
     companies: null,
     company: null,
+    companyCount: 0,
     typeCompany: null,
     addressByCompanyId: null,
     //Loading
@@ -120,6 +122,37 @@ export const fetchCompanyById = createAsyncThunk(
     async (CompanyId: number, { rejectWithValue }) => {
         try {
             let res = await api.companyApi.findCompanyById(CompanyId)
+            return res.data.data
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            return rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
+
+export const fetchCompanyByType = createAsyncThunk(
+    'company/fetchCompanyByType',
+    async (typeId: number, { rejectWithValue }) => {
+        try {
+            let res = await api.companyApi.findCompanyByType(typeId)
+            return res.data.data
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+            return rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
+
+export const searchCompany = createAsyncThunk(
+    'company/searchCompany',
+    async ({ page, pageSize, keyword, address }: { page: number, pageSize: number, keyword: string, address: string }, { rejectWithValue }) => {
+        try {
+            let res = await api.companyApi.search(page, pageSize, keyword, address)
+            console.log(res.data.data)
             return res.data.data
         } catch (err: any) {
             if (!err.response) {
@@ -294,6 +327,29 @@ const companySlice = createSlice({
         builder.addCase(fetchCompanies.rejected, (state, action) => {
             state.loadingCompanies = false
             state.errorCompanies = action.payload ? String(action.payload) : action.error.message ? String(action.error.message) : 'Unknown error';
+        })
+        //Search Data
+        builder.addCase(searchCompany.pending, (state) => {
+            state.loadingCompanies = true;
+        })
+        builder.addCase(searchCompany.fulfilled, (state, action) => {
+            state.companies = action.payload.companies;
+            state.companyCount = action.payload.count;
+            state.loadingCompanies = false
+        })
+        builder.addCase(searchCompany.rejected, (state) => {
+            state.loadingCompanies = false
+        })
+        //Fetch companies by Type
+        builder.addCase(fetchCompanyByType.pending, (state) => {
+            state.loadingCompanies = true;
+        })
+        builder.addCase(fetchCompanyByType.fulfilled, (state, action) => {
+            state.companies = action.payload;
+            state.loadingCompanies = false
+        })
+        builder.addCase(fetchCompanyByType.rejected, (state) => {
+            state.loadingCompanies = false
         })
         //Fetch company data for comapay Info page
         builder.addCase(fetchCompanyById.pending, (state) => {

@@ -1,9 +1,10 @@
 import pictures from '@/pictures'
 import Testimonial from '../testimonial'
-import OutstandingWork from '../outstandingWork'
-import OutstandingCompany from '../outstandingCompany'
+
 
 import './home.scss'
+import GoodJob from './components/goodJob/GoodJob'
+import GoodCandidate from './components/goodCandidate/GoodCandidate'
 
 export default function Home() {
     const items = [
@@ -111,8 +112,8 @@ export default function Home() {
             </section>
             {/* END INFORMATION */}
 
-            <OutstandingWork />
-            <OutstandingCompany/>
+            <GoodJob />
+            <GoodCandidate />
             <Testimonial />
         </>
     )

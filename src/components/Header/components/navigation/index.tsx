@@ -89,7 +89,11 @@ export default function Navigation() {
                             </svg>
 
                             {/* name user */}
-                            <div className='user_name'>{candidateStore.data.name}</div>
+                            <div className='user_name'
+                                onClick={() => {
+                                    window.location.href = '/profile'
+                                }}
+                            >{candidateStore.data.name}</div>
 
                             {/* logout */}
                             <div className='logout' onClick={handleLogout}>Đăng xuất</div>
@@ -114,7 +118,11 @@ export default function Navigation() {
                                 </svg>
 
                                 {/* name user */}
-                                <div className='user_name'>{companyStore.data.displayName != 'updating' ? companyStore.data.displayName : companyStore.data.email.replace('@gmail.com', '')}</div>
+                                <div className='user_name'
+                                    onClick={() => {
+                                        window.location.href = '/profile'
+                                    }}
+                                >{companyStore.data.displayName != 'updating' ? companyStore.data.displayName : companyStore.data.email.replace('@gmail.com', '')}</div>
 
                                 {/* logout */}
                                 <div className='logout' onClick={handleLogout}>Đăng xuất</div>

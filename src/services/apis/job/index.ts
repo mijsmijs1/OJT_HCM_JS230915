@@ -20,6 +20,12 @@ export const jobApi = {
     getJob: async (jobId: number) => {
         return await axios.get(`${SERVER_BASE_URL}/${jobId}`)
     },
+    getJobForHome: async () => {
+        return await axios.get(`${SERVER_BASE_URL}/get-job-home`)
+    },
+    getRelativeJobs: async (TypeJobIdArray: number[]) => {
+        return await axios.get(`${SERVER_BASE_URL}/get-job-by-type-job?type_job_id=${TypeJobIdArray.join(',')}`)
+    },
     update: async (jobId: number, data: any) => {
         return await axios.patch(`${SERVER_BASE_URL}/update-job/${jobId}`, data)
     },

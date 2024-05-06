@@ -5,6 +5,20 @@
     flex-direction: column;
     font-family: $mainFont;
     margin-top: 38px;
+    position: relative;
+
+    .more_company {
+        position: absolute;
+        top: 10px;
+        right: 21px;
+        background-color: #10d63b;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px 10px;
+        border-radius: 10px;
+        color: white;
+    }
 
     .title {
         font-weight: 500;
@@ -25,7 +39,7 @@
 
         .item {
             width: 31.5%;
-            height: 170px;
+
             padding: 24px;
             display: flex;
             flex-direction: column;
@@ -37,10 +51,9 @@
 
             .info {
                 display: flex;
-                flex-wrap: wrap;
                 flex-direction: row;
-                margin-bottom: 20px;
-                align-items: center;
+                margin-bottom: 8px;
+
 
                 img {
                     width: 56px;
@@ -48,60 +61,59 @@
                     margin-right: 16px;
                 }
 
-                div {
+
+
+                .name {
                     display: flex;
                     flex-direction: column;
-
-                    .name {
-                        display: flex;
-                        flex-wrap: wrap;
-                        flex-direction: row;
-                        align-items: center;
-                        margin-bottom: 6px;
-
-                        p {
-                            font-weight: 500;
-                            font-size: 18px;
-                            line-height: 28px;
-
-                            color: $fontColor;
-                            margin-right: 8px;
-                        }
-
-                        .featured {
-                            padding: 4px 12px;
-                            border-radius: 52px;
-                            width: 83px;
-                            height: 28px;
-                            background-color: #FFEDED;
-                            margin-right: 8px;
-
-                            span {
-                                margin: 0;
-                                font-size: 14px;
-                                font-weight: 400;
-                                line-height: 20px;
-                                color: #E05151;
-                            }
-                        }
+                    margin-bottom: 6px;
+                    align-items: flex-start;
+                    p {
+                        font-weight: 500;
+                        font-size: 18px;
+                        line-height: 28px;
+                        color: $fontColor;
+                        margin-right: 8px;
                     }
 
+                    .featured {
+                        padding: 4px 12px;
+                        border-radius: 52px;
+                        // width: 83px;
+                        height: 28px;
+                        background-color: #FFEDED;
+                        margin-right: 8px;
 
-                    span {
-                        display: flex;
-                        align-items: center;
-
-
-                        svg {
-                            margin-right: 4px;
+                        span {
+                            margin: 0;
+                            font-size: 14px;
+                            font-weight: 400;
+                            line-height: 20px;
+                            color: #E05151;
                         }
-
-                        font-weight: 400;
-                        font-size: 14px;
-                        line-height: 20px;
-                        color: #767F8C;
                     }
                 }
+
+
+                span {
+                    display: flex;
+                    align-items: center;
+
+
+                    svg {
+                        margin-right: 4px;
+                    }
+
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 20px;
+                    color: #767F8C;
+                }
+
+            }
+
+            .address {
+                margin-bottom: 8px;
             }
 
             .more {

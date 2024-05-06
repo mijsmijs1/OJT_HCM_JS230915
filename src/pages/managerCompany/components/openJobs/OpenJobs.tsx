@@ -62,8 +62,8 @@ export default function OpenJobs({ companyId }: { companyId: number }) {
                 className={`page-number ${page === currentPage ? 'current' : ''}`}
                 onClick={() => {
                     onPageChange(page)
-                    if (!window.location.href.includes('page')) {
-                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}&&job-page=${page}`)
+                    if (!window.location.href.includes('job-page')) {
+                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}?job-page=${page}`)
                     } else {
                         navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '').replace(/(job-page=)[^\&]+/, `$1${page}`)}`)
                     }
@@ -171,19 +171,19 @@ export default function OpenJobs({ companyId }: { companyId: number }) {
             <div className="pagination">
                 <span onClick={() => {
                     onPageChange(currentPage - 1)
-                    if (!window.location.href.includes('page')) {
-                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}&&page=${currentPage - 1}`)
+                    if (!window.location.href.includes('job-page')) {
+                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}?job-page=${currentPage - 1}`)
                     } else {
-                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '').replace(/(page=)[^\&]+/, `$1${currentPage - 1}`)}`)
+                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '').replace(/(job-page=)[^\&]+/, `$1${currentPage - 1}`)}`)
                     }
                 }}>&lt;</span>
                 {renderPageNumbers()}
                 <span onClick={() => {
                     onPageChange(currentPage + 1)
-                    if (!window.location.href.includes('page')) {
-                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}&&page=${currentPage - 1}`)
+                    if (!window.location.href.includes('job-page')) {
+                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}?job-page=${currentPage - 1}`)
                     } else {
-                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '').replace(/(page=)[^\&]+/, `$1${currentPage + 1}`)}`)
+                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '').replace(/(job-page=)[^\&]+/, `$1${currentPage + 1}`)}`)
                     }
                 }}>&gt;</span>
             </div>
