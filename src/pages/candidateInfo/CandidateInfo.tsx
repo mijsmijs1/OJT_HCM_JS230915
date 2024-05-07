@@ -3,6 +3,8 @@ import './candidateInfo.scss'
 import pictures from '@/pictures'
 
 export default function CandidateInfo() {
+    
+
     let skill = ['REACTJS', 'NODEJS']
     let languages = ['JAPANESE N2', 'TOEIC 700']
     return (
@@ -14,7 +16,7 @@ export default function CandidateInfo() {
                         <div className='header_left'>
                             <img src={pictures.logo_FPT} alt='logo' />
                             <div className='company_info'>
-                                <p>Nguyễn Văn A</p>
+                                <p>{}</p>
                                 <div>
 
                                     <div className='full_time'>

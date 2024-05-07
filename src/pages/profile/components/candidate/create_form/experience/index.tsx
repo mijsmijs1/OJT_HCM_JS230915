@@ -37,14 +37,13 @@ export default function ExperienceForm(props: { setOpenExperienceForm: any }) {
                 end_at,
                 info
             }
-            console.log(data);
 
             let result = await apis.candidateApi.createExperience(data)
             refreshToken()
             dispatch(candidateExperienceAction.fetchCandidateExperience())
 
             Modal.success({
-                title: 'Thành côngly',
+                title: 'Thành công',
                 content: result.data.message,
                 onOk: handleCloseModal,
                 cancelText: null,

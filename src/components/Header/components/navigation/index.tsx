@@ -26,14 +26,16 @@ export default function Navigation() {
                         console.log('Refresh token not found.');
                         return;
                     }
-                    // let result = await apis.authenApi.logout(refreshToken)
+                    let result = await apis.authenApi.logout(String(refreshToken))
                     localStorage.removeItem("token")
                     localStorage.removeItem("refreshToken")
-                    dispatch(candidateAction.setData(null))
                     Modal.success({
                         title: 'Thành công',
-                        content: 'Đăng xuất thành công',
-                        onOk: () => window.location.href = '/login',
+                        content: result.data.message,
+                        onOk: () => {
+                            dispatch(candidateAction.setData(null))
+                            window.location.href = '/login'
+                        },
                         cancelText: null
                     })
                 } catch (err: any) {
@@ -102,8 +104,12 @@ export default function Navigation() {
 
                                 {/* dropdown */}
                                 <div className='dropdown_user-menu'>
+                                    {/* info */}
+                                    <div className='candidate_info' onClick={() => {
+                                        window.location.href='/candidate-info'
+                                    }}>Thông tin ứng viên</div>
                                     {/* change pass */}
-                                    <div className='change_pass' onClick={()=>{
+                                    <div className='change_pass' onClick={() => {
                                         navigate('/change-password')
                                     }}>Đổi mật khẩu</div>
                                     {/* logout */}

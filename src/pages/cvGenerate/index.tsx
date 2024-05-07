@@ -177,22 +177,17 @@ export default function CvGenerate() {
                                     <div className="cv-card-title">Kinh nghiệm làm việc</div>
                                     <div className="cv-card-content">
                                         <div className='trix-content'>
-                                            <div className='exp-container'>
-                                                <div className="exp-date">06/2022 - HIỆN TẠI</div>
-                                                <div className="exp-company-pos">
-                                                    <div className="exp_pos">SOFTWARE DEVELOPER</div>
-                                                    <div className='line'>|</div>
-                                                    <div className="exp_comp">Zero-Day Squad</div>
+                                            {Object.values(candidateExperienceStore.experienceData || {}).map((item: any) => (
+                                                <div className='exp-container'>
+                                                    <div key={Date.now() * Math.random()} className='exp-date'>{item.started_at?.slice(0, 10).split("-").reverse().join("/")} - {item.end_at?.slice(0, 10).split("-").reverse().join("/")}</div>
+                                                    <div className="exp-company-pos">
+                                                        <div key={Date.now() * Math.random()} className="exp_pos">{item.position}</div>
+                                                        <div key={Date.now() * Math.random()} className='line'>|</div>
+                                                        <div key={Date.now() * Math.random()} className="exp_comp">{item.company}</div>
+                                                    </div>
+                                                    <div className='exp-content'>{item.info}</div>
                                                 </div>
-                                                <div className='exp-content'>
-                                                    <ul>
-                                                        <li>Tham gia vào quá trình phân tích yêu cầu để hiểu rõ các yêu cầu và mong muốn của khách hàng.</li>
-                                                        <li>Đưa ra ý kiến và đề xuất giải pháp phù hợp cho các yêu cầu phức tạp về bảo mật mạng.</li>
-                                                        <li>Tham gia vào việc thiết kế kiến trúc hệ thống và cấu trúc dữ liệu cho các ứng dụng phần mềm.</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>
@@ -209,10 +204,10 @@ export default function CvGenerate() {
                                                 </div>
                                                 <div className="project_body">
                                                     <ul className='project_ul'>
-                                                        <li>Project Description: 
+                                                        <li>Project Description:
                                                             <span>Website bán hàng điện tử</span>
                                                         </li>
-                                                        <li>Responsibilities: 
+                                                        <li>Responsibilities:
                                                             <ul>
                                                                 <li>Thiết kế giao diện web</li>
                                                                 <li>Thực hiện các chức năng mua bán</li>
@@ -222,7 +217,7 @@ export default function CvGenerate() {
                                                         <li>Teach stack:
                                                             <span>Javascript, NodeJs, TypeScript</span>
                                                         </li>
-                                                        <li>Team size: 
+                                                        <li>Team size:
                                                             <span>5 người</span>
                                                         </li>
                                                     </ul>

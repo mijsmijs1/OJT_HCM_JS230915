@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import pictures from '@/pictures'
 import ProjectForm from './create_form/project';
 import CertificateForm from './create_form/certificate';
@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@/store'
 import { useNavigate } from 'react-router-dom';
 import { Modal, message } from 'antd'
-import { candidateEducationAction } from '@/store/slices/candidate/education.slice';
+import { candidateEducationAction, fetchCandidateEducation } from '@/store/slices/candidate/education.slice'
 import apis from '@/services/apis';
 import { refreshToken } from '@/utils/common/refreshTokenFunction';
 
@@ -46,7 +46,6 @@ export default function Candidate_profile() {
     // const candidateProjectStore = useSelector((store: Store) => store.projectStore)
     const candidateCertificateStore = useSelector((store: Store) => store.certificateStore)
 
-    // console.log('data', candidateStore.data);
 
     const handlePreviewCv = () => {
         if (!candidateStore.data?.address || !candidateStore.data?.phone || !candidateStore.data?.dob || !candidateStore.data?.link_fb || Object.keys(candidateEducationStore.educationData || {}).length == 0 || Object.keys(candidateExperienceStore.experienceData || {}).length == 0) {
@@ -69,6 +68,13 @@ export default function Candidate_profile() {
             })
         }
     }
+
+    useEffect(() => {
+        if(candidateStore.data) {
+            dispatch(fetchCandidateEducation({candidateId: Number(candidateStore?.data?.id || 0)}) as any)
+        }        
+    }, [candidateStore.data])
+
     return (
         <>
             <div className='profile_container'>
@@ -296,8 +302,8 @@ export default function Candidate_profile() {
                                                                 <tr key={Date.now() * Math.random()}>
                                                                     <td>{item.name_education}</td>
                                                                     <td>{item.major}</td>
-                                                                    <td>{item.started_at.slice(0, 10).split("-").reverse().join("/")}</td>
-                                                                    <td>{item.end_at.slice(0, 10).split("-").reverse().join("/")}</td>
+                                                                    <td>{item.started_at?.slice(0, 10).split("-").reverse().join("/")}</td>
+                                                                    <td>{item.end_at?.slice(0, 10).split("-").reverse().join("/")}</td>
                                                                     <td>
                                                                         {/* edit */}
                                                                         <span onClick={() => {
@@ -312,7 +318,10 @@ export default function Candidate_profile() {
                                                                         <span>
                                                                             <svg
                                                                                 onClick={() => {
-                                                                                    handleDeleteEducation(item.id)
+                                                                                    Modal.confirm({
+                                                                                        title: 'Bạn có muốn xóa học vấn này?',
+                                                                                        onOk: () => { handleDeleteEducation(item.id) },
+                                                                                    })
                                                                                 }}
                                                                                 width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                                                 <path d="M5.7063 21.9843H14.6613C15.358 21.9843 15.9244 21.776 16.3606 21.3593C16.7968 20.9427 17.0312 20.3828 17.0637 19.6797L17.7375 5.48047H18.9094C19.1112 5.48047 19.2821 5.40722 19.4221 5.26074C19.5621 5.11426 19.632 4.9401 19.632 4.73828C19.632 4.53646 19.5604 4.36393 19.4172 4.22071C19.274 4.07747 19.1048 4.00586 18.9094 4.00586H1.45825C1.26294 4.00586 1.09204 4.0791 0.945557 4.22559C0.799072 4.37207 0.72583 4.54296 0.72583 4.73828C0.72583 4.9401 0.799072 5.11426 0.945557 5.26074C1.09204 5.40722 1.26294 5.48047 1.45825 5.48047H2.63013L3.30395 19.6894C3.3365 20.3926 3.56925 20.9508 4.0022 21.3642C4.43514 21.7776 5.00317 21.9843 5.7063 21.9843ZM5.84302 20.5097C5.56307 20.5097 5.3287 20.4153 5.13989 20.2265C4.95109 20.0377 4.85018 19.8001 4.83716 19.5136L4.15356 5.48047H16.1653L15.5207 19.5136C15.5077 19.8066 15.4068 20.0459 15.218 20.2314C15.0292 20.417 14.7916 20.5097 14.5051 20.5097H5.84302ZM7.28833 18.8398C7.47062 18.8398 7.61711 18.7861 7.72778 18.6787C7.83846 18.5713 7.8938 18.4329 7.8938 18.2636L7.59106 7.81445C7.59106 7.64518 7.5341 7.50846 7.42017 7.4043C7.30624 7.30013 7.16138 7.24805 6.9856 7.24805C6.80331 7.24805 6.65519 7.30176 6.54126 7.40918C6.42733 7.5166 6.37362 7.65494 6.38013 7.82422L6.6731 18.2636C6.67961 18.4394 6.7382 18.5794 6.84888 18.6836C6.95955 18.7878 7.10604 18.8398 7.28833 18.8398ZM10.179 18.8398C10.3678 18.8398 10.5208 18.7861 10.6379 18.6787C10.7551 18.5713 10.8137 18.4329 10.8137 18.2636V7.82422C10.8137 7.65494 10.7551 7.5166 10.6379 7.40918C10.5208 7.30176 10.3678 7.24805 10.179 7.24805C9.99666 7.24805 9.84693 7.30176 9.72974 7.40918C9.61255 7.5166 9.55395 7.65494 9.55395 7.82422V18.2636C9.55395 18.4329 9.61255 18.5713 9.72974 18.6787C9.84693 18.7861 9.99666 18.8398 10.179 18.8398ZM13.0793 18.8398C13.2551 18.8398 13.3984 18.7878 13.509 18.6836C13.6197 18.5794 13.6783 18.4394 13.6848 18.2636L13.9778 7.82422C13.9843 7.65494 13.9322 7.5166 13.8215 7.40918C13.7109 7.30176 13.5611 7.24805 13.3723 7.24805C13.1965 7.24805 13.0533 7.30013 12.9426 7.4043C12.832 7.50846 12.7734 7.64844 12.7668 7.82422L12.4738 18.2636C12.4674 18.4329 12.5195 18.5713 12.6301 18.6787C12.7408 18.7861 12.8905 18.8398 13.0793 18.8398ZM5.89185 4.69922H7.44458V2.60938C7.44458 2.33594 7.5341 2.11458 7.71313 1.94531C7.89217 1.77604 8.12817 1.69141 8.42114 1.69141H11.9172C12.2102 1.69141 12.4462 1.77604 12.6252 1.94531C12.8043 2.11458 12.8938 2.33594 12.8938 2.60938V4.69922H14.4465V2.51172C14.4465 1.80859 14.2301 1.25358 13.7971 0.84668C13.3642 0.439779 12.7734 0.236328 12.0246 0.236328H8.31372C7.56502 0.236328 6.9742 0.439779 6.54126 0.84668C6.10832 1.25358 5.89185 1.80859 5.89185 2.51172V4.69922Z" fill="#BC2228" />
@@ -359,8 +368,8 @@ export default function Candidate_profile() {
                                                                 <tr key={item.id}>
                                                                     <td>{item.position}</td>
                                                                     <td>{item.company}</td>
-                                                                    <td>{item.started_at.slice(0, 10).split("-").reverse().join("/")}</td>
-                                                                    <td>{item.end_at.slice(0, 10).split("-").reverse().join("/")}</td>
+                                                                    <td>{item.started_at?.slice(0, 10).split("-").reverse().join("/")}</td>
+                                                                    <td>{item.end_at?.slice(0, 10).split("-").reverse().join("/")}</td>
                                                                     <td>
                                                                         {/* edit */}
                                                                         <span onClick={() => {

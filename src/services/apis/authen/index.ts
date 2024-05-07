@@ -30,10 +30,10 @@ export const authenApi = {
         return await axios.get(`${SERVER_BASE_URL}/check-token`,)
     },
     refreshToken: async (refreshToken: string) => {
-        return await axios.post(`${import.meta.env.VITE_SERVER}/api/${version}/${prefix}/refresh-token`, { refreshToken: refreshToken })
+        return await axios.post(`${SERVER_BASE_URL}/refresh-token`, { refreshToken: refreshToken })
     },
     logout: async (refreshToken: any) => {
-        return await axios.post(`${SERVER_BASE_URL}/logout`, { ...refreshToken })
+        return await axios.post(`${SERVER_BASE_URL}/logout`, { refreshToken: refreshToken })
     },
     updateAccount: async (data: any) => {
         return await axios.patch(`${SERVER_BASE_URL}/update-candidate-account`, data)

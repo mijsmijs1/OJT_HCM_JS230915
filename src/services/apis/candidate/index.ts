@@ -14,6 +14,12 @@ export const candidateApi = {
     getEducation: async () => {
         return await axios.get(`${SERVER_BASE_URL}/education`)
     },
+    findEucationById:async (candidateId: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/education/${candidateId}`)
+    },
+    findExperienceById:async (candidateId: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/experience/${candidateId}`)
+    },
     getExperience: async () => {
         return await axios.get(`${SERVER_BASE_URL}/experience`)
     },

@@ -32,7 +32,7 @@ export default function UpdateExperienceForm(props: { setOpenEditExperienceForm:
                 info
             }
             
-            let res = await apis.candidateApi.updateExperience(props.experienceData.id, data);
+            let res = await apis.candidateApi.updateExperience(Number(props.experienceData.id), data);
             refreshToken()
             dispatch(candidateExperienceAction.fetchCandidateExperience())
 

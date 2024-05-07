@@ -40,7 +40,7 @@ export default function LoginCandidate() {
             let result = await apis.authenApi.loginCandidate(data)
             // Success
             localStorage.setItem("token", result.data.accessToken)
-            localStorage.setItem("refreshToken", result.data.accessToken)
+            localStorage.setItem("refreshToken", result.data.refreshToken)
             toast.success(`${result.data.message}`, {
                 position: "top-right",
                 autoClose: 1000,
