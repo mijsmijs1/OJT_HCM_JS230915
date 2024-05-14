@@ -14,6 +14,7 @@ import CvManagement from '@/pages/cvManagement'
 import Profile from "@pages/profile/Profile"
 import { lazyFn } from "@/utils/lazies/Lazy"
 import SearchJob from '@/pages/profile/components/searchJob/SearchJob'
+import AppliedJob from '@/pages/appliedJob/AppliedJob'
 
 
 export default function RouteSetup() {
@@ -26,11 +27,12 @@ export default function RouteSetup() {
           <Route path='search-company' element={<SearchCompany />}></Route>
           <Route path='search-job' element={<SearchJob />}></Route>
           <Route path='search-candidate' element={<SearchCandidate />}></Route>
-          <Route path='candidate-info' element={<CandidateInfo />}></Route>
+          <Route path='candidate-info/:candidateId/info' element={<CandidateInfo />}></Route>
+          <Route path='applied-jobs' element={<AppliedJob />}></Route>
           <Route path='company-info/:companyId' element={<CompanyInfo />}></Route>
           <Route path='manager-company/:companyId/info' element={lazyFn(() => import('@/pages/managerCompany/ManagerCompany'), (localStorage.getItem("token") != null), "/")}></Route>
           <Route path='add-job/:companyId' element={<AddJob />}></Route>
-          <Route path='manager-job/:jobId' element={<ManagerJob />}></Route>
+          <Route path='manager-job/:jobId/info' element={<ManagerJob />}></Route>
           <Route path='admin-manager-job' element={<AdminJobManager />}></Route>
           <Route path='cv-management' element={<CvManagement />}></Route>
           <Route path='profile' element={<Profile />} >

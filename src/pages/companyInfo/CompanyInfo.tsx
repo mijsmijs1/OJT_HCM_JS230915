@@ -1,4 +1,4 @@
-import pictures from '@/pictures'
+
 import './companyInfo.scss'
 import SearchJob from './components/search_job/SearchJob'
 import RelativeCompanys from './components/relativeCompanys/RelativeCompanys'
@@ -87,8 +87,8 @@ export default function CompanyInfo() {
           <div className='info_left'>
             <div className='info_left_content'>
               <h3>Mô tả về công ty</h3>
-              <div className='description'>
-                {companyStore.loadingCompany ? <Skeleton active></Skeleton> : <span>{companyStore.company?.description}</span>}
+              <div className='description' style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                {companyStore.loadingCompany ? <Skeleton active></Skeleton> : <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}> {companyStore.company?.description}</pre>}
               </div>
             </div>
             <SearchJob companyId={Number(companyId) || 0} />

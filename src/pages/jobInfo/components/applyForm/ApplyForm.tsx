@@ -1,18 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import './applyForm.scss'
-import { useDispatch, useSelector } from 'react-redux';
-import { Input, Modal, Select, message } from 'antd';
-import apis from '@/services/apis';
-import { Store } from '@/store';
-import { createAddress, createCompany, fetchTypeCompany } from '@/store/slices/company/company.slice';
-import { COMPANY_SIZES, MAX_CV_SIZE, MAX_IMAGE_SIZE, MIN_IMAGE_HEIGHT, MIN_IMAGE_WIDTH, VALID_CV_TYPES } from '@/constants/constants';
-import { isValidEmail, isValidPhone, isValidUrl } from '@/utils/common/validate_form';
+import { useDispatch } from 'react-redux';
+import { Modal, message } from 'antd';
+import { MAX_CV_SIZE, VALID_CV_TYPES } from '@/constants/constants';
 import { uploadToFirebase } from '@/services/firebase';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { applyJob } from '@/store/slices/candidate/candidate.slice';
+import { refreshToken } from '@/utils/common/refreshTokenFunction';
 
-export default function ApplyForm({ setDisplayApplyForm }: { setDisplayApplyForm: any }) {
+export default function ApplyForm({ setDisplayApplyForm, jobId }: { setDisplayApplyForm: any, jobId: number }) {
     const dispatch = useDispatch()
-    const companyStore = useSelector((store: Store) => store.companyStore)
     const inputRef = useRef(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,13 +24,19 @@ export default function ApplyForm({ setDisplayApplyForm }: { setDisplayApplyForm
 
         if (!VALID_CV_TYPES.includes(type)) {
             message.warning(`${file.name} có định dạng không thích hợp.`);
-            (event.target as any).files = null;
+            if (inputRef.current) {
+                (inputRef.current as any).value = "";
+            }
+            setSelectedFile(null)
             return;
         }
 
         if (size > MAX_CV_SIZE) {
             message.warning(`${file.name} có dung lượng quá lớn.`);
-            (event.target as any).files = null;
+            if (inputRef.current) {
+                (inputRef.current as any).value = "";
+            }
+            setSelectedFile(null)
             return;
         }
 
@@ -46,22 +49,28 @@ export default function ApplyForm({ setDisplayApplyForm }: { setDisplayApplyForm
         try {
 
             const description = (e.target as any).description.value
-            if (!description) {
+            console.log(selectedFile)
+            if (!description || !selectedFile) {
                 message.error('Phải nhập đầy đủ thông tin của các trường!')
                 return
             }
-
-            await uploadToFirebase(selectedFile, 'https://example.com/logo.png')
-
-            // await dispatch(createAddress({ companyId: data.id, createData: createNewAddress }) as any)
-            // Modal.success({
-            //     title: 'Thành công',
-            //     content: ApiMessage,
-            //     onOk: () => {
-            //         (e.target as any).reset()
-            //         setDisplayApplyForm(false)
-            //     }
-            // })
+            let CV_file = await uploadToFirebase(selectedFile, 'https://example.com/logo.png')
+            let applyData = {
+                cv_url: CV_file,
+                content: description,
+                job_id: jobId
+            }
+            let result = await dispatch(applyJob({ applyData }) as any)
+            let { message: apiMessage } = unwrapResult(result)
+            refreshToken()
+            Modal.success({
+                title: 'Thành công',
+                content: apiMessage,
+                onOk: () => {
+                    (e.target as any).reset()
+                    setDisplayApplyForm(false)
+                }
+            })
             return
         } catch (err: any) {
             console.log(err)
@@ -82,11 +91,11 @@ export default function ApplyForm({ setDisplayApplyForm }: { setDisplayApplyForm
         }
     }
     return (
-        <div className='company_edit_form_container'>
+        <div className='apply_edit_form_container'>
             <form onSubmit={(e) => {
                 handleSubmitCreateCompany(e)
             }}>
-                <h3>Đăng kí công ty</h3>
+                <h3>Ứng tuyển công việc</h3>
                 <div className='all_input' >
                     <div className='input_group'>
                         <p>Upload CV của bạn</p>

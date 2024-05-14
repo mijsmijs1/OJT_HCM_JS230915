@@ -31,7 +31,7 @@ export default function UpdateJobForm({ setDisplayEditForm, companyId }: {
             let levelJob_id = levelJob;
             let typeJobs = selectedTypeValues;
             let company_id = Number(companyId);
-            let created_at = startDate;
+            let created_at = (e.target as any).created_at.value;
             let expire_at = (e.target as any).expire_at.value;
             let salary = (e.target as any).salary.value;
             let description = (e.target as any).desc.value;

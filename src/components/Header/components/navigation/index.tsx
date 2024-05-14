@@ -33,8 +33,8 @@ export default function Navigation() {
                 dispatch(candidateAction.setData(null))
                 Modal.success({
                     title: 'Successful',
-                    content: "Đăng xuát thành công!",
-                    onOk: () => window.location.href = '/login',
+                    content: "Đăng xuất thành công!",
+                    onOk: () => window.location.href = '/',
                     cancelText: null
                 });
             },

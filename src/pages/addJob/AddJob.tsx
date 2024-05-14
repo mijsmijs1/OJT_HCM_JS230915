@@ -4,17 +4,18 @@ import { Modal, Select, Space, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { Store } from '@/store'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { fetchAddressByCompanyId } from '@/store/slices/company/company.slice'
 import { createJob } from '@/store/slices/job/job.slice'
-import { unwrapResult } from '@reduxjs/toolkit'
 import { refreshToken } from '@/utils/common/refreshTokenFunction'
+import { unwrapResult } from '@reduxjs/toolkit'
 
 
 export default function AddJob() {
     const dispatch = useDispatch()
     const companyStore = useSelector((store: Store) => store.companyStore)
     const jobStore = useSelector((store: Store) => store.jobStore)
+    console.log(jobStore.typeJob)
     const [location, setLocation] = useState('');
     const [levelJob, setLevelJob] = useState<number | null>(null);
     const [selectedTypeValues, setSelectedTypeValues] = useState<number[] | []>([]);
@@ -92,21 +93,21 @@ export default function AddJob() {
             }
             console.log(createData)
             let result = await dispatch(createJob({ createData }) as any)
-            // let { message: apiMessage, data } = unwrapResult(result)
-            // Modal.confirm({
-            //     title: "Thành công!",
-            //     content: `${apiMessage}`,
-            //     okText: 'Chuyển sang trang Job',
-            //     cancelText: 'Tiếp tục tạo Job',
-            //     onOk: () => {
-            //         refreshToken()
-            //         window.location.href = `/manager-job/${data.id}`
-            //     },
-            //     onCancel: () => {
-            //         window.location.reload();
-            //     }
-            // })
-            // return
+            let { message: apiMessage, data } = unwrapResult(result)
+            Modal.confirm({
+                title: "Thành công!",
+                content: `${apiMessage}`,
+                okText: 'Chuyển sang trang Job',
+                cancelText: 'Tiếp tục tạo Job',
+                onOk: () => {
+                    refreshToken()
+                    window.location.href = `/manager-job/${data.id}/info`
+                },
+                onCancel: () => {
+                    window.location.reload();
+                }
+            })
+            return
         } catch (err: any) {
             console.log(err)
             if (err.message) {

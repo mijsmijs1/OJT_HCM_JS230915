@@ -11,7 +11,6 @@ import { formatTimeAgo } from '@/utils/common/format_time_ago_function';
 export default function GoodJob() {
     const dispatch = useDispatch();
     const jobStore = useSelector((store: Store) => store.jobStore)
-    const companyStore = useSelector((store: Store) => store.companyStore)
     useEffect(() => {
         dispatch(fetchJobForHomePage() as any)
     }, [])
@@ -21,7 +20,7 @@ export default function GoodJob() {
             <div className='content'>
                 <div className='label'>
                     <p>Công việc nổi bật</p>
-                    <div className='more'>
+                    <div className='more' onClick={() => { window.location.href = "http://localhost:5173/search-job?page=1&keyword=all&address=all&level=0&type=0&time=created_at" }}>
                         <p>Xem thêm</p>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 12H19" stroke="#BC2228" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

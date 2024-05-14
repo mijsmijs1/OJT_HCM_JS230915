@@ -1,6 +1,6 @@
 import Breadcrumb from '@/components/breadcrumb/Breadcrumb'
 import './searchCandidate.scss'
-// import GoodCandidate from '../home/components/goodCandidate/GoodCandidate'
+
 
 export default function SearchCandidate() {
     return (

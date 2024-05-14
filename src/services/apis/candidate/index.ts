@@ -5,6 +5,21 @@ const version = "v1";
 const SERVER_BASE_URL = `${import.meta.env.VITE_SERVER}/api/${version}/${prefix}`
 
 export const candidateApi = {
+    apply: async (apllyData: any) => {
+        return await axios.post(`${SERVER_BASE_URL}/create-job-application`, apllyData)
+    },
+    findById: async (candidateId: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/get-candidate-by-id/${candidateId}`)
+    },
+    findCV: async (candidateId: number, jobId: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/get-CV?candidateId=${candidateId}&jobId=${jobId}`)
+    },
+    findAppliedJob: async (page: number, pageSize: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/get-applied-job?page=${page}&pageSize=${pageSize}`)
+    },
+    findAppliedCandidates: async (jobId: number, page: number, pageSize: number) => {
+        return await axios.get(`${SERVER_BASE_URL}/get-applied-candidate/${jobId}/get?page=${page}&pageSize=${pageSize}`)
+    },
     findCandidateById: async (id: number) => {
         return await axios.get(`${SERVER_BASE_URL}/${id}`)
     },

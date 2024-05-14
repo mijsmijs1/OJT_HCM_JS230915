@@ -1,42 +1,81 @@
-import pictures from "@/pictures"
+
 import './appliedCandidate.scss'
+import { useDispatch, useSelector } from "react-redux"
+import { Store } from "@/store"
+import { useEffect, useState } from "react"
+import { fetchAppliedCandidates } from "@/store/slices/candidate/candidate.slice"
+import { useNavigate } from "react-router-dom"
 
 export default function AppliedCandidates() {
-    let candidates = [
-        {
-            avatar: pictures.avatar_candidate,
-            name: 'Nguyen Van A',
-            position: 'Front-end',
-            level: "Fresher",
-            technical: JSON.stringify(['ReactJS', 'NodeJS']),
-            language: JSON.stringify(['N2']),
-            addess: "Ha Noi, Viet Nam"
-        },
-        {
-            avatar: pictures.avatar_candidate,
-            name: 'Nguyen Van A',
-            position: 'Front-end',
-            level: "Fresher",
-            technical: JSON.stringify(['ReactJS', 'NodeJS']),
-            language: JSON.stringify(['N2']),
-            addess: "Ha Noi, Viet Nam"
-        },
-        {
-            avatar: pictures.avatar_candidate,
-            name: 'Nguyen Van A',
-            position: 'Front-end',
-            level: "Fresher",
-            technical: JSON.stringify(['ReactJS', 'NodeJS']),
-            language: JSON.stringify(['N2']),
-            addess: "Ha Noi, Viet Nam"
+    const navigate = useNavigate()
+    const jobStore = useSelector((store: Store) => store.jobStore)
+    const candidateStore = useSelector((store: Store) => store.candidateStore)
+    const dispatch = useDispatch()
+    const searchParams = new URLSearchParams(location.search);
+    let page = Number(searchParams.get('candidate-page'));
+    const [currentPage, setCurrentPage] = useState(page || 1);
+    const [totalPages, setTotalPages] = useState(0);
+    useEffect(() => {
+        dispatch(fetchAppliedCandidates({ jobId: jobStore.job?.id || 0, page: page || 1, pageSize: 3 }) as any)
+    }, [page])
+    useEffect(() => {
+        if (candidateStore.candidates) {
+            setTotalPages(Math.ceil(candidateStore.countCandidate / 3))
+        }
+    })
+    const onPageChange = (page: number) => {
+        setCurrentPage(page);
+    };
+    const range = (start: number, end: number) => {
+        return Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    };
+    const renderPageNumbers = () => {
+        //Tổng page số là 6
+        const maxPagesToShow = 6;
+        //Lấy mốc tính là 3
+        const sidePages = Math.floor(maxPagesToShow / 2);
+        // chọn max giữa 1 và (số page hiện tại - 3) => hiển thị 3 số phía sau của page đang hiển thị
+        //Mấy trang đầu sẽ ra âm => tính là 1
+        const startPage = Math.max(1, currentPage - sidePages);
+        //CHọn min giữa tổng page và (page đã lùi 3 + trang hiện tại -1) => VD: start page =2 thì end =7 (tổng 6)
+        //Mấy trang cuối sẽ lớn hơn total
+        const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+        //tạo arr rổng
+        let pages: any[] = [];
+        if (startPage > 1) {
+            //Nếu vượt start page > 1 thì sẽ gắn cụm ... vào đầu tiên
+            pages = pages.concat([1, '...']);
         }
 
-    ]
+        pages = pages.concat(range(startPage, endPage));
+        //Gắn cụm từ start đến end có 6 phần tử vào giữa
+        if (endPage < totalPages) {
+            //nếu bé hơn total => đang khúc giữa, => gắn thêm ...
+            pages = pages.concat(['...', totalPages]);
+        }
+        return pages.map((page, index) => (
+            <span
+                key={index}
+                className={`page-number ${page === currentPage ? 'current' : ''}`}
+                onClick={() => {
+                    onPageChange(page)
+                    if (!window.location.href.includes('candidate-page')) {
+                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}?candidate-page=${page}`)
+                    } else {
+                        navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '').replace(/(candidate-page=)[^\&]+/, `$1${page}`)}`)
+                    }
+                }}
+            >
+                {page}
+            </span>
+        ));
+    };
+
     return (
         <div className='applied_candidate_container'>
             <div className='content'>
                 <div className='label'>
-                    <p>Applied Candidates</p>
+                    <p>Ứng viên đã nộp CV</p>
                     <div className='more'>
                         <p>Xem thêm</p>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,20 +86,18 @@ export default function AppliedCandidates() {
                     </div>
                 </div>
                 <div className='candidate'>
-                    {candidates?.map(item => {
-                        return (<div className='item' key={Date.now() * Math.random()}>
+                    {candidateStore.candidates?.map(item => {
+                        return (<div className='item' key={Date.now() * Math.random()} onClick={() => { window.location.href = `/candidate-info/${item.id}/info?jobId=${jobStore.job?.id}` }}>
                             <div className='info'>
                                 <div className='left'>
-                                    <img src={item.avatar} alt='avatar'></img>
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png" alt='avatar'></img>
                                     <div className='candidate_info'>
                                         <p>{item.name}</p>
                                         <div>
                                             <div className='position'>
-                                                <span>{item.position}</span>
+                                                <span>{item.education[0]?.name_education || 'Updating'}</span>
                                             </div>
-                                            <div className='level'>
-                                                <span>{item.level}</span>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -81,35 +118,45 @@ export default function AppliedCandidates() {
                             <div className='skill'>
                                 <div className='tech'>
                                     <p>Technical in use:</p>
-                                    {JSON.parse(item.technical)?.map((item: String) => {
-                                        return (
-                                            <>
-                                                <div className='each' key={Date.now() * Math.random()}>
-                                                    <span>
-                                                        {
-                                                            item
-                                                        }
-                                                    </span>
-                                                </div>
-                                            </>
-                                        )
-                                    })}
+                                    {
+                                        item.skills?.length != 0 ? (
+                                            item.skills?.slice(0, 3).map(item => {
+                                                return (
+                                                    <>
+                                                        <div className='each' key={Date.now() * Math.random()}>
+                                                            <span>
+                                                                {
+                                                                    item.name
+                                                                }
+                                                            </span>
+                                                        </div>
+                                                    </>
+                                                )
+                                            })
+                                        ) : <p>Updating</p>
+                                    }
+
                                 </div>
                                 <div className='languages'>
-                                    <p>Foreign Language::</p>
-                                    {JSON.parse(item.language)?.map((item: String) => {
-                                        return (
-                                            <>
-                                                <div className='each' key={Date.now() * Math.random()}>
-                                                    <span>
-                                                        {
-                                                            item
-                                                        }
-                                                    </span>
-                                                </div>
-                                            </>
-                                        )
-                                    })}
+                                    <p>Certificates:</p>
+                                    {
+                                        item.certificates?.length != 0 ? (
+                                            item.certificates?.slice(0, 3).map(item => {
+                                                return (
+                                                    <>
+                                                        <div className='each' key={Date.now() * Math.random()}>
+                                                            <span>
+                                                                {
+                                                                    item.name
+                                                                }
+                                                            </span>
+                                                        </div>
+                                                    </>
+                                                )
+                                            })
+                                        ) : <p>Updating</p>
+                                    }
+
                                 </div>
                             </div>
                             <div className='address'>
@@ -119,12 +166,32 @@ export default function AppliedCandidates() {
                                         <path d="M15.125 7.3125C15.125 12.375 9.5 16.3125 9.5 16.3125C9.5 16.3125 3.875 12.375 3.875 7.3125C3.875 5.82066 4.46763 4.38992 5.52252 3.33502C6.57742 2.28013 8.00816 1.6875 9.5 1.6875C10.9918 1.6875 12.4226 2.28013 13.4775 3.33502C14.5324 4.38992 15.125 5.82066 15.125 7.3125V7.3125Z" stroke="#767F8C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
                                     {
-                                        item.addess
+                                        item.address
                                     }
                                 </span>
                             </div>
                         </div>)
                     })}
+                </div>
+                {/* Phan trang */}
+                <div className="pagination">
+                    <span onClick={() => {
+                        onPageChange(currentPage - 1)
+                        if (!window.location.href.includes('candidate-page')) {
+                            navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}?candidate-page=${currentPage - 1}`)
+                        } else {
+                            navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '').replace(/(candidate-page=)[^\&]+/, `$1${currentPage - 1}`)}`)
+                        }
+                    }}>&lt;</span>
+                    {renderPageNumbers()}
+                    <span onClick={() => {
+                        onPageChange(currentPage + 1)
+                        if (!window.location.href.includes('candidate-page')) {
+                            navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '')}?candidate-page=${currentPage - 1}`)
+                        } else {
+                            navigate(`${window.location.href.replace(`${import.meta.env.VITE_WEBSITE_URL}`, '').replace(/(candidate-page=)[^\&]+/, `$1${currentPage + 1}`)}`)
+                        }
+                    }}>&gt;</span>
                 </div>
             </div>
         </div>

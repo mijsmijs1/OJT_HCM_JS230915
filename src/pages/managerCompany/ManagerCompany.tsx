@@ -1,7 +1,6 @@
 
 import './managerCompany.scss'
 import OpenJobs from './components/openJobs/OpenJobs'
-import GoodCandidate from '../home/components/goodCandidate/GoodCandidate'
 import { useEffect, useState } from 'react'
 import EditCompanyForm from './components/editCompanyForm/EditCompanyForm'
 import { useParams } from 'react-router-dom'
@@ -155,7 +154,7 @@ export default function ManagerCompany() {
                                 <div className='info_left_content'>
                                     <h3>Mô tả về công ty</h3>
                                     <div className='description'>
-                                        {companyStore.loadingCompany ? <Skeleton active></Skeleton> : <span>{companyStore.company?.description}</span>}
+                                        {companyStore.loadingCompany ? <Skeleton active></Skeleton> : <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}> {companyStore.company?.description}</pre>}
                                     </div>
                                 </div>
                                 <OpenJobs companyId={Number(companyId) || 0} />

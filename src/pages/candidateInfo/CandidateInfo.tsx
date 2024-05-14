@@ -1,10 +1,31 @@
 import Breadcrumb from '@/components/breadcrumb/Breadcrumb'
 import './candidateInfo.scss'
 import pictures from '@/pictures'
+import { useParams } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { Store } from '@/store';
+import { useEffect } from 'react';
+import { fetchCV, fetchCandidateById } from '@/store/slices/candidate/candidate.slice';
+import { message } from 'antd';
+import { coppySuccessfull } from '@/utils/common/coppyFunction';
+import convertToVNDateFormat from '@/utils/common/convert_date_function';
 
 export default function CandidateInfo() {
-    let skill = ['REACTJS', 'NODEJS']
-    let languages = ['JAPANESE N2', 'TOEIC 700']
+    let { candidateId } = useParams();
+    const searchParams = new URLSearchParams(location.search);
+    let jobId = Number(searchParams.get('jobId') || 0);
+    const candidateStore = useSelector((store: Store) => store.candidateStore)
+    const dispatch = useDispatch()
+    useEffect(() => {
+        if (candidateId) {
+            dispatch(fetchCandidateById({ candidateId }) as any)
+        }
+    }, [candidateId])
+    useEffect(() => {
+        if (candidateId && jobId) {
+            dispatch(fetchCV({ candidateId: Number(candidateId), jobId }) as any)
+        }
+    }, [candidateId, jobId])
     return (
         <>
             <Breadcrumb />
@@ -12,16 +33,16 @@ export default function CandidateInfo() {
                 <div className='content'>
                     <div className='header'>
                         <div className='header_left'>
-                            <img src={pictures.logo_FPT} alt='logo' />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/User-avatar.svg/2048px-User-avatar.svg.png" alt='logo' />
                             <div className='company_info'>
-                                <p>Nguyễn Văn A</p>
-                                <div>
+                                <div className='top_name'>
+                                    <p>{candidateStore.candidate?.name}</p>
 
+
+                                </div>
+                                <div>
                                     <div className='full_time'>
-                                        <span>Front-end</span>
-                                    </div>
-                                    <div className='featured'>
-                                        <span>Fresher</span>
+                                        <span>Đang tìm việc</span>
                                     </div>
                                 </div>
                             </div>
@@ -48,43 +69,20 @@ export default function CandidateInfo() {
                     <div className='info'>
                         <div className='info_left'>
                             <div className='info_left_content'>
-                                <h3>Mô tả về bản thân</h3>
-                                <div className='description'>
-                                    <span>
-                                        Velstar is a Shopify Plus agency, and we partner with brands to help them grow, we also do the same with our people!
-                                    </span>
-                                    <span>
-                                        Here at Velstar, we don't just make websites, we create exceptional digital experiences that consumers love. Our team of designers, developers, strategists, and creators work together to push brands to the next level. From Platform Migration, User Experience & User Interface Design, to Digital Marketing, we have a proven track record in delivering outstanding eCommerce solutions and driving sales for our clients.
-                                    </span>
-                                    <span>
-                                        The role will involve translating project specifications into clean, test-driven, easily maintainable code. You will work with the Project and Development teams as well as with the Technical Director, adhering closely to project plans and delivering work that meets functional & non-functional requirements. You will have the opportunity to create new, innovative, secure and scalable features for our clients on the Shopify platform
-                                    </span>
-                                    <span>Want to work with us? You're in good company!</span>
+                                {
+                                    candidateStore.applyInfo && (<>
+
+                                        {
+                                            <p className='date'>Ngày ứng tuyển: {convertToVNDateFormat(String(candidateStore.applyInfo?.created_at))}</p>
+                                        }
+                                    </>)
+                                }
+                                <h3>Thư xin việc của ứng viên:</h3>
+                                <div className='description' style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+                                    {
+                                        <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}> {candidateStore.applyInfo?.content}</pre>
+                                    }
                                 </div>
-                                <p>Kinh nghiệm làm việc:</p>
-                                <ul>
-                                    <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                                    <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                                    <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                                    <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                                    <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                                    <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                                    <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                                    <li>Great troubleshooting and analytical skills combined with the desire to tackle challenges head-on</li>
-                                </ul>
-                                <p>Định hướng phát triển</p>
-                                <ul>
-                                    <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                                    <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                                    <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                                    <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                                    <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                                    <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                                    <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                                    <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                                    <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                                    <li>Early finish on Fridays for our end of week catch up (4:30 finish, and drink of your choice from the bar)</li>
-                                </ul>
                             </div>
 
                         </div>
@@ -103,7 +101,7 @@ export default function CandidateInfo() {
                                     </svg>
                                     <span>Địa chỉ cá nhân</span>
                                 </div>
-                                <p>Đường D1, Khu Công Nghệ Cao, Phường Tân Phú, Quận 9, Thành phố Hồ Chí Minh</p>
+                                <p>{candidateStore.candidate?.address}</p>
                             </div>
                             <div className='info_right_top candidate_skill'>
                                 <div className='label'>
@@ -118,42 +116,50 @@ export default function CandidateInfo() {
                                 <div className='skill'>
                                     <div className='tech'>
                                         <p>Technical in use:</p>
-                                        {skill?.map((item: String) => {
-                                            return (
-                                                <>
-                                                    <div className='each' key={Date.now() * Math.random()}>
-                                                        <span>
-                                                            {
-                                                                item
-                                                            }
-                                                        </span>
-                                                    </div>
-                                                </>
-                                            )
-                                        })}
+                                        {
+                                            candidateStore.candidate?.skills?.length != 0 ? (
+                                                candidateStore.candidate?.skills?.map(item => {
+                                                    return (
+                                                        <>
+                                                            <div className='each' key={Date.now() * Math.random()}>
+                                                                <span>
+                                                                    {
+                                                                        item.name
+                                                                    }
+                                                                </span>
+                                                            </div>
+                                                        </>
+                                                    )
+                                                })
+                                            ) : <p>Updating</p>
+                                        }
                                     </div>
                                     <div className='languages'>
-                                        <p>Foreign Language::</p>
-                                        {languages?.map((item: String) => {
-                                            return (
-                                                <>
-                                                    <div className='each' key={Date.now() * Math.random()}>
-                                                        <span>
-                                                            {
-                                                                item
-                                                            }
-                                                        </span>
-                                                    </div>
-                                                </>
-                                            )
-                                        })}
+                                        <p>Certificates:</p>
+                                        {
+                                            candidateStore.candidate?.certificates?.length != 0 ? (
+                                                candidateStore.candidate?.certificates?.slice(0, 3).map(item => {
+                                                    return (
+                                                        <>
+                                                            <div className='each' key={Date.now() * Math.random()}>
+                                                                <span>
+                                                                    {
+                                                                        item.name
+                                                                    }
+                                                                </span>
+                                                            </div>
+                                                        </>
+                                                    )
+                                                })
+                                            ) : <p>Updating</p>
+                                        }
                                     </div>
                                 </div>
                             </div>
                             <div className='info_right_top contact'>
                                 <div className='candidate_contact'>
                                     <p>
-                                        Thông tin cá nhân
+                                        Chia sẻ thông tin ứng viên đến mọi người:
                                     </p>
                                     <div className='contact'>
                                         <div className='link'>
@@ -162,11 +168,14 @@ export default function CandidateInfo() {
                                                 <path d="M13.5904 17.0368L10.9388 19.6885C10.0948 20.5321 8.95028 21.006 7.75694 21.0059C6.5636 21.0058 5.41916 20.5317 4.57534 19.6879C3.73152 18.8441 3.25743 17.6997 3.25732 16.5063C3.25722 15.313 3.73112 14.1685 4.5748 13.3245L7.22645 10.6729" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                 <path d="M16.7729 13.8536L19.4246 11.2019C20.2682 10.358 20.7421 9.21346 20.742 8.02012C20.7419 6.82678 20.2678 5.68235 19.424 4.83853C18.5802 3.99471 17.4358 3.52061 16.2424 3.52051C15.0491 3.52041 13.9046 3.99431 13.0606 4.83798L10.4089 7.48963" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg>
-                                            <span>
-                                                Copy Links
-                                            </span>
+
                                         </div>
-                                        <div className='social_media'>
+                                        <div className='social_media' onClick={() => {
+                                            candidateStore.candidate?.link_linkedin ? (
+                                                window.open(`${candidateStore.candidate?.link_linkedin}`, "_blank")
+                                            ) : (message.error("Link linkedin đang cập nhật!"))
+
+                                        }}>
                                             <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g clip-path="url(#clip0_21_8036)">
                                                     <path d="M18.5236 0.263672H1.47639C1.08483 0.263672 0.709301 0.41922 0.432425 0.696096C0.155548 0.972973 0 1.3485 0 1.74006V18.7873C0 19.1788 0.155548 19.5544 0.432425 19.8312C0.709301 20.1081 1.08483 20.2637 1.47639 20.2637H18.5236C18.9152 20.2637 19.2907 20.1081 19.5676 19.8312C19.8445 19.5544 20 19.1788 20 18.7873V1.74006C20 1.3485 19.8445 0.972973 19.5676 0.696096C19.2907 0.41922 18.9152 0.263672 18.5236 0.263672ZM5.96111 17.3012H2.95417V7.74978H5.96111V17.3012ZM4.45556 6.42617C4.11447 6.42425 3.7816 6.32133 3.49895 6.13041C3.21629 5.93949 2.99653 5.66911 2.8674 5.35341C2.73826 5.03771 2.70554 4.69083 2.77336 4.35655C2.84118 4.02227 3.0065 3.71557 3.24846 3.47516C3.49042 3.23474 3.79818 3.07139 4.13289 3.00572C4.4676 2.94005 4.81426 2.975 5.12913 3.10616C5.44399 3.23732 5.71295 3.45881 5.90205 3.74268C6.09116 4.02655 6.19194 4.36008 6.19167 4.70117C6.19488 4.92953 6.15209 5.1562 6.06584 5.36768C5.97959 5.57915 5.85165 5.77109 5.68964 5.93206C5.52763 6.09303 5.33487 6.21974 5.12285 6.30463C4.91083 6.38952 4.68389 6.43086 4.45556 6.42617ZM17.0444 17.3095H14.0389V12.0915C14.0389 10.5526 13.3847 10.0776 12.5403 10.0776C11.6486 10.0776 10.7736 10.7498 10.7736 12.1303V17.3095H7.76667V7.75673H10.6583V9.08034H10.6972C10.9875 8.49284 12.0042 7.48867 13.5556 7.48867C15.2333 7.48867 17.0458 8.48451 17.0458 11.4012L17.0444 17.3095Z" fill="#BC2228" />
@@ -179,7 +188,13 @@ export default function CandidateInfo() {
                                             </svg>
 
                                         </div>
-                                        <div className='social_media'>
+                                        <div className='social_media' onClick={() => {
+                                            candidateStore.candidate?.link_fb ? (
+                                                window.open(`${candidateStore.candidate?.link_fb}`, "_blank")
+                                            ) : (message.error("Link facebook đang cập nhật!"))
+
+                                        }}
+                                        >
                                             <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <g clip-path="url(#clip0_21_8039)">
                                                     <path d="M20 10.2637C20 4.74082 15.5229 0.263672 10 0.263672C4.47715 0.263672 0 4.74082 0 10.2637C0 15.2549 3.65684 19.392 8.4375 20.1422V13.1543H5.89844V10.2637H8.4375V8.06055C8.4375 5.5543 9.93047 4.16992 12.2146 4.16992C13.3084 4.16992 14.4531 4.36523 14.4531 4.36523V6.82617H13.1922C11.95 6.82617 11.5625 7.59707 11.5625 8.38867V10.2637H14.3359L13.8926 13.1543H11.5625V20.1422C16.3432 19.392 20 15.2549 20 10.2637Z" fill="white" />
@@ -193,14 +208,20 @@ export default function CandidateInfo() {
                                             </svg>
 
                                         </div>
-                                        <div className='social_media'>
+                                        <div className='social_media' onClick={() => {
+                                            (message.error("Link twitter đang cập nhật!"))
+                                        }}>
                                             <svg width="20" height="17" viewBox="0 0 20 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M6.2896 16.3897C13.8368 16.3897 17.9648 10.1369 17.9648 4.71451C17.9648 4.53691 17.9648 4.36011 17.9528 4.18411C18.7559 3.60324 19.4491 2.88402 20 2.06011C19.2512 2.39211 18.4567 2.60974 17.6432 2.70571C18.4998 2.19295 19.141 1.38636 19.4472 0.436112C18.6417 0.914119 17.7605 1.25097 16.8416 1.43211C16.2229 0.77426 15.4047 0.338647 14.5135 0.192683C13.6223 0.0467184 12.7078 0.198541 11.9116 0.624656C11.1154 1.05077 10.4819 1.72742 10.109 2.5499C9.73605 3.37238 9.64462 4.29483 9.8488 5.17451C8.21741 5.09268 6.62146 4.66871 5.16455 3.93012C3.70763 3.19153 2.4223 2.15483 1.392 0.887312C0.867274 1.79064 0.70656 2.86 0.942583 3.87766C1.17861 4.89533 1.79362 5.78477 2.6624 6.36491C2.00936 6.34578 1.37054 6.16961 0.8 5.85131V5.90331C0.800259 6.85069 1.12821 7.76881 1.72823 8.50195C2.32824 9.2351 3.16338 9.73812 4.092 9.92571C3.4879 10.0905 2.85406 10.1146 2.2392 9.99611C2.50151 10.8114 3.01202 11.5243 3.69937 12.0352C4.38671 12.5461 5.21652 12.8295 6.0728 12.8457C5.22203 13.5144 4.24776 14.0089 3.20573 14.3007C2.16369 14.5926 1.07435 14.6761 0 14.5465C1.87653 15.7507 4.05994 16.3894 6.2896 16.3865" fill="#BC2228" />
                                             </svg>
 
 
                                         </div>
-                                        <div className='social_media'>
+                                        <div className='social_media' onClick={() => {
+                                            candidateStore.candidate?.email ? (
+                                                coppySuccessfull(candidateStore.candidate?.email)
+                                            ) : (message.error("Link công ty đang cập nhật!"))
+                                        }}>
                                             <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M21 5.51367L12 13.7637L3 5.51367" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                                 <path d="M3 5.51367H21V18.2637C21 18.4626 20.921 18.6534 20.7803 18.794C20.6397 18.9347 20.4489 19.0137 20.25 19.0137H3.75C3.55109 19.0137 3.36032 18.9347 3.21967 18.794C3.07902 18.6534 3 18.4626 3 18.2637V5.51367Z" stroke="#BC2228" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -217,7 +238,9 @@ export default function CandidateInfo() {
                                     <img src={pictures.img_CV}></img>
                                     <span>Truy cập CV của A để xem thêm </span>
                                 </div>
-                                <div className='apply'>
+                                <div className='apply' onClick={() => {
+                                    window.open(`${candidateStore.applyInfo?.cv_url}`, "_blank")
+                                }}>
                                     <span>
                                         Truy cập CV
                                     </span>

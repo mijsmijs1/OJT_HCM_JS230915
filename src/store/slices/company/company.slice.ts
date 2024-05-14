@@ -167,6 +167,7 @@ export const fetchCompanyAccount = createAsyncThunk(
     async (_, { rejectWithValue }) => {
         try {
             const res = await api.authenApi.checkToken();
+            console.log('fetchCompanyAccount', res)
             if (res.data.data.role === 'company') {
                 return res.data.data;
             } else {

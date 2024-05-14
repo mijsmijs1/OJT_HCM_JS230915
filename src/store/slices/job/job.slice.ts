@@ -200,6 +200,22 @@ export const fetchJobForDetail = createAsyncThunk(
     async ({ jobId }: { jobId: number }, { rejectWithValue }) => {
         try {
             let res = await apis.jobApi.getJob(jobId)
+            console.log({ data: res.data.data, message: res.data.message })
+            return { data: res.data.data, message: res.data.message }
+        } catch (err: any) {
+            if (!err.response) {
+                throw err
+            }
+
+            return rejectWithValue({ message: err.response.data.message })
+        }
+    }
+)
+export const fetchAppliedJob = createAsyncThunk(
+    'job/fetchAppliedJob',
+    async ({ page, pageSize }: { page: number, pageSize: number }, { rejectWithValue }) => {
+        try {
+            let res = await apis.candidateApi.findAppliedJob(page, pageSize)
             return { data: res.data.data, message: res.data.message }
         } catch (err: any) {
             if (!err.response) {
@@ -275,6 +291,18 @@ const jobSlice = createSlice({
             state.loadingJobs = false
         })
         builder.addCase(fetchJobForHomePage.rejected, (state) => {
+            state.loadingJobs = false
+        })
+        //Fetch Applied Jobs
+        builder.addCase(fetchAppliedJob.pending, (state) => {
+            state.loadingJobs = true;
+        })
+        builder.addCase(fetchAppliedJob.fulfilled, (state, action) => {
+            state.jobs = action.payload.data.jobs;
+            state.jobCount = action.payload.data.count;
+            state.loadingJobs = false
+        })
+        builder.addCase(fetchAppliedJob.rejected, (state) => {
             state.loadingJobs = false
         })
         //Fetch Relative Job

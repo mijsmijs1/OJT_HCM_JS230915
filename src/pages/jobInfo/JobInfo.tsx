@@ -3,7 +3,6 @@ import RelativeJobs from './components/relativeJobs/RelativeJobs'
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Store } from '@/store';
-import { Company, fetchCompanies } from '@/store/slices/company/company.slice';
 import { useEffect, useState } from 'react';
 import { fetchJobForDetail } from '@/store/slices/job/job.slice';
 import { Skeleton } from 'antd';
@@ -15,20 +14,21 @@ export default function JobInfo() {
   let jobIdAsNumber = jobId ? +jobId : undefined;
   const dispatch = useDispatch();
   const jobStore = useSelector((store: Store) => store.jobStore)
+  const candidateStore = useSelector((store: Store) => store.candidateStore)
   const companyStore = useSelector((store: Store) => store.companyStore)
   const [displayApplyForm, setDisplayApplyForm] = useState(false);
   useEffect(() => {
     dispatch(fetchJobForDetail({ jobId: jobIdAsNumber || 0 }) as any)
-  }, [])
+  }, [displayApplyForm])
   return (
     <div className='job_info_container'>
       {
-        displayApplyForm && <ApplyForm setDisplayApplyForm={setDisplayApplyForm}></ApplyForm>
+        displayApplyForm && <ApplyForm setDisplayApplyForm={setDisplayApplyForm} jobId={Number(jobId)}></ApplyForm>
       }
       <div className='content'>
         <div className='header'>
           <div className='header_left'>
-            {companyStore.loadingCompanies ? <Skeleton.Image active></Skeleton.Image> : <img src={jobStore.job?.company?.logo} alt='logo' onClick={() => { window.location.href = `/manager-company/${jobStore.job?.company?.id}/info` }} />}
+            {companyStore.loadingCompanies ? <Skeleton.Image active></Skeleton.Image> : <img src={jobStore.job?.company?.logo} alt='logo' onClick={() => { window.location.href = `/company-info/${jobStore.job?.company?.id}` }} />}
             <div className='company_info'>
               {jobStore.loadingJob ? <Skeleton.Input active></Skeleton.Input> : <p>{jobStore.job?.title}</p>}
               <div>
@@ -58,26 +58,35 @@ export default function JobInfo() {
               </svg>
 
             </div>
-            <div className='apply' onClick={() => {
-              setDisplayApplyForm(true)
-            }}>
-              <span>
-                Ứng tuyển Ngay
-              </span>
-              <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5 12.2637H19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                <path d="M12 5.26367L19 12.2637L12 19.2637" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
 
-            </div>
+            {
+              !companyStore.data && (jobStore.job?.candidates.find(item => item.id == candidateStore.data?.id) ? <div className='apply' style={{ backgroundColor: "#0BA02C" }} onClick={() => {
+              }}>
+                <span>
+                  Đã ứng tuyển
+                </span>
+              </div> : <div className='apply' onClick={() => {
+                setDisplayApplyForm(true)
+              }}>
+                <span>
+                  Ứng tuyển Ngay
+                </span>
+                <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 12.2637H19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M12 5.26367L19 12.2637L12 19.2637" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+              </div>)
+            }
+
           </div>
         </div>
         <div className='info'>
           <div className='info_left'>
             <div className='info_left_content'>
-              <h3>Job Description</h3>
+              <h3>Mô tả về công việc</h3>
               <div className='description' style={{ whiteSpace: 'pre-wrap' }}>
-                {jobStore.loadingJob ? <Skeleton active></Skeleton> : <p>{jobStore.job?.description}</p>}
+                {jobStore.loadingJob ? <Skeleton active></Skeleton> : <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}> {jobStore.job?.description}</pre>}
               </div>
             </div>
 

@@ -158,7 +158,7 @@ export default function OpenJobs({ companyId }: { companyId: number }) {
                                     </div>
                                 </div>
                                 <div className='edit' onClick={() => {
-                                    window.location.href = `/manager-job/${item.id}`
+                                    window.location.href = `/manager-job/${item.id}/info`
                                 }}>
                                     <span>Show Detail</span>
                                 </div>

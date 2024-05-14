@@ -1,4 +1,4 @@
-import pictures from '@/pictures'
+
 import './managerJob.scss'
 import Breadcrumb from '@/components/breadcrumb/Breadcrumb'
 import AppliedCandidates from './components/appliedCandidates/AppliedCandidates'
@@ -10,8 +10,7 @@ import { Modal, Skeleton } from 'antd'
 import { Store } from '@/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchJobForDetail } from '@/store/slices/job/job.slice'
-import { unwrapResult } from '@reduxjs/toolkit'
-import { Company, fetchCompanies, fetchCompanyById } from '@/store/slices/company/company.slice'
+import { Company, fetchCompanies } from '@/store/slices/company/company.slice'
 import convertToVNDateFormat from '@/utils/common/convert_date_function'
 
 export default function ManagerJob() {
@@ -115,7 +114,7 @@ export default function ManagerJob() {
                             <div className='info'>
                                 <div className='info_left'>
                                     <div className='info_left_content'>
-                                        <h3>Job Description</h3>
+                                        <h3>Mô tả về công việc</h3>
                                         <div className='description' style={{ whiteSpace: 'pre-wrap' }}>
                                             {jobStore.loadingJob ? <Skeleton active></Skeleton> : <p>{jobStore.job?.description}</p>}
                                         </div>

@@ -1,16 +1,15 @@
-import React from 'react';
-import './navigate.scss';
 
+import './navigate.scss';
 export default function Navigate() {
   const items = [
     {
       title: 'Hồ sơ',
       link: '/profile',
-      isActive: 'active',
+      isActive: '',
     },
     {
-      title: 'Quản lý công việc',
-      link: 'manager-job',
+      title: 'Công việc đã ứng tuyển',
+      link: `/applied-jobs`,
       isActive: '',
     },
     {
@@ -19,7 +18,12 @@ export default function Navigate() {
       isActive: '',
     },
   ];
-
+  if (window.location.href.includes('profile')) {
+    items[0].isActive = 'active'
+  }
+  if (window.location.href.includes('applied-jobs')) {
+    items[1].isActive = 'active'
+  }
   const handleItemClick = (link: any) => {
     window.location.href = link;
   };

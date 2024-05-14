@@ -1,6 +1,5 @@
 import Breadcrumb from '@/components/breadcrumb/Breadcrumb'
 import './adminJobManager.scss'
-import { useState } from 'react';
 
 export default function AdminJobManager() {
     let jobs = [
